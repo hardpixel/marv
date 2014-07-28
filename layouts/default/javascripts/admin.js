@@ -1,1 +1,1 @@
-// Theme Options JavaScript goes here
+//=require 'admin'

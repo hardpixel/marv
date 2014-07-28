@@ -1,9 +1,20 @@
-	<div id="footer">
-		<p>
-			<a href="http://wordpress.org/" rel="generator">Proudly powered by WordPress</a>
-		</p>
-	</div><!--end footer-->
-</div><!--end container-->
+	</div>
+	<!-- /site-content -->
+
+	<div class="push"></div>
+
+</div>
+<!-- /site -->
+
+<footer class="site-footer">
+	<div class="footer-content">
+
+		&copy; Copyright
+
+	</div>
+</footer>
+
 <?php wp_footer(); ?>
+
 </body>
 </html>

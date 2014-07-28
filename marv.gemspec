@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hardpixel"]
@@ -33,24 +33,32 @@ Gem::Specification.new do |s|
     "features/support/env.rb",
     "layouts/config/config.tt",
     "layouts/default/functions/functions.php.erb",
+    "layouts/default/images/screenshot.png",
+    "layouts/default/includes/filters-admin.php.erb",
+    "layouts/default/includes/filters.php.erb",
+    "layouts/default/includes/helpers.php.erb",
+    "layouts/default/javascripts/admin.coffee",
     "layouts/default/javascripts/admin.js",
+    "layouts/default/javascripts/theme.coffee",
     "layouts/default/javascripts/theme.js",
     "layouts/default/stylesheets/_header.scss.erb",
-    "layouts/default/stylesheets/_reset.scss",
-    "layouts/default/stylesheets/_typography.scss",
     "layouts/default/stylesheets/style.css.scss.erb",
     "layouts/default/templates/404.php.erb",
     "layouts/default/templates/archive.php.erb",
-    "layouts/default/templates/attachment.php.erb",
-    "layouts/default/templates/comments.php",
+    "layouts/default/templates/author.php.erb",
     "layouts/default/templates/footer.php",
-    "layouts/default/templates/header.php.erb",
+    "layouts/default/templates/header.php",
     "layouts/default/templates/index.php",
     "layouts/default/templates/page.php",
-    "layouts/default/templates/partials/loop.php.erb",
+    "layouts/default/templates/partials/comments.php.erb",
+    "layouts/default/templates/partials/content-none.php.erb",
+    "layouts/default/templates/partials/content-page.php",
+    "layouts/default/templates/partials/content-single.php",
+    "layouts/default/templates/partials/content.php.erb",
+    "layouts/default/templates/partials/searchform.php.erb",
+    "layouts/default/templates/partials/sidebar.php",
     "layouts/default/templates/search.php.erb",
-    "layouts/default/templates/sidebar.php",
-    "layouts/default/templates/single.php.erb",
+    "layouts/default/templates/single.php",
     "lib/guard/marv/assets.rb",
     "lib/guard/marv/config.rb",
     "lib/guard/marv/functions.rb",
@@ -65,6 +73,7 @@ Gem::Specification.new do |s|
     "lib/marv/guard.rb",
     "lib/marv/project.rb",
     "lib/marv/version.rb",
+    "marv-0.2.1.gem",
     "marv.gemspec",
     "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",

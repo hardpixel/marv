@@ -59,6 +59,15 @@ module Marv
       self
     end
 
+    def copy_images
+      source = File.expand_path(File.join(self.layout_path, 'images'))
+      target = File.expand_path(File.join(@project.assets_path, 'images'))
+
+      render_directory(source, target)
+
+      self
+    end
+
     def copy_templates
       source = File.expand_path(File.join(self.layout_path, 'templates'))
       target = File.expand_path(File.join(@project.source_path, 'templates'))
@@ -75,6 +84,15 @@ module Marv
       write_template(source, target)
     end
 
+    def copy_includes
+      source = File.expand_path(File.join(self.layout_path, 'includes'))
+      target = File.expand_path(File.join(@project.source_path, 'includes'))
+
+      render_directory(source, target)
+
+      self
+    end
+
     def layout_path
       @layout_path ||= File.join(Marv::ROOT, 'layouts', @layout)
     end
@@ -84,8 +102,10 @@ module Marv
       create_structure
       copy_stylesheets
       copy_javascript
+      copy_images
       copy_templates
       copy_functions
+      copy_includes
       return self
     end
 

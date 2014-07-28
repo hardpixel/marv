@@ -1,15 +1,15 @@
-/**
- * Theme Name: <%= config[:name] %>
+/*!
+ * Theme Name: <%= config[:name].capitalize %>
  * Theme URI: <%= config[:uri] %>
  * Author: <%= config[:author] %>
  * Author URI: <%= config[:author_uri] %>
- * Description: <%= config[:description] if config[:description] %>
- * Version: <%= config[:version_number] if config[:version_number] %>
+ * Description: <%= if config[:description] then config[:description] else 'Wordpress theme made with Marv.' end %>
+ * Version: <%= if config[:version_number] then config[:version_number] else '0.1' end %>
 <% if config[:template] -%>
  * Template: <%= config[:template] %>
 <% end -%>
- * License: <%= config[:license_name] if config[:license_name] %>
- * License URI: <%= config[:license_uri] if config[:license_uri] %>
+ * License: <%= if config[:license_name] then config[:license_name] else 'GPLv3' end %>
+ * License URI: <%= if config[:license_uri] then config[:license_uri] else 'http://www.gnu.org/copyleft/gpl.html' end %>
  * Tags: <%= config[:tags].join(", ") if config[:tags] %>
 <%- unless config[:comments].nil? || config[:comments].empty? -%>
  *

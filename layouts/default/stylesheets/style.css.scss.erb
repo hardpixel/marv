@@ -2,31 +2,3 @@
 @import "header";
 
 // This is your master stylesheet
-
-// Use SASS to include CSS partials
-@import "reset";
-@import "typography";
-@import "blueprint/grid";
-
-// Add some basic styling
-.clear {
-  clear: both;
-}
-
-#container {
-  @include container;
-  @include prepend(1);
-  border-left: 1px solid;
-  border-right: 1px solid;
-}
-
-#content {
-  @include column(15);
-  @include border(#555, 2px);
-}
-
-#sidebar {
-  @include column(7);
-  @include prepend(1);
-  @include last;
-}

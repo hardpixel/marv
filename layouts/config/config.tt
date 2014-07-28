@@ -1,4 +1,4 @@
-# WordPress theme information is stored in source/assets/stylesheets/_header.scss as of Marv version 0.5
+# WordPress theme information is stored in source/assets/stylesheets/_header.scss
 
 # JavaScript compression
 # config[:compress_js] = false
@@ -16,4 +16,5 @@
 # end
 
 # You can also include additional Compass frameworks by requiring them:
-# require 'stitch'
+# require 'boubon'
+# require 'neat'

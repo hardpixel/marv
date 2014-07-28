@@ -1,1 +1,1 @@
-// Regular theme JavaScript goes here
+//=require 'theme'
