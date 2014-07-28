@@ -16,10 +16,10 @@ Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "marv"
   gem.executables = ["marv"]
-  gem.homepage = "http://hardpixel.eu"
+  gem.homepage = "https://github.com/hardpixel/marv"
   gem.license = "MIT"
   gem.summary = %Q{A tool for developing wordpress themes}
-  gem.description = %Q{A toolkit for bootstrapping and developing WordPress themes.}
+  gem.description = %Q{A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript.}
   gem.email = "info@hardpixel.eu"
   gem.authors = ["Hardpixel"]
   # dependencies defined in Gemfile

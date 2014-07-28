@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hardpixel"]
   s.date = "2014-07-28"
-  s.description = "A toolkit for bootstrapping and developing WordPress themes."
+  s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
   s.extra_rdoc_files = [
@@ -18,6 +18,9 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    ".document",
+    ".gitmodules",
+    ".rspec",
     "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
@@ -52,6 +55,7 @@ Gem::Specification.new do |s|
     "lib/guard/marv/config.rb",
     "lib/guard/marv/functions.rb",
     "lib/guard/marv/templates.rb",
+    "lib/marv.rb",
     "lib/marv/builder.rb",
     "lib/marv/cli.rb",
     "lib/marv/config.rb",
@@ -61,13 +65,13 @@ Gem::Specification.new do |s|
     "lib/marv/guard.rb",
     "lib/marv/project.rb",
     "lib/marv/version.rb",
-    "lib/wptheme.rb",
+    "marv-0.1.1.gem",
     "marv.gemspec",
     "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://hardpixel.eu"
+  s.homepage = "https://github.com/hardpixel/marv"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"

@@ -1,12 +1,20 @@
-## Marv is a toolkit for bootstrapping and developing WordPress themes.
+## Introduction
+
+Marv is a toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript.
+
+Current Version: **0.1.1**
 
 -----
 
-Current Version: **0.1.0**
+## Installation
 
 Install Marv (requires [Ruby](http://www.ruby-lang.org/) and [RubyGems](http://rubygems.org/)):
 
     $ gem install marv
+
+-----
+
+## Get started
 
 Create your new theme project:
 
@@ -34,11 +42,10 @@ Package your theme as your_theme.zip:
 
     $ marv package your_theme
 
+-----
+
+## Help
+
 Get a little help with the Marv commands:
 
     $ marv help
-
------
-
-
-If you have any problems using the gem, open a new issue and we'll help you sort it out!
