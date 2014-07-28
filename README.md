@@ -2,7 +2,7 @@
 
 Marv is a toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript.
 
-Current Version: **0.1.1**
+Current Version: **0.2.0**
 
 -----
 
