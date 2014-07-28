@@ -12,7 +12,6 @@ Install Marv (requires [Ruby](http://www.ruby-lang.org/) and [RubyGems](http://r
 
     $ gem install marv
 
------
 
 ## Get started
 
@@ -42,7 +41,6 @@ Package your theme as your_theme.zip:
 
     $ marv package your_theme
 
------
 
 ## Help
 
