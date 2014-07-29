@@ -1,3 +1,8 @@
+== 0.2.2 ==
+- Add support for layouts on marv create
+- Bramble Framework child theme project layout
+- Optimize images
+
 == 0.2.1 ==
 - New default project layout
 

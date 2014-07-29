@@ -2,13 +2,13 @@
 module Marv
   class Generator
     class << self
-      def run(project, layout='default')
+      def run(project, layout)
         generator = self.new(project, layout)
         generator.run
       end
     end
 
-    def initialize(project, layout='default')
+    def initialize(project, layout)
       @project = project
       @task    = project.task
       @layout  = layout

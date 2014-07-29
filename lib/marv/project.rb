@@ -4,11 +4,11 @@ require 'compass'
 module Marv
   class Project
     class << self
-      def create(root, config, task)
+      def create(root, config, task, layout)
         root = File.expand_path(root)
 
         project = self.new(root, task, config)
-        Generator.run(project)
+        Generator.run(project, layout)
 
         project
       end

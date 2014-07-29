@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hardpixel"]
-  s.date = "2014-07-28"
+  s.date = "2014-07-29"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -31,6 +31,16 @@ Gem::Specification.new do |s|
     "bin/marv",
     "features/step_definitions/marv_steps.rb",
     "features/support/env.rb",
+    "layouts/bramble/functions/functions.php.erb",
+    "layouts/bramble/images/screenshot.png",
+    "layouts/bramble/includes/options.php.erb",
+    "layouts/bramble/javascripts/admin.coffee",
+    "layouts/bramble/javascripts/admin.js",
+    "layouts/bramble/javascripts/theme.coffee",
+    "layouts/bramble/javascripts/theme.js",
+    "layouts/bramble/stylesheets/_header.scss.erb",
+    "layouts/bramble/stylesheets/style.css.scss.erb",
+    "layouts/bramble/templates/sample-template.php",
     "layouts/config/config.tt",
     "layouts/default/functions/functions.php.erb",
     "layouts/default/images/screenshot.png",
@@ -73,7 +83,7 @@ Gem::Specification.new do |s|
     "lib/marv/guard.rb",
     "lib/marv/project.rb",
     "lib/marv/version.rb",
-    "marv-0.2.1.gem",
+    "marv-0.2.2.gem",
     "marv.gemspec",
     "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",
