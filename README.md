@@ -52,11 +52,11 @@ Get a little help with the Marv commands:
     $ marv help
 
 
-See the user's manual for more information.
+See the [user's manual](https://github.com/hardpixel/marv/wiki) for more information.
 
 
 ## Credits
 
-Marv is based on Forge by ThemeFoundry [Forge](https://github.com/thethemefoundry/forge).
+Marv is based on [Forge](https://github.com/thethemefoundry/forge) by ThemeFoundry.
 
-Base Wordpress theme template is based on WP-Scaffold by Gizburdt [WP-Scaffold](https://github.com/gizburdt/wp-scaffold).
+Scaffold Wordpress theme is based on [WP-Scaffold](https://github.com/gizburdt/wp-scaffold) by Gizburdt.
