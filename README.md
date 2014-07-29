@@ -57,5 +57,6 @@ See the user's manual for more information.
 
 ## Credits
 
-Marv is based on Forge by ThemeFoundry [Forge](https://github.com/thethemefoundry/forge)
-Base Wordpress theme template is based on WP-Scaffold by Gizburdt [WP-Scaffold](https://github.com/gizburdt/wp-scaffold)
+Marv is based on Forge by ThemeFoundry [Forge](https://github.com/thethemefoundry/forge).
+
+Base Wordpress theme template is based on WP-Scaffold by Gizburdt [WP-Scaffold](https://github.com/gizburdt/wp-scaffold).
