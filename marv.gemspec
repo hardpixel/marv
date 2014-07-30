@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.2.2"
+  s.version = "0.2.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Hardpixel"]
-  s.date = "2014-07-29"
+  s.authors = ["Jonian Guveli", "Olibia Tsati"]
+  s.date = "2014-07-30"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -18,8 +18,6 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    ".document",
-    ".gitmodules",
     ".rspec",
     "CHANGELOG.md",
     "Gemfile",
@@ -39,7 +37,7 @@ Gem::Specification.new do |s|
     "layouts/bramble/javascripts/theme.coffee",
     "layouts/bramble/javascripts/theme.js",
     "layouts/bramble/stylesheets/_header.scss.erb",
-    "layouts/bramble/stylesheets/style.css.scss.erb",
+    "layouts/bramble/stylesheets/style.scss.erb",
     "layouts/bramble/templates/sample-template.php",
     "layouts/config/config.tt",
     "layouts/default/functions/functions.php.erb",
@@ -52,7 +50,7 @@ Gem::Specification.new do |s|
     "layouts/default/javascripts/theme.coffee",
     "layouts/default/javascripts/theme.js",
     "layouts/default/stylesheets/_header.scss.erb",
-    "layouts/default/stylesheets/style.css.scss.erb",
+    "layouts/default/stylesheets/style.scss.erb",
     "layouts/default/templates/404.php.erb",
     "layouts/default/templates/archive.php.erb",
     "layouts/default/templates/author.php.erb",
@@ -83,13 +81,13 @@ Gem::Specification.new do |s|
     "lib/marv/guard.rb",
     "lib/marv/project.rb",
     "lib/marv/version.rb",
-    "marv-0.2.2.gem",
+    "marv-0.2.3.gem",
     "marv.gemspec",
     "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "https://github.com/hardpixel/marv"
+  s.homepage = "http://hardpixel.github.io/marv"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"
@@ -107,7 +105,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<json>, [">= 1.8.0"])
       s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-      s.add_runtime_dependency(%q<compass>, [">= 1.0.0.alpha.21"])
+      s.add_runtime_dependency(%q<compass>, [">= 0.12.5"])
       s.add_runtime_dependency(%q<rack>, [">= 1.5.2"])
       s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
@@ -117,7 +115,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<aruba>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<thor>, [">= 0.18.1"])
       s.add_dependency(%q<guard>, [">= 2.2.1"])
@@ -127,7 +125,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json>, [">= 1.8.0"])
       s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-      s.add_dependency(%q<compass>, [">= 1.0.0.alpha.21"])
+      s.add_dependency(%q<compass>, [">= 0.12.5"])
       s.add_dependency(%q<rack>, [">= 1.5.2"])
       s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
@@ -137,7 +135,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<aruba>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<thor>, [">= 0.18.1"])
@@ -148,7 +146,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json>, [">= 1.8.0"])
     s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-    s.add_dependency(%q<compass>, [">= 1.0.0.alpha.21"])
+    s.add_dependency(%q<compass>, [">= 0.12.5"])
     s.add_dependency(%q<rack>, [">= 1.5.2"])
     s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])
@@ -158,7 +156,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<aruba>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end
 

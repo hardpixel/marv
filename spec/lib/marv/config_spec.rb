@@ -4,7 +4,7 @@ require 'marv/config'
 describe Marv::Config do
 
   def config_file
-    File.expand_path(File.join('~', '.watch', 'config.yml'))
+    File.expand_path(File.join('~', '.marv', 'config.yml'))
   end
 
   before(:each) do
@@ -31,7 +31,7 @@ describe Marv::Config do
     @config[:links].should == ['/var/www/wordpress']
   end
 
-  it "should store config in ~/.watch/config.yml" do
+  it "should store config in ~/.marv/config.yml" do
     @config.config_file.should == config_file
   end
 
@@ -42,11 +42,11 @@ describe Marv::Config do
 
   describe :write do
     it "should dump any changes made to the config" do
-      @config[:theme][:author] = "Matt Button"
-      @config[:theme][:author_url] = "http://that-matt.com"
+      @config[:theme][:author] = "John Doe"
+      @config[:theme][:author_url] = "http://john-doe.com"
 
       @config.write(:io => @buffer)
-      @buffer.string.should == "---\n:theme:\n  :author: Matt Button\n  :author_url: http://that-matt.com\n:links: []\n"
+      @buffer.string.should == "---\n:theme:\n  :author: John Doe\n  :author_url: http://john-doe.com\n:links: []\n"
     end
   end
 

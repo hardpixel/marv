@@ -121,11 +121,11 @@ PLATFORMS
 DEPENDENCIES
   aruba
   coffee-script (>= 2.3.0)
-  compass (>= 1.0.0.alpha.21)
+  compass (>= 0.12.5)
   cucumber
   guard (>= 2.2.1)
   guard-livereload (>= 2.0.0)
-  jeweler (~> 1.6.4)
+  jeweler
   json (>= 1.8.0)
   less (>= 2.6.0)
   rack (>= 1.5.2)

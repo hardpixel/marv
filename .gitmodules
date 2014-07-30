@@ -1,3 +1,0 @@
-[submodule "layouts/lib/struts"]
-	path = layouts/lib/struts
-	url = git@github.com:jestro/struts.git

@@ -29,7 +29,7 @@ module Marv
 
     # Returns the path to the user's configuration file
     def config_file
-      @config_file ||= File.expand_path(File.join('~', '.watch', 'config.yml'))
+      @config_file ||= File.expand_path(File.join('~', '.marv', 'config.yml'))
     end
 
     # Writes the configuration file

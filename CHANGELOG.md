@@ -1,3 +1,9 @@
+== 0.2.3 ==
+- Fix marv global settings folder name
+- Remove ie.css
+- Add admin.css
+- Fix errors on build
+
 == 0.2.2 ==
 - Add support for layouts on marv create
 - Bramble Framework child theme project layout

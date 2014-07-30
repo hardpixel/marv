@@ -67,6 +67,9 @@ module Marv
 
     # Empty out the build directory
     def clean_build_directory
+      # create build path if it does not exist
+      FileUtils.mkdir_p(@project.build_path) unless File.exists?(@project.build_path)
+      # Empty the build path
       FileUtils.rm_rf Dir.glob(File.join(@project.build_path, '*'))
     end
 
@@ -115,7 +118,7 @@ module Marv
       end
 
       unless functions_paths.empty?
-        # Create the includes folder in the build directory
+        # Create the functions folder in the build directory
         FileUtils.mkdir_p(File.join(@project.build_path, 'functions'))
 
         # Iterate over all files in source/functions, skipping the actual functions.php file
@@ -154,7 +157,7 @@ module Marv
     end
 
     def build_assets
-      [['style.css'], ['ie.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']].each do |asset|
+      [['style.css'], ['admin.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']].each do |asset|
         destination = File.join(@project.build_path, asset)
 
         sprocket = @sprockets.find_asset(asset.last)
@@ -226,7 +229,7 @@ module Marv
     def init_sprockets
       @sprockets = Sprockets::Environment.new
 
-      ['javascripts', 'stylesheets', 'lib'].each do |dir|
+      ['javascripts', 'stylesheets'].each do |dir|
         @sprockets.append_path File.join(@assets_path, dir)
       end
 

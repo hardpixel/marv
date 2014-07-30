@@ -62,7 +62,7 @@ module Marv
     end
 
     def global_config_file
-      @global_config_file ||= File.join(ENV['HOME'], '.watch', 'config.rb')
+      @global_config_file ||= File.join(ENV['HOME'], '.marv', 'config.rb')
     end
 
     # Create a symlink from source to the project build dir
