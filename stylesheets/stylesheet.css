@@ -429,13 +429,13 @@ footer a:hover {
     width: auto;
     height: auto;
     display: inline-block;
-    margin-top: 15px;
-    padding: 5px 10px;
+    margin-top: 25px;
+    padding: 5px 20px;
     position: relative;
     text-align: center;
-    font-size: 13px;
-    line-height: 1;
-    background-color: #C20E0E;
+    font-size: 15px;
+    line-height: 3;
+    background-color: #fff;
     color: #8B0C0C;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -444,6 +444,7 @@ footer a:hover {
   header a.button small {
     font-size: 13px;
     display: inline;
+    margin-right: 5px;
   }
   #main-content,
   aside#sidebar {
