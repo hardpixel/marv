@@ -306,6 +306,36 @@ h6:before {
   margin-left: -3.7em;
 }
 
+.widgettitle {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px 0 8px;
+  color: #474747;
+  margin-left: 35px;
+}
+.widgettitle:before {
+  content: "//";
+  color: #C20E0E;
+  padding-right: 0.3em;
+  margin-left: -1.5em;
+}
+
+.task-list {
+  font-size: 14px;
+  font-weight: 600;
+  padding-left: 5px;
+  margin-bottom: 40px;
+}
+
+.task-list .task-list {
+  margin: 5px 0 10px;
+  font-size: 12px;
+  font-weight: 400;
+  list-style-type: circle;
+  padding-left: 15px;
+}
+
 p {
   margin-bottom: 20px;
 }
