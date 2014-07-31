@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.2.3"
+  s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-07-30"
+  s.date = "2014-07-31"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    ".rspec",
     "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
@@ -81,7 +80,6 @@ Gem::Specification.new do |s|
     "lib/marv/guard.rb",
     "lib/marv/project.rb",
     "lib/marv/version.rb",
-    "marv-0.2.3.gem",
     "marv.gemspec",
     "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",
@@ -105,7 +103,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<json>, [">= 1.8.0"])
       s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-      s.add_runtime_dependency(%q<compass>, [">= 0.12.5"])
+      s.add_runtime_dependency(%q<compass>, [">= 1.0.0.alpha.20"])
       s.add_runtime_dependency(%q<rack>, [">= 1.5.2"])
       s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
@@ -125,7 +123,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json>, [">= 1.8.0"])
       s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-      s.add_dependency(%q<compass>, [">= 0.12.5"])
+      s.add_dependency(%q<compass>, [">= 1.0.0.alpha.20"])
       s.add_dependency(%q<rack>, [">= 1.5.2"])
       s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
@@ -146,7 +144,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json>, [">= 1.8.0"])
     s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-    s.add_dependency(%q<compass>, [">= 0.12.5"])
+    s.add_dependency(%q<compass>, [">= 1.0.0.alpha.20"])
     s.add_dependency(%q<rack>, [">= 1.5.2"])
     s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])

@@ -1,3 +1,6 @@
+== 0.2.4 ==
+- Update compass version
+
 == 0.2.3 ==
 - Fix marv global settings folder name
 - Remove ie.css

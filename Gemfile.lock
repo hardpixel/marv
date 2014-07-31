@@ -121,7 +121,7 @@ PLATFORMS
 DEPENDENCIES
   aruba
   coffee-script (>= 2.3.0)
-  compass (>= 0.12.5)
+  compass (>= 1.0.0.alpha.20)
   cucumber
   guard (>= 2.2.1)
   guard-livereload (>= 2.0.0)
