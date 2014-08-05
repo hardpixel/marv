@@ -73,7 +73,6 @@ Gem::Specification.new do |s|
     "lib/marv.rb",
     "lib/marv/builder.rb",
     "lib/marv/cli.rb",
-    "lib/marv/config.rb",
     "lib/marv/engines.rb",
     "lib/marv/error.rb",
     "lib/marv/generator.rb",
@@ -82,7 +81,6 @@ Gem::Specification.new do |s|
     "lib/marv/version.rb",
     "marv-0.2.5.gem",
     "marv.gemspec",
-    "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -101,7 +99,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<sprockets>, [">= 2.12.0"])
       s.add_runtime_dependency(%q<rubyzip>, [">= 1.1.6"])
-      s.add_runtime_dependency(%q<json>, [">= 1.8.1"])
       s.add_runtime_dependency(%q<rack>, [">= 1.5.2"])
       s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
@@ -119,7 +116,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_dependency(%q<sprockets>, [">= 2.12.0"])
       s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
-      s.add_dependency(%q<json>, [">= 1.8.1"])
       s.add_dependency(%q<rack>, [">= 1.5.2"])
       s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
@@ -138,7 +134,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
     s.add_dependency(%q<sprockets>, [">= 2.12.0"])
     s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
-    s.add_dependency(%q<json>, [">= 1.8.1"])
     s.add_dependency(%q<rack>, [">= 1.5.2"])
     s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])

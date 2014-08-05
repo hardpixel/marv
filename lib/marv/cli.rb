@@ -1,5 +1,4 @@
 require 'thor'
-require 'yaml'
 require 'guard/marv/assets'
 require 'guard/marv/config'
 require 'guard/marv/templates'

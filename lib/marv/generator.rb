@@ -105,6 +105,7 @@ module Marv
       copy_templates
       copy_functions
       copy_includes
+
       return self
     end
 
