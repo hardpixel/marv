@@ -15,7 +15,7 @@ module Marv
 
     desc "create DIRECTORY", "Creates a Marv project"
     long_desc "Creates a new project. Use the layout option to choose a scaffold"
-    option :layout, :type => :string, :default => 'default', :desc => "Name of alternate layout"
+    method_option :layout, :type => :string, :default => 'default', :desc => "Name of alternate layout"
     def create(dir)
       theme = {}
       theme[:name] = dir
@@ -73,6 +73,7 @@ module Marv
     end
 
     protected
+
     def do_link(project, path)
       begin
         project.link(path)

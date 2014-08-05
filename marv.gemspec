@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.2.4"
+  s.version = "0.2.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-07-31"
+  s.date = "2014-08-05"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -80,6 +80,7 @@ Gem::Specification.new do |s|
     "lib/marv/guard.rb",
     "lib/marv/project.rb",
     "lib/marv/version.rb",
+    "marv-0.2.5.gem",
     "marv.gemspec",
     "spec/lib/marv/config_spec.rb",
     "spec/lib/marv/project_spec.rb",
@@ -95,62 +96,56 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<thor>, [">= 0.18.1"])
+      s.add_runtime_dependency(%q<thor>, [">= 0.19.1"])
       s.add_runtime_dependency(%q<guard>, [">= 2.2.1"])
-      s.add_runtime_dependency(%q<guard-livereload>, [">= 2.0.0"])
+      s.add_runtime_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<sprockets>, [">= 2.12.0"])
-      s.add_runtime_dependency(%q<rubyzip>, [">= 1.0.0"])
-      s.add_runtime_dependency(%q<json>, [">= 1.8.0"])
-      s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
-      s.add_runtime_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-      s.add_runtime_dependency(%q<compass>, [">= 1.0.0.alpha.20"])
+      s.add_runtime_dependency(%q<rubyzip>, [">= 1.1.6"])
+      s.add_runtime_dependency(%q<json>, [">= 1.8.1"])
       s.add_runtime_dependency(%q<rack>, [">= 1.5.2"])
-      s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
       s.add_runtime_dependency(%q<coffee-script>, [">= 2.3.0"])
-      s.add_runtime_dependency(%q<rb-fsevent>, [">= 0.9.3"])
-      s.add_runtime_dependency(%q<yui-compressor>, [">= 0.12.0"])
+      s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_runtime_dependency(%q<rb-fsevent>, [">= 0.9.4"])
+      s.add_runtime_dependency(%q<uglifier>, [">= 2.5.0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<aruba>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
-      s.add_dependency(%q<thor>, [">= 0.18.1"])
+      s.add_dependency(%q<thor>, [">= 0.19.1"])
       s.add_dependency(%q<guard>, [">= 2.2.1"])
-      s.add_dependency(%q<guard-livereload>, [">= 2.0.0"])
+      s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_dependency(%q<sprockets>, [">= 2.12.0"])
-      s.add_dependency(%q<rubyzip>, [">= 1.0.0"])
-      s.add_dependency(%q<json>, [">= 1.8.0"])
-      s.add_dependency(%q<sass>, [">= 3.3.0"])
-      s.add_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-      s.add_dependency(%q<compass>, [">= 1.0.0.alpha.20"])
+      s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
+      s.add_dependency(%q<json>, [">= 1.8.1"])
       s.add_dependency(%q<rack>, [">= 1.5.2"])
-      s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
       s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
-      s.add_dependency(%q<rb-fsevent>, [">= 0.9.3"])
-      s.add_dependency(%q<yui-compressor>, [">= 0.12.0"])
+      s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_dependency(%q<rb-fsevent>, [">= 0.9.4"])
+      s.add_dependency(%q<uglifier>, [">= 2.5.0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<aruba>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
-    s.add_dependency(%q<thor>, [">= 0.18.1"])
+    s.add_dependency(%q<thor>, [">= 0.19.1"])
     s.add_dependency(%q<guard>, [">= 2.2.1"])
-    s.add_dependency(%q<guard-livereload>, [">= 2.0.0"])
+    s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
     s.add_dependency(%q<sprockets>, [">= 2.12.0"])
-    s.add_dependency(%q<rubyzip>, [">= 1.0.0"])
-    s.add_dependency(%q<json>, [">= 1.8.0"])
-    s.add_dependency(%q<sass>, [">= 3.3.0"])
-    s.add_dependency(%q<sprockets-sass>, [">= 1.2.0"])
-    s.add_dependency(%q<compass>, [">= 1.0.0.alpha.20"])
+    s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
+    s.add_dependency(%q<json>, [">= 1.8.1"])
     s.add_dependency(%q<rack>, [">= 1.5.2"])
-    s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+    s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])
     s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
-    s.add_dependency(%q<rb-fsevent>, [">= 0.9.3"])
-    s.add_dependency(%q<yui-compressor>, [">= 0.12.0"])
+    s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+    s.add_dependency(%q<rb-fsevent>, [">= 0.9.4"])
+    s.add_dependency(%q<uglifier>, [">= 2.5.0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<aruba>, [">= 0"])

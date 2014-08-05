@@ -1,3 +1,9 @@
+== 0.2.5 ==
+- Remove compass, sprockets-sass and yui-compressor
+- Better error reporting in pry
+- Add uglifier
+- Remove unused functions
+
 == 0.2.4 ==
 - Update compass version
 

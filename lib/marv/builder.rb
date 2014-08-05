@@ -1,5 +1,4 @@
 require 'sprockets'
-require 'sprockets-sass'
 require 'sass'
 require 'less'
 require 'zip'
@@ -9,7 +8,7 @@ module Marv
   class Builder
     def initialize(project)
       @project = project
-      @task    = project.task
+      @task = project.task
       @templates_path = @project.templates_path
       @assets_path = @project.assets_path
       @functions_path = @project.functions_path
@@ -160,29 +159,18 @@ module Marv
       [['style.css'], ['admin.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']].each do |asset|
         destination = File.join(@project.build_path, asset)
 
-        sprocket = @sprockets.find_asset(asset.last)
-
         # Catch any sprockets errors and continue the process
         begin
           @task.shell.mute do
+            sprocket = @sprockets.find_asset(asset.last)
+
             FileUtils.mkdir_p(File.dirname(destination)) unless File.directory?(File.dirname(destination))
             sprocket.write_to(destination) unless sprocket.nil?
-
-            if @project.config[:compress_js] && destination.end_with?('.js')
-              require "yui/compressor"
-
-              # Grab the initial sprockets output
-              sprockets_output = File.open(destination, 'r').read
-
-              # Re-write the file, minified
-              File.open(destination, 'w') do |file|
-                file.write(YUI::JavaScriptCompressor.new.compress(sprockets_output))
-              end
-            end
           end
         rescue Exception => e
           @task.say "Error while building #{asset.last}:"
           @task.say e.message, Thor::Shell::Color::RED
+
           File.open(destination, 'w') do |file|
             file.puts(e.message)
           end
@@ -231,6 +219,14 @@ module Marv
 
       ['javascripts', 'stylesheets'].each do |dir|
         @sprockets.append_path File.join(@assets_path, dir)
+      end
+
+      if @project.config[:compress_js]
+        @sprockets.js_compressor = :uglify
+      end
+
+      if @project.config[:compress_css]
+        @sprockets.css_compressor = :scss
       end
 
       # Add assets/styleshets to load path for Less Engine
