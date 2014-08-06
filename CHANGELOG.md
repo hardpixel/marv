@@ -2,6 +2,9 @@
 - Marv install (Wordpress local install)
 - Informative error messages
 - Add rack-legacy dependency
+- Local layouts
+- Config.rb option for additional assets
+- Update config template
 
 == 0.2.5 ==
 - Remove compass, sprockets-sass and yui-compressor

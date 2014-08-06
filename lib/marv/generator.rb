@@ -2,16 +2,17 @@
 module Marv
   class Generator
     class << self
-      def run(project, layout)
-        generator = self.new(project, layout)
+      def run(project, layout, local_layout)
+        generator = self.new(project, layout, local_layout)
         generator.run
       end
     end
 
-    def initialize(project, layout)
+    def initialize(project, layout, local_layout)
       @project = project
       @task    = project.task
       @layout  = layout
+      @local_layout  = local_layout
     end
 
     def create_structure
@@ -93,7 +94,11 @@ module Marv
     end
 
     def layout_path
-      @layout_path ||= File.join(Marv::ROOT, 'layouts', @layout)
+      if @local_layout
+        @layout_path ||= File.join(ENV['HOME'], '.marv', 'layouts', @layout)
+      else
+        @layout_path ||= File.join(Marv::ROOT, 'layouts', @layout)
+      end
     end
 
     def run
@@ -118,7 +123,7 @@ module Marv
         end
       end
 
-      write_template(['config', 'config.tt'], @project.config_file)
+      write_template(['config', 'config.th'], @project.config_file)
 
       self
     end

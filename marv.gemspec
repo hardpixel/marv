@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
     "layouts/bramble/stylesheets/_header.scss.erb",
     "layouts/bramble/stylesheets/style.scss.erb",
     "layouts/bramble/templates/sample-template.php",
-    "layouts/config/config.tt",
+    "layouts/config/config.th",
     "layouts/config/config.wp",
     "layouts/default/functions/functions.php.erb",
     "layouts/default/images/screenshot.png",

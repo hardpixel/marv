@@ -22,11 +22,12 @@ module Marv
     desc "create DIRECTORY", "Creates a Marv project"
     long_desc "Creates a new project. Use the layout option to choose a scaffold"
     method_option :layout, :type => :string, :default => 'default', :desc => "Name of alternate layout"
+    method_option :local, :type => :boolean, :desc => "Use local layout from .marv folder"
     def create(dir)
       theme = {}
       theme[:name] = dir
 
-      project = Marv::Project.create(dir, theme, self, options[:layout])
+      project = Marv::Project.create(dir, theme, self, options[:layout], options[:local])
     end
 
     desc "link PATH", "Create a symbolic link to the compilation directory"

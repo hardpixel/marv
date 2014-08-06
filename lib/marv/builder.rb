@@ -156,7 +156,12 @@ module Marv
     end
 
     def build_assets
-      [['style.css'], ['admin.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']].each do |asset|
+      default_assets = [['style.css'], ['admin.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']]
+      additional_assets = @project.config[:additional_assets]
+
+      assets = default_assets + additional_assets
+
+      assets.each do |asset|
         destination = File.join(@project.build_path, asset)
 
         # Catch any sprockets errors and continue the process

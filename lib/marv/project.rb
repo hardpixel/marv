@@ -3,11 +3,11 @@ require 'pathname'
 module Marv
   class Project
     class << self
-      def create(root, config, task, layout)
+      def create(root, config, task, layout, local_layout)
         root = File.expand_path(root)
 
         project = self.new(root, task, config)
-        Generator.run(project, layout)
+        Generator.run(project, layout, local_layout)
 
         project
       end
