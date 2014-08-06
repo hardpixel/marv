@@ -12,6 +12,13 @@ module Marv
       File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'layouts'))
     end
 
+    desc "install DIRECTORY", "Creates a WordPress installation to run the project"
+    long_desc "Creates a Wordpress installation to run the project. After setting up WordPress link your theme and start developing."
+    method_option :wordpress, :type => :string, :default => 'latest', :desc => "WordPress version to install"
+    def install(dir)
+      installer = Marv::Installer.new(dir, options[:wordpress])
+    end
+
     desc "create DIRECTORY", "Creates a Marv project"
     long_desc "Creates a new project. Use the layout option to choose a scaffold"
     method_option :layout, :type => :string, :default => 'default', :desc => "Name of alternate layout"
@@ -80,7 +87,7 @@ module Marv
         say_status :error, "The path #{File.dirname(path)} does not exist", :red
         exit 2
       rescue Errno::EEXIST
-        say_status :error, "The path #{path} already exsts", :red
+        say_status :error, "The path #{path} already exists", :red
         exit 2
       end
     end

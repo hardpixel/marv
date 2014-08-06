@@ -1,3 +1,8 @@
+== 0.3.0 ==
+- Marv install (Wordpress local install)
+- Informative error messages
+- Add rack-legacy dependency
+
 == 0.2.5 ==
 - Remove compass, sprockets-sass and yui-compressor
 - Better error reporting in pry

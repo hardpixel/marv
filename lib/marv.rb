@@ -7,4 +7,5 @@ module Marv
   autoload :Project, 'marv/project'
   autoload :Builder, 'marv/builder'
   autoload :Generator, 'marv/generator'
+  autoload :Installer, 'marv/installer'
 end

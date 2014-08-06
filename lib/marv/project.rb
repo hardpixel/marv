@@ -68,6 +68,12 @@ module Marv
     def link(source)
       source = File.expand_path(source)
 
+      unless File.writable?(File.dirname(source))
+        @task.say "Permission Denied!", Thor::Shell::Color::RED
+        @task.say "You do not have write permissions for the destination folder."
+        abort
+      end
+
       unless File.directory?(File.dirname(source))
         raise Marv::LinkSourceDirNotFound
       end
@@ -91,8 +97,9 @@ module Marv
       if File.exists?(self.config_file)
         config.merge!(load_ruby_config(self.config_file))
       else
-        raise Error, "Could not find the config file, are you sure you're in a
-        marv project directory?"
+        @task.say "Could not find the config file!", Thor::Shell::Color::RED
+        @task.say "Are you sure you're in a marv project directory?"
+        abort
       end
 
       @config = config
