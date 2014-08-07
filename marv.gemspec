@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-08-06"
+  s.date = "2014-08-07"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]

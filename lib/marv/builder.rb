@@ -159,7 +159,11 @@ module Marv
       default_assets = [['style.css'], ['admin.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']]
       additional_assets = @project.config[:additional_assets]
 
-      assets = default_assets + additional_assets
+      if additional_assets
+        assets = default_assets + additional_assets
+      else
+        assets = default_assets
+      end
 
       assets.each do |asset|
         destination = File.join(@project.build_path, asset)
