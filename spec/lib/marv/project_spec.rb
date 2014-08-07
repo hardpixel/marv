@@ -8,7 +8,7 @@ describe Marv::Project do
 
   describe :config_file do
     it "should create an expanded path to the config file" do
-      @project.config_file.should == '/tmp/config.json'
+      @project.config_file.should == '/tmp/config.rb'
     end
   end
 
