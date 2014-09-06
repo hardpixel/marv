@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-08-07"
+  s.date = "2014-08-08"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    ".rspec",
     "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
@@ -40,6 +41,7 @@ Gem::Specification.new do |s|
     "layouts/bramble/templates/sample-template.php",
     "layouts/config/config.th",
     "layouts/config/config.wp",
+    "layouts/config/wp-config.php.erb",
     "layouts/default/functions/functions.php.erb",
     "layouts/default/images/screenshot.png",
     "layouts/default/includes/filters-admin.php.erb",
@@ -78,8 +80,8 @@ Gem::Specification.new do |s|
     "lib/marv/error.rb",
     "lib/marv/generator.rb",
     "lib/marv/guard.rb",
-    "lib/marv/installer.rb",
     "lib/marv/project.rb",
+    "lib/marv/server.rb",
     "lib/marv/version.rb",
     "marv-0.3.0.gem",
     "marv.gemspec",
@@ -104,6 +106,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<rack>, [">= 1.5.2"])
       s.add_runtime_dependency(%q<rack-legacy>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<rack-rewrite>, [">= 1.5.0"])
+      s.add_runtime_dependency(%q<mysql2>, [">= 0.3.15"])
       s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
       s.add_runtime_dependency(%q<coffee-script>, [">= 2.3.0"])
@@ -123,6 +126,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rack>, [">= 1.5.2"])
       s.add_dependency(%q<rack-legacy>, [">= 1.0.0"])
       s.add_dependency(%q<rack-rewrite>, [">= 1.5.0"])
+      s.add_dependency(%q<mysql2>, [">= 0.3.15"])
       s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
       s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
@@ -143,6 +147,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rack>, [">= 1.5.2"])
     s.add_dependency(%q<rack-legacy>, [">= 1.0.0"])
     s.add_dependency(%q<rack-rewrite>, [">= 1.5.0"])
+    s.add_dependency(%q<mysql2>, [">= 0.3.15"])
     s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])
     s.add_dependency(%q<coffee-script>, [">= 2.3.0"])

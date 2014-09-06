@@ -13,10 +13,14 @@ module Marv
     end
 
     desc "install DIRECTORY", "Creates a WordPress installation to run the project"
-    long_desc "Creates a Wordpress installation to run the project. After setting up WordPress link your theme and start developing."
-    method_option :wordpress, :type => :string, :default => 'latest', :desc => "WordPress version to install"
-    def install(dir)
-      installer = Marv::Installer.new(dir, options[:wordpress])
+    long_desc "Creates a Wordpress installation to run the project."
+    method_option :version, :type => :string, :default => 'latest', :desc => "Wordpress version to install"
+    method_option :host, :type => :string, :default => 'localhost', :desc => "Mysql server host"
+    method_option :port, :type => :string, :default => '3306', :desc => "Mysql server port"
+    method_option :password, :type => :string, :required => true, :desc => "Mysql root user password"
+    def server
+      project = Marv::Project.new('.', self)
+      server = Marv::Server.new(project, self, options[:version], options[:host], options[:port], options[:password])
     end
 
     desc "create DIRECTORY", "Creates a Marv project"

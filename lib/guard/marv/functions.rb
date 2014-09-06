@@ -9,23 +9,27 @@ module Guard
 
     def start
       UI.info "Copying functions over"
-      ::Marv::Guard.builder.copy_functions
-      ::Marv::Guard.builder.copy_includes
-      ::Marv::Guard.builder.copy_extras
+      copy_functions
     end
 
     def run_all
       UI.info "Rebuilding all functions"
-      ::Marv::Guard.builder.clean_functions
-      ::Marv::Guard.builder.copy_functions
-      ::Marv::Guard.builder.clean_includes
-      ::Marv::Guard.builder.copy_includes
-      ::Marv::Guard.builder.copy_extras
+      clean_copy_functions
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
       UI.info "Functions have changed, copying over"
+      clean_copy_functions
+    end
+
+    def copy_functions
+      ::Marv::Guard.builder.copy_functions
+      ::Marv::Guard.builder.copy_includes
+      ::Marv::Guard.builder.copy_extras
+    end
+
+    def clean_copy_functions
       ::Marv::Guard.builder.clean_functions
       ::Marv::Guard.builder.copy_functions
       ::Marv::Guard.builder.clean_includes

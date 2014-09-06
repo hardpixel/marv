@@ -60,6 +60,7 @@ GEM
     lumberjack (1.0.9)
     method_source (0.8.2)
     multi_json (1.10.1)
+    mysql2 (0.3.16)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -114,6 +115,7 @@ DEPENDENCIES
   guard-livereload (>= 2.3.0)
   jeweler
   less (>= 2.6.0)
+  mysql2 (>= 0.3.15)
   rack (>= 1.5.2)
   rack-legacy (>= 1.0.0)
   rack-rewrite (>= 1.5.0)
