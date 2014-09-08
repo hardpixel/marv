@@ -1,12 +1,15 @@
 == 0.3.0 ==
-- Many new functions & function updates
 - Marv server (Wordpress local install)
-- Informative error messages
-- Global plugins & themes
-- Local layouts
+- Global plugins & themes for Marv servers
 - Config.rb option for additional assets
-- Update config templates
+- Use local layouts on project on create
+- Copy user folders in project root
+- Copy file with project name from functions folder
+- Informative error messages
+- Remove extras folder
 - Update dependencies
+- Update config templates
+- Many new functions & function updates
 
 == 0.2.5 ==
 - Remove compass, sprockets-sass and yui-compressor

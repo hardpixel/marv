@@ -13,7 +13,7 @@ module Marv
       @project = project
       @task    = project.task
       @layout  = layout
-      @local_layout  = local_layout
+      @local   = local_layout
     end
 
     def create_structure
@@ -26,9 +26,7 @@ module Marv
         ['assets', 'stylesheets'],
 
         ['functions'],
-
         ['includes'],
-        ['extras'],
 
         ['templates', 'pages'],
         ['templates', 'partials'],
@@ -95,7 +93,7 @@ module Marv
     end
 
     def layout_path
-      if @local_layout
+      if @local
         @layout_path ||= File.join(ENV['HOME'], '.marv', 'layouts', @layout)
       else
         @layout_path ||= File.join(Marv::ROOT, 'layouts', @layout)
@@ -111,6 +109,7 @@ module Marv
       copy_templates
       copy_functions
       copy_includes
+      copy_folders
 
       return self
     end
@@ -140,6 +139,7 @@ module Marv
     end
 
     protected
+
     def render_directory(source, target)
       Dir.glob("#{source}/**/*") do |file|
         unless File.directory?(file)

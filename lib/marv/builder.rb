@@ -14,7 +14,6 @@ module Marv
       @assets_path = @project.assets_path
       @functions_path = @project.functions_path
       @includes_path = @project.includes_path
-      @extras_path = @project.extras_path
       @package_path = @project.package_path
 
       init_sprockets
@@ -26,7 +25,7 @@ module Marv
       copy_templates
       copy_functions
       copy_includes
-      copy_extras
+      copy_folders
       build_assets
     end
 
@@ -98,13 +97,18 @@ module Marv
     end
 
     def clean_functions
-      FileUtils.rm File.join(@project.build_path, 'functions.php')
-      FileUtils.rm_rf File.join(@project.build_path, 'functions')
+      #remove functions php
+      FileUtils.rm File.join(@project.build_path, 'functions.php') if File.exists?(File.join(@project.build_path, 'functions.php'))
+      # Remove plugin file
+      FileUtils.rm File.join(@project.build_path, @project.project_php_file) if File.exists?(@project.project_php_file)
+      # Remove functions folder
+      FileUtils.rm_rf File.join(@project.build_path, 'functions') if File.directory?(File.join(@project.build_path, 'functions'))
     end
 
     def copy_functions
       functions_erb_path = File.join(@functions_path, 'functions.php.erb')
       functions_php_path = File.join(@functions_path, 'functions.php')
+      plugin_php_path = File.join(@functions_path, @project.project_php_file)
 
       if File.exists?(functions_erb_path)
         destination = File.join(@project.build_path, 'functions.php')
@@ -113,8 +117,12 @@ module Marv
         FileUtils.cp functions_php_path, @project.build_path
       end
 
+      if File.exists?(plugin_php_path)
+        FileUtils.cp plugin_php_path, @project.build_path
+      end
+
       functions_paths = Dir.glob(File.join(@functions_path, '*')).reject do |filename|
-        [functions_erb_path, functions_php_path].include?(filename)
+        [functions_erb_path, functions_php_path, plugin_php_path].include?(filename)
       end
 
       unless functions_paths.empty?
@@ -122,7 +130,7 @@ module Marv
         FileUtils.mkdir_p(File.join(@project.build_path, 'functions'))
 
         # Iterate over all files in source/functions, skipping the actual functions.php file
-        paths = Dir.glob(File.join(@functions_path, '**', '*')).reject {|filename| [functions_erb_path, functions_php_path].include?(filename) }
+        paths = Dir.glob(File.join(@functions_path, '**', '*')).reject {|filename| [functions_erb_path, functions_php_path, plugin_php_path].include?(filename) }
 
         copy_paths_with_erb(paths, @functions_path, File.join(@project.build_path, 'functions'))
       end
@@ -143,12 +151,27 @@ module Marv
       end
     end
 
-    def copy_extras
-      unless Dir.glob(File.join(@extras_path, '*')).empty?
+    def clean_folders
+      Dir.glob(File.join(@project.source_path, '*')).each do |folder|
+        unless [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
+          if File.directory?(folder)
+            relative_path = folder.gsub(@project.source_path, '')
+            destination = File.join(@project.build_path, relative_path)
 
-        # Iterate over all files in source/extras, so we can exclude if necessary
-        paths = Dir.glob(File.join(@extras_path, '**', '*'))
-        copy_paths_with_erb(paths, @extras_path, File.join(@project.build_path, ''))
+            FileUtils.rm_rf destination
+          end
+        end
+      end
+    end
+
+    def copy_folders
+      Dir.glob(File.join(@project.source_path, '*')).each do |folder|
+        unless [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
+          if File.directory?(folder)
+            paths = Dir.glob(File.join(folder, '**', '*'))
+            copy_paths_with_erb(paths, @project.source_path, @project.build_path)
+          end
+        end
       end
     end
 

@@ -71,6 +71,7 @@ Gem::Specification.new do |s|
     "layouts/default/templates/single.php",
     "lib/guard/marv/assets.rb",
     "lib/guard/marv/config.rb",
+    "lib/guard/marv/folders.rb",
     "lib/guard/marv/functions.rb",
     "lib/guard/marv/templates.rb",
     "lib/marv.rb",

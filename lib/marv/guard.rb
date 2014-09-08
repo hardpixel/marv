@@ -43,7 +43,9 @@ module Marv
         guard 'marvfunctions' do
           watch(%r{#{source_path}/functions/*})
           watch(%r{#{source_path}/includes/*})
-          watch(%r{#{source_path}/extras/*})
+        end
+        guard 'marvfolders' do
+          watch(%r{#{source_path}/*})
         end
       }
 

@@ -53,10 +53,6 @@ module Marv
       File.join(self.source_path, 'includes')
     end
 
-    def extras_path
-      File.join(self.source_path, 'extras')
-    end
-
     def config_file
       @config_file ||= File.join(self.root, 'config.rb')
     end
@@ -84,6 +80,10 @@ module Marv
 
     def project_id
       File.basename(self.root).gsub(/\W/, '_')
+    end
+
+    def project_php_file
+      "#{File.basename(self.root).gsub(/\W/, '-').downcase}.php"
     end
 
     def load_config

@@ -3,6 +3,7 @@ require 'guard/marv/assets'
 require 'guard/marv/config'
 require 'guard/marv/templates'
 require 'guard/marv/functions'
+require 'guard/marv/folders'
 
 module Marv
   class CLI < Thor

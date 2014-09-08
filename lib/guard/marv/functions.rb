@@ -27,7 +27,6 @@ module Guard
     def copy_functions
       ::Marv::Guard.builder.copy_functions
       ::Marv::Guard.builder.copy_includes
-      ::Marv::Guard.builder.copy_extras
     end
 
     def clean_copy_functions
@@ -35,7 +34,6 @@ module Guard
       ::Marv::Guard.builder.copy_functions
       ::Marv::Guard.builder.clean_includes
       ::Marv::Guard.builder.copy_includes
-      ::Marv::Guard.builder.copy_extras
     end
 
   end
