@@ -1,4 +1,3 @@
-
 require 'marv/project'
 
 describe Marv::Project do
@@ -25,9 +24,9 @@ describe Marv::Project do
     end
   end
 
-  describe :theme_id do
+  describe :project_id do
     it "should be the same as the project folder" do
-      @project.theme_id.should == 'tmp'
+      @project.project_id.should == 'tmp'
     end
   end
 

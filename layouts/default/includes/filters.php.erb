@@ -11,7 +11,7 @@ add_filter( 'widget_text', 'do_shortcode' );
 /**
  * Body classes
  */
-function <%= theme_id %>_body_class( $classes )
+function <%= project_id %>_body_class( $classes )
 {
     global $is_gecko, $is_IE, $is_opera, $is_safari, $is_chrome;
 
@@ -45,12 +45,12 @@ function <%= theme_id %>_body_class( $classes )
     return $classes;
 }
 
-add_filter( 'body_class', '<%= theme_id %>_body_class' );
+add_filter( 'body_class', '<%= project_id %>_body_class' );
 
 /**
  * Remove generator
  */
-function <%= theme_id %>_cleanup_head()
+function <%= project_id %>_cleanup_head()
 {
     remove_action('wp_head', 'feed_links', 2);
     remove_action('wp_head', 'feed_links_extra', 3);
@@ -61,12 +61,12 @@ function <%= theme_id %>_cleanup_head()
     remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 }
 
-add_action( 'init', '<%= theme_id %>_cleanup_head' );
+add_action( 'init', '<%= project_id %>_cleanup_head' );
 
 /**
  * WP title
  */
-function <%= theme_id %>_wp_title( $title, $sep )
+function <%= project_id %>_wp_title( $title, $sep )
 {
 	global $paged, $page;
 
@@ -85,18 +85,18 @@ function <%= theme_id %>_wp_title( $title, $sep )
 
 	// Add a page number if necessary.
 	if ( $paged >= 2 ) {
-		$title = "$title $sep " . sprintf( __( 'Page %s', '<%= theme_id %>' ), max( $paged, $page ) );
+		$title = "$title $sep " . sprintf( __( 'Page %s', '<%= project_id %>' ), max( $paged, $page ) );
     }
 
 	return $title;
 }
 
-add_filter( 'wp_title', '<%= theme_id %>_wp_title', 10, 2 );
+add_filter( 'wp_title', '<%= project_id %>_wp_title', 10, 2 );
 
 /**
  * Nav object classes
  */
-function <%= theme_id %>_add_extra_menu_classes( $objects )
+function <%= project_id %>_add_extra_menu_classes( $objects )
 {
     $objects[1]->classes[] = 'first';
     $objects[count( $objects )]->classes[] = 'last';
@@ -104,15 +104,15 @@ function <%= theme_id %>_add_extra_menu_classes( $objects )
     return $objects;
 }
 
-add_filter( 'wp_nav_menu_objects', 	'<%= theme_id %>_add_extra_menu_classes' );
+add_filter( 'wp_nav_menu_objects', 	'<%= project_id %>_add_extra_menu_classes' );
 
 /**
  * Add favicon
  */
-function <%= theme_id %>_favicon()
+function <%= project_id %>_favicon()
 {
     echo '<link rel="shortcut icon" href="' . get_stylesheet_directory_uri() . '/images/favicon.png" type="image/png">';
 }
 
-add_action( 'wp_head', '<%= theme_id %>_favicon' );
+add_action( 'wp_head', '<%= project_id %>_favicon' );
 

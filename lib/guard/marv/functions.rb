@@ -3,6 +3,7 @@ require 'guard/guard'
 
 module Guard
   class MarvFunctions < ::Guard::Guard
+
     def initialize(watchers=[], options={})
       super
     end
@@ -36,5 +37,6 @@ module Guard
       ::Marv::Guard.builder.copy_includes
       ::Marv::Guard.builder.copy_extras
     end
+
   end
 end

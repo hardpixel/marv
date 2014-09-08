@@ -9,7 +9,7 @@ if ( ! isset( $content_width ) ) {
 }
 
 // Scaffold setup
-if( ! function_exists( '<%= theme_id %>_setup' ) ) :
+if( ! function_exists( '<%= project_id %>_setup' ) ) :
 
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
@@ -18,11 +18,11 @@ if( ! function_exists( '<%= theme_id %>_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function <%= theme_id %>_setup()
+	function <%= project_id %>_setup()
 	{
 		// Textdomain
-		load_theme_textdomain( '<%= theme_id %>', get_template_directory() . '/includes/languages' );
-		load_child_theme_textdomain( '<%= theme_id %>', get_stylesheet_directory() . '/includes/languages' );
+		load_theme_textdomain( '<%= project_id %>', get_template_directory() . '/includes/languages' );
+		load_child_theme_textdomain( '<%= project_id %>', get_stylesheet_directory() . '/includes/languages' );
 
 		// Theme support
 		add_theme_support( 'menus' );
@@ -36,49 +36,49 @@ if( ! function_exists( '<%= theme_id %>_setup' ) ) :
 
 		// Menus
 		register_nav_menus( array(
-			'primary-menu'		=> __( 'Primary', '<%= theme_id %>' ),
-			'secondary-menu'	=> __( 'Secondary', '<%= theme_id %>' ),
-			'footer-menu'		=> __( 'Footer', '<%= theme_id %>' )
+			'primary-menu'		=> __( 'Primary', '<%= project_id %>' ),
+			'secondary-menu'	=> __( 'Secondary', '<%= project_id %>' ),
+			'footer-menu'		=> __( 'Footer', '<%= project_id %>' )
 		) );
 	}
 
 endif;
 
-add_action( 'after_setup_theme', '<%= theme_id %>_setup' );
+add_action( 'after_setup_theme', '<%= project_id %>_setup' );
 
 /**
  * Init for theme child
  */
-function <%= theme_id %>_child_init() {
-	do_action( '<%= theme_id %>_child_init' );
+function <%= project_id %>_child_init() {
+	do_action( '<%= project_id %>_child_init' );
 }
 
-add_action( 'after_setup_theme', '<%= theme_id %>_child_init' );
+add_action( 'after_setup_theme', '<%= project_id %>_child_init' );
 
 /**
  * Enqueue scripts and styles.
  */
-function <%= theme_id %>_styles_scripts()
+function <%= project_id %>_styles_scripts()
 {
 	// Styles
-	add_action( 'wp_enqueue_scripts', 	'<%= theme_id %>_register_styles' );
-	add_action( 'wp_enqueue_scripts', 	'<%= theme_id %>_enqueue_styles' );
+	add_action( 'wp_enqueue_scripts', 	'<%= project_id %>_register_styles' );
+	add_action( 'wp_enqueue_scripts', 	'<%= project_id %>_enqueue_styles' );
 
 	// Scripts
-	add_action( 'wp_enqueue_scripts', 	'<%= theme_id %>_register_scripts' );
-	add_action( 'wp_enqueue_scripts', 	'<%= theme_id %>_enqueue_scripts' );
+	add_action( 'wp_enqueue_scripts', 	'<%= project_id %>_register_scripts' );
+	add_action( 'wp_enqueue_scripts', 	'<%= project_id %>_enqueue_scripts' );
 
 	// Admin scripts
-	add_action( 'admin_enqueue_scripts', 	'<%= theme_id %>_register_admin_scripts' );
-	add_action( 'admin_enqueue_scripts', 	'<%= theme_id %>_enqueue_admin_scripts' );
+	add_action( 'admin_enqueue_scripts', 	'<%= project_id %>_register_admin_scripts' );
+	add_action( 'admin_enqueue_scripts', 	'<%= project_id %>_enqueue_admin_scripts' );
 }
 
-add_action( 'init', '<%= theme_id %>_styles_scripts' );
+add_action( 'init', '<%= project_id %>_styles_scripts' );
 
 /**
  * Register styles.
  */
-function <%= theme_id %>_register_styles()
+function <%= project_id %>_register_styles()
 {
 	// Theme
 	wp_register_style( 'style', get_stylesheet_directory_uri() . '/style.css', '', '', 'screen' );
@@ -87,7 +87,7 @@ function <%= theme_id %>_register_styles()
 /**
  * Enqueue styles.
  */
-function <%= theme_id %>_enqueue_styles()
+function <%= project_id %>_enqueue_styles()
 {
 	wp_enqueue_style( 'style' );
 }
@@ -95,7 +95,7 @@ function <%= theme_id %>_enqueue_styles()
 /**
  * Register scripts
  */
-function <%= theme_id %>_register_scripts()
+function <%= project_id %>_register_scripts()
 {
 	// Theme
 	wp_register_script( 'theme', get_stylesheet_directory_uri() . '/javascripts/theme.js', array( 'jquery' ), '', true );
@@ -104,7 +104,7 @@ function <%= theme_id %>_register_scripts()
 /**
  * Enqueue scripts
  */
-function <%= theme_id %>_enqueue_scripts()
+function <%= project_id %>_enqueue_scripts()
 {
 	wp_enqueue_script( 'theme' );
 
@@ -116,7 +116,7 @@ function <%= theme_id %>_enqueue_scripts()
 /**
  * Register admin scripts
  */
-function <%= theme_id %>_register_admin_scripts()
+function <%= project_id %>_register_admin_scripts()
 {
 	// Admin
 	wp_register_script( 'admin', get_stylesheet_directory_uri() . '/javascripts/admin.js', array( 'jquery' ), '', true );
@@ -125,7 +125,7 @@ function <%= theme_id %>_register_admin_scripts()
 /**
  * Enqueue admin scripts
  */
-function <%= theme_id %>_enqueue_admin_scripts()
+function <%= project_id %>_enqueue_admin_scripts()
 {
 	wp_enqueue_script( 'admin' );
 }

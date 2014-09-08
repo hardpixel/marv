@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-08-08"
+  s.date = "2014-09-07"
   s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -39,8 +39,8 @@ Gem::Specification.new do |s|
     "layouts/bramble/stylesheets/_header.scss.erb",
     "layouts/bramble/stylesheets/style.scss.erb",
     "layouts/bramble/templates/sample-template.php",
-    "layouts/config/config.th",
-    "layouts/config/config.wp",
+    "layouts/config/project-config.rb",
+    "layouts/config/rack-config.ru",
     "layouts/config/wp-config.php.erb",
     "layouts/default/functions/functions.php.erb",
     "layouts/default/images/screenshot.png",
@@ -99,64 +99,52 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<thor>, [">= 0.19.1"])
-      s.add_runtime_dependency(%q<guard>, [">= 2.2.1"])
       s.add_runtime_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<sprockets>, [">= 2.12.0"])
       s.add_runtime_dependency(%q<rubyzip>, [">= 1.1.6"])
-      s.add_runtime_dependency(%q<rack>, [">= 1.5.2"])
       s.add_runtime_dependency(%q<rack-legacy>, [">= 1.0.0"])
-      s.add_runtime_dependency(%q<rack-rewrite>, [">= 1.5.0"])
       s.add_runtime_dependency(%q<mysql2>, [">= 0.3.15"])
       s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
       s.add_runtime_dependency(%q<coffee-script>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
-      s.add_runtime_dependency(%q<rb-fsevent>, [">= 0.9.4"])
       s.add_runtime_dependency(%q<uglifier>, [">= 2.5.0"])
+      s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
-      s.add_development_dependency(%q<aruba>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<thor>, [">= 0.19.1"])
-      s.add_dependency(%q<guard>, [">= 2.2.1"])
       s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_dependency(%q<sprockets>, [">= 2.12.0"])
       s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
-      s.add_dependency(%q<rack>, [">= 1.5.2"])
       s.add_dependency(%q<rack-legacy>, [">= 1.0.0"])
-      s.add_dependency(%q<rack-rewrite>, [">= 1.5.0"])
       s.add_dependency(%q<mysql2>, [">= 0.3.15"])
       s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
       s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
       s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
-      s.add_dependency(%q<rb-fsevent>, [">= 0.9.4"])
       s.add_dependency(%q<uglifier>, [">= 2.5.0"])
+      s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
-      s.add_dependency(%q<aruba>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<thor>, [">= 0.19.1"])
-    s.add_dependency(%q<guard>, [">= 2.2.1"])
     s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
     s.add_dependency(%q<sprockets>, [">= 2.12.0"])
     s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
-    s.add_dependency(%q<rack>, [">= 1.5.2"])
     s.add_dependency(%q<rack-legacy>, [">= 1.0.0"])
-    s.add_dependency(%q<rack-rewrite>, [">= 1.5.0"])
     s.add_dependency(%q<mysql2>, [">= 0.3.15"])
     s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])
     s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
     s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
-    s.add_dependency(%q<rb-fsevent>, [">= 0.9.4"])
     s.add_dependency(%q<uglifier>, [">= 2.5.0"])
+    s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
-    s.add_dependency(%q<aruba>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end

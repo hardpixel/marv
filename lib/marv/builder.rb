@@ -6,6 +6,7 @@ require 'marv/engines'
 
 module Marv
   class Builder
+
     def initialize(project)
       @project = project
       @task = project.task
@@ -178,7 +179,7 @@ module Marv
           end
         rescue Exception => e
           @task.say "Error while building #{asset.last}:"
-          @task.say e.message, Thor::Shell::Color::RED
+          @task.say e.message, :red
 
           File.open(destination, 'w') do |file|
             file.puts(e.message)
@@ -282,9 +283,10 @@ module Marv
         end
       rescue Exception => e
         @task.say "Error while building #{File.basename(source)}:"
-        @task.say e.message + "\n", Thor::Shell::Color::RED
+        @task.say e.message + "\n", :red
         exit
-     end
+      end
     end
+
   end
 end

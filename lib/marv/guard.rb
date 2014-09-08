@@ -61,5 +61,6 @@ module Marv
       end
       ::Guard.start({ :guardfile_contents => guardfile_contents }).join
     end
+
   end
 end

@@ -4,14 +4,14 @@
  * Theme Customizer options
  */
 
-function <%= theme_id %>_customizer_options() {
+function <%= project_id %>_customizer_options() {
 
 	/*
 	 * Using helper function to get default required capability
 	 */
 	$bramble_customizer_capability = bramble_customizer_capability();
 
-	$<%= theme_id %>_options = array(
+	$<%= project_id %>_options = array(
 
 		/*
 		 * Add fields to an existing Customizer section
@@ -1332,8 +1332,8 @@ function <%= theme_id %>_customizer_options() {
 
 	);
 
-	return $<%= theme_id %>_options;
+	return $<%= project_id %>_options;
 
 }
 
-add_filter( 'bramble_customizer_options_array', '<%= theme_id %>_customizer_options' );
+add_filter( 'bramble_customizer_options_array', '<%= project_id %>_customizer_options' );

@@ -2,6 +2,7 @@ require 'pathname'
 
 module Marv
   class Project
+
     class << self
       def create(root, config, task, layout, local_layout)
         root = File.expand_path(root)
@@ -69,8 +70,8 @@ module Marv
       source = File.expand_path(source)
 
       unless File.writable?(File.dirname(source))
-        @task.say "Permission Denied!", Thor::Shell::Color::RED
-        @task.say "You do not have write permissions for the destination folder."
+        @task.say "Permission Denied!", :red
+        @task.say "You do not have write permissions for the destination folder"
         abort
       end
 
@@ -81,7 +82,7 @@ module Marv
       @task.link_file build_path, source
     end
 
-    def theme_id
+    def project_id
       File.basename(self.root).gsub(/\W/, '_')
     end
 
@@ -97,7 +98,7 @@ module Marv
       if File.exists?(self.config_file)
         config.merge!(load_ruby_config(self.config_file))
       else
-        @task.say "Could not find the config file!", Thor::Shell::Color::RED
+        @task.say "Could not find the config file!", :red
         @task.say "Are you sure you're in a marv project directory?"
         abort
       end
@@ -123,7 +124,7 @@ module Marv
         eval(File.read(file))
       rescue Exception => e
         @task.say "Error while evaluating config file:"
-        @task.say e.message, Thor::Shell::Color::RED
+        @task.say e.message, :red
       end
 
       return config

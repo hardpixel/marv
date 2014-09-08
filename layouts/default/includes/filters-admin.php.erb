@@ -9,7 +9,7 @@ if( ! is_admin() ) return;
 /**
  * Remove contactmethods
  */
-function <%= theme_id %>_edit_contactmethods( $methods )
+function <%= project_id %>_edit_contactmethods( $methods )
 {
 	unset( $methods['aim'] );
 	unset( $methods['jabber'] );
@@ -18,34 +18,34 @@ function <%= theme_id %>_edit_contactmethods( $methods )
 	return $methods;
 }
 
-add_filter( 'user_contactmethods', '<%= theme_id %>_edit_contactmethods' );
+add_filter( 'user_contactmethods', '<%= project_id %>_edit_contactmethods' );
 
 /**
  * Add MCE
  */
-function <%= theme_id %>_enable_more_buttons( $buttons )
+function <%= project_id %>_enable_more_buttons( $buttons )
 {
 	$buttons[] = 'hr';
 
 	return $buttons;
 }
 
-add_filter( 'mce_buttons', '<%= theme_id %>_enable_more_buttons' );
+add_filter( 'mce_buttons', '<%= project_id %>_enable_more_buttons' );
 
 /**
  * Remove menu items
  */
-function <%= theme_id %>_remove_menu_pages()
+function <%= project_id %>_remove_menu_pages()
 {
 	remove_menu_page( 'link-manager.php' );
 }
 
-add_action( 'admin_menu', '<%= theme_id %>_remove_menu_pages' );
+add_action( 'admin_menu', '<%= project_id %>_remove_menu_pages' );
 
 /**
  * Remove dashboard widgets
  */
-function <%= theme_id %>_remove_dashboard_widgets()
+function <%= project_id %>_remove_dashboard_widgets()
 {
 	global $wp_meta_boxes;
 
@@ -59,4 +59,4 @@ function <%= theme_id %>_remove_dashboard_widgets()
 	// unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press'] );
 }
 
-add_action( 'wp_dashboard_setup', '<%= theme_id %>_remove_dashboard_widgets' );
+add_action( 'wp_dashboard_setup', '<%= project_id %>_remove_dashboard_widgets' );

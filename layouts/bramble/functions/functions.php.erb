@@ -6,17 +6,17 @@ if( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Init for Bramble Child
  */
-function <%= theme_id %>_init() {
+function <%= project_id %>_init() {
 
 	// Image sizes
 	add_image_size( 'wide', 1600, 1200, true );
 
 	// Default settings
-	<%= theme_id %>_default_settings();
+	<%= project_id %>_default_settings();
 
 }
 
-add_action( 'bramble_child_init', '<%= theme_id %>_init' );
+add_action( 'bramble_child_init', '<%= project_id %>_init' );
 
 
 /**
@@ -25,7 +25,7 @@ add_action( 'bramble_child_init', '<%= theme_id %>_init' );
 *
 **/
 
-function <%= theme_id %>_default_settings()
+function <%= project_id %>_default_settings()
 {
 	$user = get_option( 'theme_options' );
 
@@ -57,7 +57,7 @@ function <%= theme_id %>_default_settings()
 /**
  * Localize scripts
  */
-function <%= theme_id %>_localize_scripts()
+function <%= project_id %>_localize_scripts()
 {
 	$localize = array(
 		'ajax_url'		=> admin_url('admin-ajax.php')
@@ -66,18 +66,18 @@ function <%= theme_id %>_localize_scripts()
 	wp_localize_script( 'theme', 'localize', $localize );
 }
 
-add_action( 'wp_enqueue_scripts', '<%= theme_id %>_localize_scripts', 99 );
+add_action( 'wp_enqueue_scripts', '<%= project_id %>_localize_scripts', 99 );
 
 
 /**
  * Enqueue admin scripts
  */
-function <%= theme_id %>_enqueue_admin_scripts()
+function <%= project_id %>_enqueue_admin_scripts()
 {
-	wp_enqueue_script( '<%= theme_id %>-admin', get_stylesheet_directory_uri() . '/javascripts/admin.js', array( 'jquery' ), '', true  );
+	wp_enqueue_script( '<%= project_id %>-admin', get_stylesheet_directory_uri() . '/javascripts/admin.js', array( 'jquery' ), '', true  );
 }
 
-add_action( 'admin_enqueue_scripts', '<%= theme_id %>_enqueue_admin_scripts', 99 );
+add_action( 'admin_enqueue_scripts', '<%= project_id %>_enqueue_admin_scripts', 99 );
 
 
 /**
@@ -91,7 +91,7 @@ include 'includes/options.php';
  * Theme Settings Page
  */
 
-function <%= theme_id %>_settings_page( $pages )
+function <%= project_id %>_settings_page( $pages )
 {
 	$pages[] = array(
 		'page_title'	=> 'Theme Settings',
@@ -102,11 +102,11 @@ function <%= theme_id %>_settings_page( $pages )
 		'setting'		=> 'theme_settings',
 		'icon'			=> 'options-general',
 		'save'			=> true,
-		'save_text'		=> __( 'Save Theme Settings', '<%= theme_id %>' ),
+		'save_text'		=> __( 'Save Theme Settings', '<%= project_id %>' ),
 		'default_tab'	=> 'Theme Settings'
 	);
 
 	return $pages;
 }
 
-add_filter('piklist_admin_pages', '<%= theme_id %>_settings_page');
+add_filter('piklist_admin_pages', '<%= project_id %>_settings_page');

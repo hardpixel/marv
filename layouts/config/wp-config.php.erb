@@ -72,6 +72,14 @@ $table_prefix  = 'wp_';
 define('WPLANG', '');
 
 /**
+ * WordPress default settings
+ */
+
+$base_path = substr(ABSPATH, strlen($_SERVER['DOCUMENT_ROOT']));
+define('WP_SITEURL', "http://${_SERVER['HTTP_HOST']}${base_path}");
+define('WP_HOME',    "http://${_SERVER['HTTP_HOST']}${base_path}");
+
+/**
  * For developers: WordPress debugging mode.
  *
  * Change this to true to enable the display of notices during development.

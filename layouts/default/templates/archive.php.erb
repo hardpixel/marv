@@ -8,13 +8,13 @@
 					<h1 class="page-title">
 						<?php
 							if ( is_day() ) :
-								printf( __( 'Day: %s', '<%= theme_id %>' ), get_the_date() );
+								printf( __( 'Day: %s', '<%= project_id %>' ), get_the_date() );
 							elseif ( is_month() ) :
-								printf( __( 'Month: %s', '<%= theme_id %>' ), get_the_date( 'F Y' ) );
+								printf( __( 'Month: %s', '<%= project_id %>' ), get_the_date( 'F Y' ) );
 							elseif ( is_year() ) :
-								printf( __( 'Year: %s', '<%= theme_id %>' ), get_the_date( 'Y' ) );
+								printf( __( 'Year: %s', '<%= project_id %>' ), get_the_date( 'Y' ) );
 							else :
-								_e( 'Archives', '<%= theme_id %>' );
+								_e( 'Archives', '<%= project_id %>' );
 							endif;
 						?>
 					</h1>
@@ -26,7 +26,7 @@
 
 				<?php endwhile; ?>
 
-				<?php <%= theme_id %>_paging_nav(); ?>
+				<?php <%= project_id %>_paging_nav(); ?>
 
 			<?php else : ?>
 

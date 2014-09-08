@@ -1,6 +1,7 @@
 
 module Marv
   class Generator
+
     class << self
       def run(project, layout, local_layout)
         generator = self.new(project, layout, local_layout)
@@ -123,7 +124,7 @@ module Marv
         end
       end
 
-      write_template(['config', 'config.th'], @project.config_file)
+      write_template(['config', 'project-config.rb'], @project.config_file)
 
       self
     end
@@ -159,5 +160,6 @@ module Marv
         end
       end
     end
+
   end
 end

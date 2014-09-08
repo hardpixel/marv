@@ -1,17 +1,17 @@
 <div class="no-results not-found">
 	<header class="page-header">
-		<h1 class="page-title"><?php _e( 'Nothing Found', '<%= theme_id %>' ); ?></h1>
+		<h1 class="page-title"><?php _e( 'Nothing Found', '<%= project_id %>' ); ?></h1>
 	</header>
 
 	<div class="page-content">
 		<?php if( is_search() ) : ?>
 
-			<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', '<%= theme_id %>' ); ?></p>
+			<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', '<%= project_id %>' ); ?></p>
 			<?php get_search_form(); ?>
 
 		<?php else : ?>
 
-			<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', '<%= theme_id %>' ); ?></p>
+			<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', '<%= project_id %>' ); ?></p>
 			<?php get_search_form(); ?>
 
 		<?php endif; ?>

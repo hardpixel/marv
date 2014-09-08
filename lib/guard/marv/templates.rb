@@ -3,6 +3,7 @@ require 'guard/guard'
 
 module Guard
   class MarvTemplates < ::Guard::Guard
+
     def initialize(watchers=[], options={})
       super
     end
@@ -31,5 +32,6 @@ module Guard
       ::Marv::Guard.builder.clean_templates
       ::Marv::Guard.builder.copy_templates
     end
+
   end
 end

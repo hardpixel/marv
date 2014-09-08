@@ -1,10 +1,12 @@
 == 0.3.0 ==
-- Marv install (Wordpress local install)
+- Many new functions & function updates
+- Marv server (Wordpress local install)
 - Informative error messages
-- Add rack-legacy dependency
+- Global plugins & themes
 - Local layouts
 - Config.rb option for additional assets
-- Update config template
+- Update config templates
+- Update dependencies
 
 == 0.2.5 ==
 - Remove compass, sprockets-sass and yui-compressor

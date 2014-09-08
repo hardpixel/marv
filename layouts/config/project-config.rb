@@ -13,5 +13,5 @@ config[:livereload] = false
 # config[:additional_assets] = [['custom.js'], ['stylesheets', 'custom.css'], ['includes', 'javascripts', 'includes.js']]
 
 # You can also include additional Compass frameworks by requiring them:
-# require 'boubon'
+# require 'bourbon'
 # require 'neat'

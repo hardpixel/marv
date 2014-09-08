@@ -34,5 +34,6 @@ module Guard
       ::Marv::Guard.builder.clean_images
       ::Marv::Guard.builder.build_assets
     end
+
   end
 end

@@ -3,6 +3,7 @@ require 'guard/guard'
 
 module Guard
   class MarvConfig < ::Guard::Guard
+
     def initialize(watchers=[], options={})
       super
     end
@@ -30,5 +31,6 @@ module Guard
       # Rebuild everything if the config changes
       ::Marv::Guard.builder.build
     end
+
   end
 end

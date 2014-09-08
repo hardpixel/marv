@@ -5,7 +5,7 @@
 			<?php if ( have_posts() ) : ?>
 
 				<header class="page-header">
-					<h1 class="page-title"><?php printf( __( 'Search Results for: %s', '<%= theme_id %>' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+					<h1 class="page-title"><?php printf( __( 'Search Results for: %s', '<%= project_id %>' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 				</header>
 
 				<?php while ( have_posts() ) : the_post(); ?>
@@ -14,7 +14,7 @@
 
 				<?php endwhile; ?>
 
-				<?php <%= theme_id %>_paging_nav(); ?>
+				<?php <%= project_id %>_paging_nav(); ?>
 
 			<?php else : ?>
 
