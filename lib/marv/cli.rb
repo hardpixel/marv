@@ -161,7 +161,16 @@ module Marv
       end
 
       if options[:remove]
-        remove_all_servers
+        config = {}
+
+        say "This will remove all available Marv servers:", :green
+        config[:user] = ask("Mysql username:", nil, {:default => "root"})
+        config[:password] = ask("Mysql user password:", nil, {:default => "required"})
+        config[:host] = ask("Mysql host:", nil, {:default => "localhost"})
+        config[:port] = ask("Mysql port:", nil, {:default => "3306"})
+        config[:version] = "latest"
+
+        remove_all_servers(config)
       end
       exit
     end
@@ -178,12 +187,12 @@ module Marv
       end
     end
 
-    def remove_all_servers
+    def remove_all_servers(config)
       servers_root = File.join(ENV['HOME'], '.marv', 'servers')
       servers = Dir.glob(File.join(servers_root, '*'))
 
       servers.each do |server|
-        server = Marv::Server.new(File.basename(server), self, nil)
+        server = Marv::Server.new(File.basename(server), self, config)
         server.remove_server
       end
     end

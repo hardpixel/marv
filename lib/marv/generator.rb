@@ -1,4 +1,3 @@
-
 module Marv
   class Generator
 
@@ -109,7 +108,6 @@ module Marv
       copy_templates
       copy_functions
       copy_includes
-      copy_folders
 
       return self
     end
