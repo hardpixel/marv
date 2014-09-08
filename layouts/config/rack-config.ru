@@ -6,7 +6,7 @@ module Rack
   module Legacy
     # patch Php from rack-legacy to write pid file and customize server
     class Php
-      def initialize app, public_dir=Dir.getwd, php_exe='php', quiet=false
+      def initialize app, public_dir=Dir.getwd, php_exe='php', quiet=true
         @app = app; @public_dir = public_dir
         server = TCPServer.new('127.0.0.1', 0)
         port = server.addr[1]
@@ -25,6 +25,8 @@ module Rack
         ::File.open(::File.join(@public_dir, 'php.pid'), 'w') do |file|
           file.write(@php.pid)
         end
+
+        puts "Visit http://localhost:#{port}";
       end
     end
   end
