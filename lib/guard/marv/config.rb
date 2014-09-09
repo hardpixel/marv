@@ -8,15 +8,13 @@ module Guard
       super
     end
 
-    # Called on Ctrl-Z signal
-    # This method should be mainly used for "reload" (really!) actions like reloading passenger/spork/bundler/...
+    # This method should be mainly used for "reload"
     def reload
       UI.info "Reloading project config"
       ::Marv::Guard.project.load_config
     end
 
-    # Called on Ctrl-\ signal
-    # This method should be principally used for long action like running all specs/tests/...
+    # Runs on all command in guard console
     def run_all
       UI.info "Reloading project config"
       ::Marv::Guard.project.load_config
@@ -28,6 +26,7 @@ module Guard
       UI.info "Project config changed, reloading"
       ::Marv::Guard.project.load_config
       ::Marv::Guard.builder = ::Marv::Builder.new(::Marv::Guard.project)
+
       # Rebuild everything if the config changes
       ::Marv::Guard.builder.build
     end

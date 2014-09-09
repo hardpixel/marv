@@ -8,30 +8,29 @@ module Guard
       super
     end
 
+    # Runs on marv watch
     def start
       UI.info "Building all assets"
       build_assets
     end
 
-    # Called on Ctrl-\ signal
-    # This method should be principally used for long action like running all specs/tests/...
+    # Runs on all command in guard console
     def run_all
       UI.info "Rebuilding all assets"
-      clean_build_assets
+      build_assets(true)
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
       UI.info "Assets have changed, rebuilding..."
-      clean_build_assets
+      build_assets(true)
     end
 
-    def build_assets
-      ::Marv::Guard.builder.build_assets
-    end
-
-    def clean_build_assets
-      ::Marv::Guard.builder.clean_images
+    # Build and clean assets
+    def build_assets(clean=nil)
+      unless clean.nil?
+        ::Marv::Guard.builder.clean_images
+      end
       ::Marv::Guard.builder.build_assets
     end
 
