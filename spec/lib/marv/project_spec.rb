@@ -1,6 +1,7 @@
 require 'marv/project'
 
 describe Marv::Project do
+
   before(:each) do
     @project = Marv::Project.new('/tmp/', nil, {:name => 'Hello'})
   end
