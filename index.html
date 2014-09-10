@@ -31,87 +31,158 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h2><a name="user-content-what-is-marv" class="anchor" href="#what-is-marv" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is Marv?</h2>
-          
-          <p>Marv is a free command-line toolkit for bootstrapping and developing WordPress themes and plugins in a tidy environment using front-end languages like Sass, LESS, and CoffeeScript.</p>
-          
-          <p><a href="http://badge.fury.io/rb/marv"><img src="https://camo.githubusercontent.com/3fd30e1b261c58d85f1e625d8d6c35141160b46f/68747470733a2f2f62616467652e667572792e696f2f72622f6d6172762e706e67" alt="Gem Version" data-canonical-src="https://badge.fury.io/rb/marv.png" style="max-width:100%;"></a></p>
-          
           <h2>
-          <a name="user-content-how-does-it-work" class="anchor" href="#how-does-it-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>How does it work?</h2>
-          
-          <p>Marv creates a neatly organized source folder with clean and simple scaffolding (base template files, SCSS files). The source folder is automatically compiled to your Marv development server(s) or local WordPress install(s) as you save changes and work on your project. When you are ready to distribute your project Marv will build it to a folder of your choice or bundle the project up into an easy to install zip package.</p>
-          
+            <a name="user-content-what-is-marv" class="anchor" href="#what-is-marv" aria-hidden="true"><span class="octicon octicon-link"></span>
+            </a>
+            What is Marv?</h2>
+          <p>
+            Marv is a free command-line toolkit for bootstrapping and developing WordPress themes and plugins in a tidy environment using front-end languages like Sass, LESS, and CoffeeScript.
+          </p>
+
+          <p>
+            <a href="http://badge.fury.io/rb/marv"><img src="https://camo.githubusercontent.com/3fd30e1b261c58d85f1e625d8d6c35141160b46f/68747470733a2f2f62616467652e667572792e696f2f72622f6d6172762e706e67" alt="Gem Version" data-canonical-src="https://badge.fury.io/rb/marv.png" style="max-width:100%;"></a>
+          </p>
+
           <h2>
-          <a name="user-content-why-use-marv" class="anchor" href="#why-use-marv" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why use Marv?</h2>
-          
-          <p>Marv accelerates development by giving you access to higher-level languages like Sass, LESS, and CoffeeScript. These languages are much quicker and cleaner to code, but still compile to normal CSS and JavaScript. Marv also makes it easy to quickly bootstrap into and a more modular development environment, while still compiling "by the book" WordPress code.</p>
-          
+            <a name="user-content-how-does-it-work" class="anchor" href="#how-does-it-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+            How does it work?
+          </h2>
+
+          <p>
+            Marv creates a neatly organized source folder with clean and simple scaffolding (base template files, SCSS files). The source folder is automatically compiled to your Marv development server(s) or local WordPress install(s) as you save changes and work on your project. When you are ready to distribute your project Marv will build it to a folder of your choice or bundle the project up into an easy to install zip package.
+          </p>
+
           <h2>
-          <a name="user-content-basic-setup" class="anchor" href="#basic-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic setup</h2>
-          
-          <p>Install Marv (requires <a href="http://www.ruby-lang.org/">Ruby</a> and <a href="http://rubygems.org/">RubyGems</a>):</p>
-          
-          <pre><code>$ gem install marv
-          </code></pre>
-          
-          <p>Create your new project:</p>
-          
-          <pre><code>$ marv create project-name
-          </code></pre>
-          
-          <p>Create a Marv development server:</p>
-          
-          <pre><code>$ marv server server-name
-          </code></pre>
-          
-          <p>Link to your Marv server:</p>
-          
-          <pre><code>$ cd project-name
-          $ marv link server-name --folder themes
-          $ marv link server-name --folder plugins
-          </code></pre>
-          
+            <a name="user-content-why-use-marv" class="anchor" href="#why-use-marv" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+            Why use Marv?
+          </h2>
+
+          <p>
+            Marv accelerates development by giving you access to higher-level languages like Sass, LESS, and CoffeeScript. These languages are much quicker and cleaner to code, but still compile to normal CSS and JavaScript. Marv also makes it easy to quickly bootstrap into and a more modular development environment, while still compiling "by the book" WordPress code.
+          </p>
+
+          <h2>
+            <a name="user-content-basic-setup" class="anchor" href="#basic-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+            Basic setup
+          </h2>
+
+          <p>
+            Install Marv (requires <a href="http://www.ruby-lang.org/">Ruby</a> and <a href="http://rubygems.org/">RubyGems</a>):
+          </p>
+
+          <pre>
+            <code>
+            $ gem install marv
+            </code>
+          </pre>
+
+          <p>
+            Create your new project:
+          </p>
+
+          <pre>
+            <code>
+              $ marv create project-name
+            </code>
+          </pre>
+
+          <p>
+            Create a Marv development server:
+          </p>
+
+          <pre>
+            <code>
+              $ marv server server-name
+            </code>
+          </pre>
+
+          <p>
+            Link to your Marv server:
+          </p>
+
+          <pre>
+            <code>
+              $ cd project-name
+              $ marv link server-name --folder themes
+              $ marv link server-name --folder plugins
+            </code>
+          </pre>
+
           <p>Also you can link to a WordPress installation:</p>
-          
-          <pre><code>$ cd project-name
-          $ marv link /var/www/wordpress --folder themes
-          $ marv link /var/www/wordpress --folder plugins
-          </code></pre>
-          
-          <p>Watch for changes and start developing!</p>
-          
-          <pre><code>$ cd project-name
-          $ marv watch
-          
-          Press Ctrl + Z to exit watch mode
-          </code></pre>
-          
-          <p>Build your project into the build_here directory:</p>
-          
-          <pre><code>$ marv build build_here
-          </code></pre>
-          
-          <p>Package your project as package-name.zip:</p>
-          
-          <pre><code>$ marv package package-name</code></pre>
-          
-          <h2><a name="user-content-help" class="anchor" href="#help" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help</h2>
-          
-          <p>Get a little help with the Marv commands:</p>
-          
-          <pre><code>$ marv help
-          $ marv help command
-          </code></pre>
-          
-          <p>See the <a href="https://github.com/hardpixel/marv/wiki">user's manual</a> for more information.</p>
-          
+
+          <pre>
+            <code>
+              $ cd project-name
+              $ marv link /var/www/wordpress --folder themes
+              $ marv link /var/www/wordpress --folder plugins
+            </code>
+          </pre>
+
+          <p>
+            Watch for changes and start developing!
+          </p>
+
+          <pre>
+            <code>
+              $ cd project-name
+              $ marv watch
+
+              Press Ctrl + Z to exit watch mode
+            </code>
+          </pre>
+
+          <p>
+            Build your project into the build_here directory:
+          </p>
+
+          <pre>
+            <code>
+              $ marv build build_here
+            </code>
+          </pre>
+
+          <p>
+            Package your project as package-name.zip:
+          </p>
+
+          <pre>
+            <code>
+              $ marv package package-name
+            </code>
+          </pre>
+
           <h2>
-          <a name="user-content-credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h2>
-          
-          <p>Marv is based on <a href="https://github.com/thethemefoundry/forge">Forge</a> by ThemeFoundry.</p>
-          
-          <p>Scaffold Wordpress theme is based on <a href="https://github.com/gizburdt/wp-scaffold">WP-Scaffold</a> by Gizburdt.</p>
+            <a name="user-content-help" class="anchor" href="#help" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+            Help
+          </h2>
+
+          <p>
+            Get a little help with the Marv commands:
+          </p>
+
+          <pre>
+            <code>
+              $ marv help
+              $ marv help command
+            </code>
+          </pre>
+
+          <p>
+            See the <a href="https://github.com/hardpixel/marv/wiki">user's manual</a> for more information.
+          </p>
+
+          <h2>
+            <a name="user-content-credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+            Credits
+          </h2>
+
+          <p>
+            Marv is based on <a href="https://github.com/thethemefoundry/forge">Forge</a> by ThemeFoundry.
+          </p>
+
+          <p>
+            Scaffold Wordpress theme is based on <a href="https://github.com/gizburdt/wp-scaffold">WP-Scaffold</a> by Gizburdt.
+          </p>
         </section>
 
         <aside id="sidebar">
