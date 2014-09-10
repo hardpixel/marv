@@ -25,7 +25,7 @@ Create your new project:
 
     $ marv create project-name
 
-Create a development server:
+Create a Marv development server:
 
 	$ marv server server-name
 
@@ -38,8 +38,8 @@ Link to your Marv server:
 Also you can link to a WordPress installation:
 
 	$ cd project-name
-    $ marv link --path /var/www/wordpress --folder themes
-    $ marv link --path /var/www/wordpress --folder plugins
+    $ marv link /var/www/wordpress --folder themes
+    $ marv link /var/www/wordpress --folder plugins
 
 Watch for changes and start developing!
 

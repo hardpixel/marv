@@ -31,16 +31,17 @@ module Marv
     method_option :folder, :type => :string, :enum => %w{themes plugins}, :required => true, :desc => "Link Marv project in themes or plugins folfer"
     def link(dir='global')
       project = Marv::Project.new('.', self)
-      project_folder = project.project_id.gsub('_', '-')
 
-      FileUtils.mkdir_p project.build_path unless File.directory?(project.build_path)
+      unless File.directory?(project.build_path)
+        FileUtils.mkdir_p project.build_path
+      end
 
       if dir == 'global'
-        link_project_globaly(options)
+        link_project_globaly(options, project)
       else
         wp_path = File.join(dir, 'wp-content', options[:folder])
         server_path = File.join(ENV['HOME'], '.marv', 'servers', dir, 'wp-content', options[:folder])
-        link_project(wp_path, server_path, options)
+        link_project(wp_path, server_path, project)
       end
     end
 
@@ -113,9 +114,13 @@ module Marv
 
     protected
 
-    def link_project_globaly(options)
+    def link_project_globaly(options, project)
+      project_folder = project.project_id.gsub('_', '-')
       global_folder = File.join(ENV['HOME'], '.marv', options[:folder])
-      FileUtils.mkdir_p global_folder unless File.directory?(global_folder)
+
+      unless File.directory?(global_folder)
+        FileUtils.mkdir_p global_folder
+      end
 
       do_link(project, File.join(global_folder, project_folder))
 
@@ -171,7 +176,7 @@ module Marv
       end
     end
 
-    def link_project( wp_path, servers_path, options)
+    def link_project( wp_path, servers_path, project)
       if File.directory?(wp_path)
         do_link(project, File.join(wp_path, project_folder))
       else
