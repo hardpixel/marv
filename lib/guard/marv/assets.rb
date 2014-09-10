@@ -10,20 +10,23 @@ module Guard
 
     # Runs on marv watch
     def start
-      UI.info "Building all assets"
-      ::Marv::Guard.builder.build_assets
+      build_assets("Building all assets")
     end
 
     # Runs on all command in guard console
     def run_all
-      UI.info "Rebuilding all assets"
-      ::Marv::Guard.builder.build_assets(true)
+      build_assets("Rebuilding all assets", true)
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      UI.info "Assets have changed, rebuilding..."
-      ::Marv::Guard.builder.build_assets(true)
+      build_assets("Assets have changed, rebuilding...", true)
+    end
+
+    # Build assets
+    def build_assets(message, clean)
+      UI.info message
+      ::Marv::Guard.builder.build_assets(clean)
     end
 
   end

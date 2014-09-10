@@ -10,20 +10,23 @@ module Guard
 
     # Runs on marv watch
     def start
-      UI.info "Copying folders over"
-      ::Marv::Guard.builder.copy_folders
+      copy_folders("Copying folders over")
     end
 
     # Runs on all command in guard console
     def run_all
-      UI.info "Rebuilding all folders"
-      ::Marv::Guard.builder.copy_folders(true)
+      copy_folders("Rebuilding all folders", true)
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      UI.info "Folders have changed, copying over"
-      ::Marv::Guard.builder.copy_folders(true)
+      copy_folders("Folders have changed, copying over", true)
+    end
+
+    # Copy folders
+    def copy_folders(message, clean)
+      UI.info message
+      ::Marv::Guard.builder.copy_folders(clean)
     end
 
   end

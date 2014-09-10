@@ -10,20 +10,23 @@ module Guard
 
     # Runs on marv watch
     def start
-      UI.info "Copying templates over"
-      ::Marv::Guard.builder.copy_templates
+      copy_templates("Copying templates over")
     end
 
     # Runs on all command in guard console
     def run_all
-      UI.info "Rebuilding all templates"
-      ::Marv::Guard.builder.copy_templates(true)
+      copy_templates("Rebuilding all templates", true)
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      UI.info "Templates have changed, copying over"
-      ::Marv::Guard.builder.copy_templates(true)
+      copy_templates("Templates have changed, copying over", true)
+    end
+
+    # Copy templates
+    def copy_templates(message, clean)
+      UI.info message
+      ::Marv::Guard.builder.copy_templates(clean)
     end
 
   end
