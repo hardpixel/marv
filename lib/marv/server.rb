@@ -64,10 +64,10 @@ module Marv
 
       download_wordpress
       extract_wordpress
-      add_rack_config
+      add_config_file('rack-config.ru', 'config.ru')
 
       create_server_database
-      add_wordpress_config
+      add_config_file('wp-config.php.erb', 'wp-config.php')
 
       add_global_content
 
@@ -197,24 +197,13 @@ module Marv
       @task.say "WordPress files created", :green
     end
 
-    def add_wordpress_config
+    def add_config_file(source, target)
       unless File.exists?(@wp_config)
-        wp_config = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'layouts', 'config', 'wp-config.php.erb'))
-        wp_config_template = ERB.new(::File.binread(wp_config), nil, '-', '@output_buffer')
+        config = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'layouts', 'config', source))
+        config_template = ERB.new(::File.binread(config), nil, '-', '@output_buffer')
 
-        File.open(File.join(@server_path, 'wp-config.php'), 'w') do |file|
+        File.open(File.join(@server_path, target), 'w') do |file|
           file.write(wp_config_template.result(binding))
-        end
-      end
-    end
-
-    def add_rack_config
-      unless File.exists?(@rack_config)
-        config_wp = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'layouts', 'config', 'rack-config.ru'))
-        config_ru_template = ERB.new(::File.binread(config_wp), nil, '-', '@output_buffer')
-
-        File.open(File.join(@server_path, 'config.ru'), 'w') do |file|
-          file.write(config_ru_template.result(binding))
         end
       end
     end
