@@ -63,10 +63,11 @@ module Marv
 
     def copy_functions
       ['functions.php', @project.project_php_file].each do |file|
-        source = File.expand_path(File.join(self.layout_path, 'functions', '#{file}.erb'))
-        target = File.expand_path(File.join(@project.source_path, 'functions', file))
-
-        write_template(source, target)
+        source = File.expand_path(File.join(self.layout_path, 'functions', "#{file}.erb"))
+        if File.exist?(source)
+          target = File.expand_path(File.join(@project.source_path, 'functions', file))
+          write_template(source, target)
+        end
       end
     end
 

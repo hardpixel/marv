@@ -176,7 +176,9 @@ module Marv
       end
     end
 
-    def link_project( wp_path, servers_path, project)
+    def link_project( wp_path, server_path, project)
+      project_folder = project.project_id.gsub('_', '-')
+
       if File.directory?(wp_path)
         do_link(project, File.join(wp_path, project_folder))
       else

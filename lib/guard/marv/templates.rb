@@ -10,7 +10,7 @@ module Guard
 
     # Runs on marv watch
     def start
-      copy_templates("Copying templates over")
+      copy_templates("Copying templates over", true)
     end
 
     # Runs on all command in guard console
@@ -20,7 +20,7 @@ module Guard
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      copy_templates("Templates have changed, copying over", true)
+      copy_templates("Templates have changed, copying over", nil)
     end
 
     # Copy templates

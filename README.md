@@ -7,7 +7,7 @@ Marv is a free command-line toolkit for bootstrapping and developing WordPress t
 
 ## How does it work?
 
-Marv creates a neatly organized source folder with clean and simple scaffolding (base template files, SCSS files). The source folder is automatically compiled to your Marv server(s) or local WordPress install(s) as you save changes and work on your project. When you are ready to distribute your project Marv will build it to a folder of your choice or bundle the project up into an easy to install zip package.
+Marv creates a neatly organized source folder with clean and simple scaffolding (base template files, SCSS files). The source folder is automatically compiled to your Marv development server(s) or local WordPress install(s) as you save changes and work on your project. When you are ready to distribute your project Marv will build it to a folder of your choice or bundle the project up into an easy to install zip package.
 
 
 ## Why use Marv?

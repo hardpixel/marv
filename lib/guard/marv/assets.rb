@@ -10,7 +10,7 @@ module Guard
 
     # Runs on marv watch
     def start
-      build_assets("Building all assets")
+      build_assets("Building all assets", true)
     end
 
     # Runs on all command in guard console
@@ -20,7 +20,7 @@ module Guard
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      build_assets("Assets have changed, rebuilding...", true)
+      build_assets("Assets have changed, rebuilding...", nil)
     end
 
     # Build assets

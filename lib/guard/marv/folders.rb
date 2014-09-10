@@ -10,7 +10,7 @@ module Guard
 
     # Runs on marv watch
     def start
-      copy_folders("Copying folders over")
+      copy_folders("Copying folders over", true)
     end
 
     # Runs on all command in guard console
@@ -20,7 +20,7 @@ module Guard
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      copy_folders("Folders have changed, copying over", true)
+      copy_folders("Folders have changed, copying over", nil)
     end
 
     # Copy folders

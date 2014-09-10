@@ -67,7 +67,9 @@ module Marv
     # Empty out the build directory
     def clean_build_directory
       # create build path if it does not exist
-      FileUtils.mkdir_p(@project.build_path) unless File.exists?(@project.build_path)
+      unless File.exists?(@project.build_path)
+        FileUtils.mkdir_p(@project.build_path)
+      end
       # Empty the build path
       FileUtils.rm_rf Dir.glob(File.join(@project.build_path, '*'))
     end
@@ -102,11 +104,17 @@ module Marv
 
     def clean_functions
       #remove functions php
-      FileUtils.rm File.join(@project.build_path, 'functions.php') if File.exists?(File.join(@project.build_path, 'functions.php'))
+      if File.exists?(File.join(@project.build_path, 'functions.php'))
+        FileUtils.rm File.join(@project.build_path, 'functions.php')
+      end
       # Remove plugin file
-      FileUtils.rm File.join(@project.build_path, @project.project_php_file) if File.exists?(@project.project_php_file)
+      if File.exists?(@project.project_php_file)
+        FileUtils.rm File.join(@project.build_path, @project.project_php_file)
+      end
       # Remove functions folder
-      FileUtils.rm_rf File.join(@project.build_path, 'functions') if File.directory?(File.join(@project.build_path, 'functions'))
+      if File.directory?(File.join(@project.build_path, 'functions'))
+        FileUtils.rm_rf File.join(@project.build_path, 'functions')
+      end
     end
 
     def copy_functions(clean=nil)
@@ -137,7 +145,9 @@ module Marv
 
       unless functions_paths.empty?
         # Create the functions folder in the build directory
-        FileUtils.mkdir_p(File.join(@project.build_path, 'functions'))
+        unless File.directory?(File.join(@project.build_path, 'functions'))
+          FileUtils.mkdir_p(File.join(@project.build_path, 'functions'))
+        end
 
         # Iterate over all files in source/functions, skipping the actual functions.php file
         paths = Dir.glob(File.join(@functions_path, '**', '*')).reject do |filename|
@@ -161,7 +171,9 @@ module Marv
       # Copy includes
       unless Dir.glob(File.join(@includes_path, '*')).empty?
         # Create the includes folder in the build directory
-        FileUtils.mkdir(File.join(@project.build_path, 'includes'))
+        unless File.directory?(File.join(@project.build_path, 'includes'))
+          FileUtils.mkdir(File.join(@project.build_path, 'includes'))
+        end
 
         # Iterate over all files in source/includes, so we can exclude if necessary
         paths = Dir.glob(File.join(@includes_path, '**', '*'))
@@ -180,20 +192,17 @@ module Marv
     def copy_folders(clean=nil)
       folders = Dir.glob(File.join(@project.source_path, '*'))
 
-      # Reject default project folders
-      folders.reject do |folder|
-        [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
-      end
-
       folders.each do |folder|
         if File.directory?(folder)
-          # Clean folders
-          unless clean.nil?
-            clean_folders(folder)
+          unless [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
+            # Clean folders
+            unless clean.nil?
+              clean_folders(folder)
+            end
+            # Copy folders
+            paths = Dir.glob(File.join(folder, '**', '*'))
+            copy_paths_with_erb(paths, @project.source_path, @project.build_path)
           end
-          # Copy folders
-          paths = Dir.glob(File.join(folder, '**', '*'))
-          copy_paths_with_erb(paths, @project.source_path, @project.build_path)
         end
       end
     end
@@ -244,7 +253,9 @@ module Marv
       end
 
       # Copy the images directory over
-      FileUtils.cp_r(File.join(@assets_path, 'images'), @project.build_path) if File.exists?(File.join(@assets_path, 'images'))
+      if File.directory?(File.join(@assets_path, 'images'))
+        FileUtils.cp_r(File.join(@assets_path, 'images'), @project.build_path)
+      end
 
       # Check for screenshot and move it into main build directory
       Dir.glob(File.join(@project.build_path, 'images', '*')).each do |filename|

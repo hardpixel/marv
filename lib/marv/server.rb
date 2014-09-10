@@ -77,7 +77,7 @@ module Marv
     end
 
     def start_server
-      update_global_content
+      update_global_projects
 
       begin
         @task.shell.mute do
@@ -270,31 +270,28 @@ module Marv
       end
     end
 
-    def update_global_content
-      @task.shell.mute do
-        themes = Dir.glob(File.join(@server_path, 'wp-content', 'themes', '*'))
-
-        themes.each do |theme|
-          if File.symlink?(theme)
-            unless File.exists?(theme)
-              File.delete(theme)
-              File.delete(File.join(ENV['HOME'], '.marv', 'themes', File.basename(theme)))
+    def update_global_folders(dir, folders)
+      begin
+        folders.each do |folder|
+          if File.symlink?(folder)
+            unless File.exists?(folder)
+              File.delete(folder)
+              File.delete(File.join(ENV['HOME'], '.marv', dir, File.basename(folder)))
             end
           end
         end
-
-        plugins = Dir.glob(File.join(@server_path, 'wp-content', 'plugins', '*'))
-
-        plugins.each do |plugin|
-          if File.symlink?(plugin)
-            unless File.exists?(plugin)
-              File.delete(plugin)
-              File.delete(File.join(ENV['HOME'], '.marv', 'themes', File.basename(plugin)))
-            end
-          end
-        end
-
+      rescue Exception => e
+        @task.say "Error while updating global projects:"
+        @task.say e.message + "\n", :red
       end
+    end
+
+    def update_global_projects
+      themes = Dir.glob(File.join(@server_path, 'wp-content', 'themes', '*'))
+      update_global_folders('themes', themes)
+
+      plugins = Dir.glob(File.join(@server_path, 'wp-content', 'plugins', '*'))
+      update_global_folders('plugins', plugins)
     end
 
   end

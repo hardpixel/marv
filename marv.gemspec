@@ -93,7 +93,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"
-  s.summary = "A tool for developing wordpress themes and plugins"
+  s.summary = "A command-line tool for developing wordpress themes and plugins"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
