@@ -25,29 +25,22 @@ module Marv
       project = Marv::Project.create(dir, theme, self, options[:layout], options[:local])
     end
 
-    desc "link SERVER", "Create a symbolic link to the compilation directory"
-    long_desc "This command will symlink the compiled version of the project to the specified server or WordPress install path"
-    method_option :folder, :type => :string, :aliases => "-f" , :enum => %w{themes plugins}, :required => true, :desc => "Link Marv project in themes or plugins folfer"
-    method_option :global, :type => :boolean, :aliases => "-g" , :force => false, :desc => "Link Marv project in global folder"
-    method_option :path, :type => :string, :aliases => "-p" , :desc => "Create a symbolic link to a WordPress folder"
-    def link(server=nil)
+    desc "link SERVER or DIRECTORY", "Create a symbolic link to the compilation directory"
+    long_desc "This command will symlink the compiled version of the project to the specified server or WordPress install path."+
+    "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
+    method_option :folder, :type => :string, :enum => %w{themes plugins}, :required => true, :desc => "Link Marv project in themes or plugins folfer"
+    def link(dir='global')
       project = Marv::Project.new('.', self)
       project_folder = project.project_id.gsub('_', '-')
 
       FileUtils.mkdir_p project.build_path unless File.directory?(project.build_path)
 
-      unless server.nil?
-        server_path = File.join(ENV['HOME'], '.marv', 'servers', server, 'wp-content', options[:folder])
-        do_link(project, File.join(server_path, project_folder))
-      end
-
-      if options[:global]
+      if dir == 'global'
         link_project_globaly(options)
-      end
-
-      if options[:path]
-        wp_path = File.join(options[:path], 'wp-content', options[:folder])
-        do_link(project, File.join(wp_path, project_folder))
+      else
+        wp_path = File.join(dir, 'wp-content', options[:folder])
+        server_path = File.join(ENV['HOME'], '.marv', 'servers', dir, 'wp-content', options[:folder])
+        link_project(wp_path, server_path, options)
       end
     end
 
@@ -90,13 +83,13 @@ module Marv
     end
 
     desc "server SERVER", "Start a Marv server by name"
-    method_option :list, :type => :boolean, :aliases => "list" , :force => false, :desc => "List all available Marv servers"
-    method_option :start, :type => :boolean, :aliases => "start" , :force => false, :desc => "Create a new Marv server"
-    method_option :stop, :type => :boolean, :aliases => "stop" , :force => false, :desc => "Stop a running Marv server"
-    method_option :restart, :type => :boolean, :aliases => "restart" , :force => false, :desc => "Restart a Marv server"
-    # method_option :backup, :type => :boolean, :aliases => "backup" , :force => false, :desc => "Backup a Marv server"
-    # method_option :restore, :type => :boolean, :aliases => "restore" , :force => false, :desc => "Restore a Marv server"
-    method_option :remove, :type => :boolean, :aliases => "remove" , :force => false, :desc => "Remove a Marv server"
+    method_option :list, :type => :boolean, :force => false, :desc => "List all available Marv servers"
+    method_option :start, :type => :boolean, :force => false, :desc => "Create a new Marv server"
+    method_option :stop, :type => :boolean, :force => false, :desc => "Stop a running Marv server"
+    method_option :restart, :type => :boolean, :force => false, :desc => "Restart a Marv server"
+    # method_option :backup, :type => :boolean, :force => false, :desc => "Backup a Marv server"
+    # method_option :restore, :type => :boolean, :force => false, :desc => "Restore a Marv server"
+    method_option :remove, :type => :boolean, :force => false, :desc => "Remove a Marv server"
     def server(name=nil)
       if options.empty?
         server = Marv::Server.new(name, self, server_config)
@@ -175,6 +168,14 @@ module Marv
       say "Available marv servers:"
       servers.each do |server|
         say '- ' + File.basename(server), :cyan
+      end
+    end
+
+    def link_project( wp_path, servers_path, options)
+      if File.directory?(wp_path)
+        do_link(project, File.join(wp_path, project_folder))
+      else
+        do_link(project, File.join(server_path, project_folder))
       end
     end
 

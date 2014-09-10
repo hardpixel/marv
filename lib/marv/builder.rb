@@ -79,7 +79,11 @@ module Marv
       end
     end
 
-    def copy_templates
+    def copy_templates(clean=nil)
+      unless clean.nil?
+        clean_templates
+      end
+
       template_paths.each do |template_path|
         # Skip directories
         next if File.directory?(template_path)
@@ -105,7 +109,13 @@ module Marv
       FileUtils.rm_rf File.join(@project.build_path, 'functions') if File.directory?(File.join(@project.build_path, 'functions'))
     end
 
-    def copy_functions
+    def copy_functions(clean=nil)
+      # Clean functions
+      unless clean.nil?
+        clean_functions
+      end
+
+      # Copy functions
       functions_erb_path = File.join(@functions_path, 'functions.php.erb')
       functions_php_path = File.join(@functions_path, 'functions.php')
       plugin_php_path = File.join(@functions_path, @project.project_php_file)
@@ -130,7 +140,9 @@ module Marv
         FileUtils.mkdir_p(File.join(@project.build_path, 'functions'))
 
         # Iterate over all files in source/functions, skipping the actual functions.php file
-        paths = Dir.glob(File.join(@functions_path, '**', '*')).reject {|filename| [functions_erb_path, functions_php_path, plugin_php_path].include?(filename) }
+        paths = Dir.glob(File.join(@functions_path, '**', '*')).reject do |filename|
+          [functions_erb_path, functions_php_path, plugin_php_path].include?(filename)
+        end
 
         copy_paths_with_erb(paths, @functions_path, File.join(@project.build_path, 'functions'))
       end
@@ -140,7 +152,13 @@ module Marv
       FileUtils.rm_rf File.join(@project.build_path, 'includes')
     end
 
-    def copy_includes
+    def copy_includes(clean=nil)
+      # Clean Includes
+      unless clean.nil?
+        clean_includes
+      end
+
+      # Copy includes
       unless Dir.glob(File.join(@includes_path, '*')).empty?
         # Create the includes folder in the build directory
         FileUtils.mkdir(File.join(@project.build_path, 'includes'))
@@ -151,26 +169,31 @@ module Marv
       end
     end
 
-    def clean_folders
-      Dir.glob(File.join(@project.source_path, '*')).each do |folder|
-        unless [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
-          if File.directory?(folder)
-            relative_path = folder.gsub(@project.source_path, '')
-            destination = File.join(@project.build_path, relative_path)
+    def clean_folders(folder)
+      # Clean folder
+      relative_path = folder.gsub(@project.source_path, '')
+      destination = File.join(@project.build_path, relative_path)
 
-            FileUtils.rm_rf destination
-          end
-        end
-      end
+      FileUtils.rm_rf destination
     end
 
-    def copy_folders
-      Dir.glob(File.join(@project.source_path, '*')).each do |folder|
-        unless [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
-          if File.directory?(folder)
-            paths = Dir.glob(File.join(folder, '**', '*'))
-            copy_paths_with_erb(paths, @project.source_path, @project.build_path)
+    def copy_folders(clean=nil)
+      folders = Dir.glob(File.join(@project.source_path, '*'))
+
+      # Reject default project folders
+      folders.reject do |folder|
+        [@assets_path, @templates_path, @functions_path, @includes_path].include?(folder)
+      end
+
+      folders.each do |folder|
+        if File.directory?(folder)
+          # Clean folders
+          unless clean.nil?
+            clean_folders(folder)
           end
+          # Copy folders
+          paths = Dir.glob(File.join(folder, '**', '*'))
+          copy_paths_with_erb(paths, @project.source_path, @project.build_path)
         end
       end
     end
@@ -179,7 +202,13 @@ module Marv
       FileUtils.rm_rf File.join(@project.build_path, 'images')
     end
 
-    def build_assets
+    def build_assets(clean=nil)
+      # Clean images
+      unless clean.nil?
+        clean_images
+      end
+
+      # Build assets
       default_assets = [['style.css'], ['admin.css'], ['javascripts', 'theme.js'], ['javascripts', 'admin.js']]
       additional_assets = @project.config[:additional_assets]
 

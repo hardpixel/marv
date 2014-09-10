@@ -39,56 +39,35 @@ module Marv
       self
     end
 
-    def copy_stylesheets
-      source = File.expand_path(File.join(self.layout_path, 'stylesheets'))
-      target = File.expand_path(File.join(@project.assets_path, 'stylesheets'))
+    def copy_assets
+      ['stylesheets', 'javascripts', 'images'].each do |folder|
+        source = File.expand_path(File.join(self.layout_path, folder))
+        target = File.expand_path(File.join(@project.assets_path, folder))
 
-      render_directory(source, target)
-
-      self
-    end
-
-    def copy_javascript
-      source = File.expand_path(File.join(self.layout_path, 'javascripts'))
-      target = File.expand_path(File.join(@project.assets_path, 'javascripts'))
-
-      render_directory(source, target)
+        render_directory(source, target)
+      end
 
       self
     end
 
-    def copy_images
-      source = File.expand_path(File.join(self.layout_path, 'images'))
-      target = File.expand_path(File.join(@project.assets_path, 'images'))
+    def copy_folders
+      ['templates', 'includes'].each do |folder|
+        source = File.expand_path(File.join(self.layout_path, folder))
+        target = File.expand_path(File.join(@project.source_path, folder))
 
-      render_directory(source, target)
-
-      self
-    end
-
-    def copy_templates
-      source = File.expand_path(File.join(self.layout_path, 'templates'))
-      target = File.expand_path(File.join(@project.source_path, 'templates'))
-
-      render_directory(source, target)
+        render_directory(source, target)
+      end
 
       self
     end
 
     def copy_functions
-      source = File.expand_path(File.join(self.layout_path, 'functions', 'functions.php.erb'))
-      target = File.expand_path(File.join(@project.source_path, 'functions', 'functions.php'))
+      ['functions.php', @project.project_php_file].each do |file|
+        source = File.expand_path(File.join(self.layout_path, 'functions', '#{file}.erb'))
+        target = File.expand_path(File.join(@project.source_path, 'functions', file))
 
-      write_template(source, target)
-    end
-
-    def copy_includes
-      source = File.expand_path(File.join(self.layout_path, 'includes'))
-      target = File.expand_path(File.join(@project.source_path, 'includes'))
-
-      render_directory(source, target)
-
-      self
+        write_template(source, target)
+      end
     end
 
     def layout_path
@@ -102,12 +81,9 @@ module Marv
     def run
       write_config
       create_structure
-      copy_stylesheets
-      copy_javascript
-      copy_images
-      copy_templates
+      copy_assets
+      copy_folders
       copy_functions
-      copy_includes
 
       return self
     end

@@ -3,6 +3,8 @@
 - Add option --list to server command
 - Remove option --create from server command
 - Add option --start to server command
+- Remove marv link options except --folder
+- Link projects by default to global folders
 
 == 0.3.0 ==
 - Marv server (Wordpress local install)

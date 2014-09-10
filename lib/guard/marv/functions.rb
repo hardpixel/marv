@@ -27,13 +27,9 @@ module Guard
     end
 
     # Copy and clean functions and includes folder
-    def copy_functions(clean=nil)
-      unless clean.nil?
-        ::Marv::Guard.builder.clean_functions
-        ::Marv::Guard.builder.clean_includes
-      end
-      ::Marv::Guard.builder.copy_functions
-      ::Marv::Guard.builder.copy_includes
+    def copy_functions(clean)
+      ::Marv::Guard.builder.copy_functions(clean)
+      ::Marv::Guard.builder.copy_includes(clean)
     end
 
   end
