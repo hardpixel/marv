@@ -1,3 +1,9 @@
+== 0.3.1 ==
+- Remove command servers
+- Add option --list to server command
+- Remove option --create from server command
+- Add option --start to server command
+
 == 0.3.0 ==
 - Marv server (Wordpress local install)
 - Global plugins & themes for Marv servers

@@ -38,23 +38,11 @@ module Marv
 
       unless server.nil?
         server_path = File.join(ENV['HOME'], '.marv', 'servers', server, 'wp-content', options[:folder])
-
-        unless options[:global]
-          do_link(project, File.join(server_path, project_folder))
-        end
+        do_link(project, File.join(server_path, project_folder))
       end
 
       if options[:global]
-        global_folder = File.join(ENV['HOME'], '.marv', options[:folder])
-        FileUtils.mkdir_p global_folder unless File.directory?(global_folder)
-
-        do_link(project, File.join(global_folder, project_folder))
-
-        servers = Dir.glob(File.join(ENV['HOME'], '.marv', 'servers' , '*'))
-
-        servers.each do |server|
-          shell.mute { do_link(project, File.join(server, 'wp-content', options[:folder], project_folder)) }
-        end
+        link_project_globaly(options)
       end
 
       if options[:path]
@@ -102,98 +90,91 @@ module Marv
     end
 
     desc "server SERVER", "Start a Marv server by name"
-    method_option :create, :type => :boolean, :aliases => "-c" , :force => false, :desc => "Create a new Marv server"
-    method_option :stop, :type => :boolean, :aliases => "-s" , :force => false, :desc => "Stop a running Marv server"
-    method_option :restart, :type => :boolean, :aliases => "-r" , :force => false, :desc => "Restart a Marv server"
-    # method_option :backup, :type => :boolean, :force => false, :desc => "Backup a Marv server"
-    # method_option :restore, :type => :boolean, :force => false, :desc => "Restore a Marv server"
-    method_option :remove, :type => :boolean, :force => false, :desc => "Remove a Marv server"
-    def server(name)
-      config = {}
-
-      if options[:create]
-        say "This will create a new Marv server with WordPress installed:", :green
-        config[:user] = ask("Mysql username:", nil, {:default => "root"})
-        config[:password] = ask("Mysql user password:", nil, {:default => "required"})
-        config[:host] = ask("Mysql host:", nil, {:default => "localhost"})
-        config[:port] = ask("Mysql port:", nil, {:default => "3306"})
-        config[:version] = ask("WordPress version:", nil, {:default => "latest"})
-
-        server = Marv::Server.new(name, self, config)
-        server.create_server
-      else
-        server = Marv::Server.new(name, self, nil)
-
-        if options.empty?
-          server.start_server
-        end
-
-        if options[:stop]
-          server.stop_server
-        end
-
-        if options[:restart]
-          server.restart_server
-        end
-
-        if options[:remove]
-          say "This will remove the specified Marv server:", :green
-          config[:user] = ask("Mysql username:", nil, {:default => "root"})
-          config[:password] = ask("Mysql user password:", nil, {:default => "required"})
-          config[:host] = ask("Mysql host:", nil, {:default => "localhost"})
-          config[:port] = ask("Mysql port:", nil, {:default => "3306"})
-          config[:version] = "latest"
-
-          server = Marv::Server.new(name, self, config)
-          server.remove_server
-        end
-      end
-      exit
-    end
-
-    desc "servers OPTION", "List all available Marv servers"
-    method_option :remove, :type => :boolean, :force => false, :desc => "Remove all Marv servers"
-    # method_option :backup, :type => :boolean, :force => false, :desc => "Backup existing Marv servers"
-    # method_option :restore, :type => :boolean, :force => false, :desc => "Restore Marv servers from backup file"
-    def servers
+    method_option :list, :type => :boolean, :aliases => "list" , :force => false, :desc => "List all available Marv servers"
+    method_option :start, :type => :boolean, :aliases => "start" , :force => false, :desc => "Create a new Marv server"
+    method_option :stop, :type => :boolean, :aliases => "stop" , :force => false, :desc => "Stop a running Marv server"
+    method_option :restart, :type => :boolean, :aliases => "restart" , :force => false, :desc => "Restart a Marv server"
+    # method_option :backup, :type => :boolean, :aliases => "backup" , :force => false, :desc => "Backup a Marv server"
+    # method_option :restore, :type => :boolean, :aliases => "restore" , :force => false, :desc => "Restore a Marv server"
+    method_option :remove, :type => :boolean, :aliases => "remove" , :force => false, :desc => "Remove a Marv server"
+    def server(name=nil)
       if options.empty?
-        list_all_servers
+        server = Marv::Server.new(name, self, server_config)
+        server.create_server
       end
 
       if options[:remove]
-        config = {}
-
-        say "This will remove all available Marv servers:", :green
-        config[:user] = ask("Mysql username:", nil, {:default => "root"})
-        config[:password] = ask("Mysql user password:", nil, {:default => "required"})
-        config[:host] = ask("Mysql host:", nil, {:default => "localhost"})
-        config[:port] = ask("Mysql port:", nil, {:default => "3306"})
-        config[:version] = "latest"
-
-        remove_all_servers(config)
+        server = Marv::Server.new(name, self, server_config(true, name))
+        server.remove_server
       end
-      exit
+
+      if options[:start] or options[:stop] or options[:restart]
+        server = Marv::Server.new(name, self, nil)
+        control_server(options, name, server)
+      end
+
+      if options[:list]
+        list_servers
+      end
     end
 
     protected
 
-    def list_all_servers
-      servers_root = File.join(ENV['HOME'], '.marv', 'servers')
-      servers = Dir.glob(File.join(servers_root, '*'))
+    def link_project_globaly(options)
+      global_folder = File.join(ENV['HOME'], '.marv', options[:folder])
+      FileUtils.mkdir_p global_folder unless File.directory?(global_folder)
+
+      do_link(project, File.join(global_folder, project_folder))
+
+      servers = Dir.glob(File.join(ENV['HOME'], '.marv', 'servers' , '*'))
 
       servers.each do |server|
-        say "Available marv servers:", :yellow
-        say '- ' + File.basename(server), :green
+        shell.mute { do_link(project, File.join(server, 'wp-content', options[:folder], project_folder)) }
       end
     end
 
-    def remove_all_servers(config)
+    def server_config(remove=nil, name=nil)
+      config = {}
+
+      if remove.nil?
+        say "This will create a new Marv server with WordPress installed:", :green
+      else
+        say "This will remove #{name} server:", :yellow
+      end
+
+      config[:user] = ask("Mysql username:", nil, {:default => "root"})
+      config[:password] = ask("Mysql user password:", nil, {:default => "required"})
+      config[:host] = ask("Mysql host:", nil, {:default => "localhost"})
+      config[:port] = ask("Mysql port:", nil, {:default => "3306"})
+
+      if remove.nil?
+        config[:version] = ask("WordPress version:", nil, {:default => "latest"})
+      end
+
+      config
+    end
+
+    def control_server(options, name, server)
+      if options[:start]
+        server.start_server
+      end
+
+      if options[:stop]
+        server.stop_server
+      end
+
+      if options[:restart]
+        server.restart_server
+      end
+    end
+
+    def list_servers
       servers_root = File.join(ENV['HOME'], '.marv', 'servers')
       servers = Dir.glob(File.join(servers_root, '*'))
 
+      say "Available marv servers:"
       servers.each do |server|
-        server = Marv::Server.new(File.basename(server), self, config)
-        server.remove_server
+        say '- ' + File.basename(server), :cyan
       end
     end
 

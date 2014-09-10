@@ -20,8 +20,8 @@ Jeweler::Tasks.new do |gem|
   gem.executables = ["marv"]
   gem.homepage = "http://hardpixel.github.io/marv"
   gem.license = "MIT"
-  gem.summary = %Q{A tool for developing wordpress themes}
-  gem.description = %Q{A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript.}
+  gem.summary = %Q{A tool for developing wordpress themes and plugins}
+  gem.description = %Q{A toolkit for bootstrapping and developing WordPress themes and plugins using Sass, LESS, and CoffeeScript.}
   gem.email = "info@hardpixel.eu"
   gem.authors = ["Jonian Guveli", "Olibia Tsati"]
   # dependencies defined in Gemfile

@@ -71,7 +71,8 @@ module Marv
 
       add_global_content
 
-      @task.say "Server #{@server_name} created", :green
+      @task.say "Server #{@server_name} created successfuly!", :green
+      @task.say "Start server using marv server #{@server_name} --start"
       exit
     end
 
@@ -85,7 +86,6 @@ module Marv
       rescue Exception => e
         @task.say "Error while starting server:"
         @task.say e.message + "\n", :red
-        exit
       end
       @task.say "Server #{@server_name} running", :green
     end
@@ -101,15 +101,14 @@ module Marv
             php_pid = File.read(php_pid_file).to_i
 
             Process.kill(9, ruby_pid, php_pid)
-            @task.say "Server #{@server_name} stopped", :green
+            @task.say "Server #{@server_name} stopped", :yellow
           else
-            @task.say "Server #{@server_name} is not running", :yellow
+            @task.say "Server #{@server_name} is not running", :red
           end
         end
       rescue Exception => e
         @task.say "Error while stoping server:"
         @task.say e.message + "\n", :red
-        exit
       end
     end
 
@@ -119,16 +118,17 @@ module Marv
     end
 
     def remove_server
-      @task.say "Removing server...", :green
+      @task.say "Removing server..."
       @task.shell.mute do
         stop_server
       end
-      @task.say "Removing server files...", :green
+      @task.say "Removing server files..."
 
       begin
         @task.shell.mute do
           FileUtils.rm_r(@server_path)
         end
+        @task.say "Server files removed", :green
       rescue Exception => e
         @task.say "Error while removing server files:"
         @task.say e.message + "\n", :red
@@ -136,7 +136,7 @@ module Marv
 
       remove_server_database
 
-      @task.say "Server successfuly removed", :yellow
+      @task.say "Server successfuly removed!", :green
       exit
     end
 
@@ -154,7 +154,7 @@ module Marv
     end
 
     def download_wordpress
-      @task.say "Starting server installation:", :green
+      @task.say "Starting server installation:"
 
       begin
         @task.shell.mute do
@@ -174,7 +174,6 @@ module Marv
         @task.say e.message + "\n", :red
         exit
       end
-      @task.say "wordpress-#{@wp_version}.tar.gz downloaded"
     end
 
     def extract_wordpress
@@ -195,6 +194,7 @@ module Marv
         @task.say e.message + "\n", :red
         exit
       end
+      @task.say "WordPress files created", :green
     end
 
     def add_wordpress_config
@@ -238,6 +238,7 @@ module Marv
 
     def remove_server_database
       begin
+        @task.say "Removing Mysql database..."
         @task.shell.mute do
           client = Mysql2::Client.new(:host => @db_host, :port => @db_port, :username => @db_user, :password => @db_password)
           client.query("DROP DATABASE IF EXISTS #{@db_name}")
@@ -248,9 +249,8 @@ module Marv
       rescue Exception => e
         @task.say "Error while removing Mysql database:"
         @task.say e.message + "\n", :red
-        exit
       end
-      @task.say "Mysql database removed", :yellow
+      @task.say "Mysql database removed", :green
     end
 
     def add_global_content

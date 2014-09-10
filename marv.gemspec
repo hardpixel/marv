@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-09-08"
-  s.description = "A toolkit for bootstrapping and developing WordPress themes using Sass, LESS, and CoffeeScript."
+  s.date = "2014-09-10"
+  s.description = "A toolkit for bootstrapping and developing WordPress themes and plugins using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
   s.extra_rdoc_files = [
@@ -84,7 +84,7 @@ Gem::Specification.new do |s|
     "lib/marv/project.rb",
     "lib/marv/server.rb",
     "lib/marv/version.rb",
-    "marv-0.3.0.gem",
+    "marv-0.3.1.gem",
     "marv.gemspec",
     "spec/lib/marv/project_spec.rb",
     "spec/spec_helper.rb"
@@ -93,7 +93,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"
-  s.summary = "A tool for developing wordpress themes"
+  s.summary = "A tool for developing wordpress themes and plugins"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
