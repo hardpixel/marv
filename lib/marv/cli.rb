@@ -83,7 +83,7 @@ module Marv
       builder.zip(filename)
     end
 
-    desc "server SERVER", "Start a Marv server by name"
+    desc "server SERVER", "Create a Marv server with the specified name"
     method_option :list, :type => :boolean, :force => false, :desc => "List all available Marv servers"
     method_option :start, :type => :boolean, :force => false, :desc => "Create a new Marv server"
     method_option :stop, :type => :boolean, :force => false, :desc => "Stop a running Marv server"
