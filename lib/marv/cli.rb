@@ -29,14 +29,14 @@ module Marv
     long_desc "This command will symlink the compiled version of the project to the specified server or WordPress install path."+
     "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
     method_option :folder, :type => :string, :enum => %w{themes plugins}, :required => true, :desc => "Link Marv project in themes or plugins folfer"
-    def link(dir='global')
+    def link(dir=nil)
       project = Marv::Project.new('.', self)
 
       unless File.directory?(project.build_path)
         FileUtils.mkdir_p project.build_path
       end
 
-      if dir == 'global'
+      if dir.nil?
         link_project_globaly(options, project)
       else
         wp_path = File.join(dir, 'wp-content', options[:folder])

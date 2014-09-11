@@ -8,15 +8,15 @@ module Rack
     class Php
       def initialize app, public_dir=Dir.getwd, php_exe='php', quiet=true
         @app = app; @public_dir = public_dir
-        server = TCPServer.new('127.0.0.1', 0)
+        server = TCPServer.new('0.0.0.0', 0)
         port = server.addr[1]
         server.close()
         @proxy = Rack::ReverseProxy.new do
         reverse_proxy_options preserve_host: false
-        reverse_proxy /^.*$/, "http://localhost:#{port}"
+        reverse_proxy /^.*$/, "http://0.0.0.0:#{port}"
         end
         @php = ChildProcess.build php_exe,
-        '-S', "localhost:#{port}", '-t', public_dir
+        '-S', "0.0.0.0:#{port}", '-t', public_dir
         @php.io.inherit! unless quiet
         @php.start
         at_exit {@php.stop if @php.alive?}

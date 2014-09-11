@@ -19,6 +19,7 @@ gem 'uglifier', '>= 2.5.0'
 group :development do
   gem 'rake'
   gem 'rspec'
+  gem 'aruba'
   gem 'cucumber'
   gem 'jeweler'
 end

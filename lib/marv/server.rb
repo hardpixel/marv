@@ -81,7 +81,7 @@ module Marv
 
       begin
         @task.shell.mute do
-          system("cd #{server_path}; rackup --daemonize --pid=ruby.pid")
+          system("cd #{server_path}; rackup --daemonize --pid=rackup.pid")
         end
       rescue Exception => e
         @task.say "Error while starting server:"
@@ -93,14 +93,14 @@ module Marv
     def stop_server
       begin
         @task.shell.mute do
-          ruby_pid_file = File.join(@server_path, 'ruby.pid')
+          rackup_pid_file = File.join(@server_path, 'rackup.pid')
           php_pid_file = File.join(@server_path, 'php.pid')
 
-          if File.exist?(ruby_pid_file) && File.exist?(php_pid_file) then
-            ruby_pid = File.read(ruby_pid_file).to_i
+          if File.exist?(rackup_pid_file) && File.exist?(php_pid_file) then
+            rackup_pid = File.read(rackup_pid_file).to_i
             php_pid = File.read(php_pid_file).to_i
 
-            Process.kill(9, ruby_pid, php_pid)
+            Process.kill(9, rackup_pid, php_pid)
             @task.say "Server #{@server_name} stopped", :yellow
           else
             @task.say "Server #{@server_name} is not running", :red
