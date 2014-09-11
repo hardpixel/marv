@@ -1,5 +1,6 @@
 require 'net/http'
 require 'mysql2'
+require 'childprocess'
 
 module Marv
   class Server
@@ -10,10 +11,6 @@ module Marv
       # Deploy variables
       @server_name = name
       @server_path = server_path
-
-      @rack_config = rack_config
-      @wp_config = wp_config
-
       @db_name = 'marv_'+name.gsub(/\W/, '_').downcase
 
       # CLI Options
@@ -39,14 +36,6 @@ module Marv
       File.join(ENV['HOME'], '.marv', 'servers', @server_name)
     end
 
-    def rack_config
-      File.join(ENV['HOME'], '.marv', @server_path, 'config.ru')
-    end
-
-    def wp_config
-      File.join(ENV['HOME'], '.marv', @server_path, 'wp-config.php')
-    end
-
     def db_name
       @db_name
     end
@@ -59,12 +48,30 @@ module Marv
       @db_host
     end
 
+    def run_php_server
+      # Setup server
+      server = TCPServer.new('0.0.0.0', 0)
+      port = server.addr[1]
+      server.close()
+
+      # Run PHP server
+      @php = ChildProcess.build 'php', '-S', "0.0.0.0:#{port}", '-t', @server_path
+      @php.start
+
+      # Write PHP proccess id to file
+      File.open(File.join(@server_path, 'php.pid'), 'w') do |file|
+        file.write(@php.pid)
+      end
+
+      puts "Visit http://localhost:#{port}"
+    end
+
     def create_server
       create_server_directory
 
       download_wordpress
       extract_wordpress
-      add_config_file('rack-config.ru', 'config.ru')
+      add_config_file('router.php.erb', 'router.php')
 
       create_server_database
       add_config_file('wp-config.php.erb', 'wp-config.php')
@@ -77,12 +84,9 @@ module Marv
     end
 
     def start_server
-      update_global_projects
-
       begin
-        @task.shell.mute do
-          system("cd #{server_path}; rackup --daemonize --pid=rackup.pid")
-        end
+        update_global_projects
+        run_php_server
       rescue Exception => e
         @task.say "Error while starting server:"
         @task.say e.message + "\n", :red
@@ -93,14 +97,12 @@ module Marv
     def stop_server
       begin
         @task.shell.mute do
-          rackup_pid_file = File.join(@server_path, 'rackup.pid')
           php_pid_file = File.join(@server_path, 'php.pid')
 
-          if File.exist?(rackup_pid_file) && File.exist?(php_pid_file) then
-            rackup_pid = File.read(rackup_pid_file).to_i
+          if File.exists?(php_pid_file)
             php_pid = File.read(php_pid_file).to_i
 
-            Process.kill(9, rackup_pid, php_pid)
+            Process.kill('KILL', php_pid)
             @task.say "Server #{@server_name} stopped", :yellow
           else
             @task.say "Server #{@server_name} is not running", :red
@@ -198,12 +200,12 @@ module Marv
     end
 
     def add_config_file(source, target)
-      unless File.exists?(@wp_config)
+      unless File.exists?(target)
         config = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'layouts', 'config', source))
         config_template = ERB.new(::File.binread(config), nil, '-', '@output_buffer')
 
         File.open(File.join(@server_path, target), 'w') do |file|
-          file.write(wp_config_template.result(binding))
+          file.write(config_template.result(binding))
         end
       end
     end
