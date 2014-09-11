@@ -16,8 +16,8 @@ module Marv
 
     desc "create DIRECTORY", "Creates a Marv project into specified directory"
     long_desc "Creates a new project. Use the layout option to choose a scaffold"
-    method_option :layout, :type => :string, :default => 'default', :desc => "Name of alternate layout"
-    method_option :local, :type => :boolean, :force => false, :desc => "Use local layout from .marv folder"
+    method_option :layout, :type => :string, :default => 'theme', :enum => %w{theme plugin}, :desc => "Scaffold layout for theme or plugin"
+    method_option :local, :type => :boolean, :force => false, :desc => "Use custom layout from ~/.marv/layouts folder"
     def create(dir)
       theme = {}
       theme[:name] = dir
