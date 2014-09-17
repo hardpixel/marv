@@ -22,10 +22,10 @@ module Marv
     # Runs all the methods necessary to build a completed project
     def build
       clean_build_directory
+      copy_folders
       copy_templates
       copy_functions
       copy_includes
-      copy_folders
       build_assets
     end
 

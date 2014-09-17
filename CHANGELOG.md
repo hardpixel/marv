@@ -1,3 +1,9 @@
+## v0.3.2
+* Fix bug when creating server
+* Use Thor to download wordpress
+* Fix marv watch not compiling assets
+* Fix error when compression enabled
+
 ## v0.3.1
 * Remove command servers
 * Add option --list to server command

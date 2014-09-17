@@ -69,8 +69,7 @@ module Marv
     def create_server
       create_server_directory
 
-      download_wordpress
-      extract_wordpress
+      copy_wordpress_files
       add_config_file('router.php.erb', 'router.php')
 
       create_server_database
@@ -144,59 +143,57 @@ module Marv
 
     private
 
+    # Creates a directory for a new server
     def create_server_directory
-      unless File.exist?(self.servers_root)
-        Dir.mkdir(servers_root)
+      # Create dir
+      unless ::File.exist?(self.servers_root)
+        ::Dir.mkdir(servers_root)
       end
-
-      if File.exist?(@server_path)
+      # Exit if dir exists
+      if ::File.exist?(@server_path)
         @task.say "A server with name #{@server_name} already exists", :red
         exit
       end
     end
 
+    # Downloads WordPress from wordpress.org
     def download_wordpress
-      @task.say "Starting server installation:"
+      package = "/tmp/wordpress-#{@wp_version}.tar.gz"
 
-      begin
-        @task.shell.mute do
-          if !File.exists?("/tmp/wordpress-#{@wp_version}.tar.gz")
-            @task.say "Downloading wordpress-#{@wp_version}.tar.gz..."
-
-            Net::HTTP.start('wordpress.org') do |http|
-              resp = http.get("/wordpress-#{@wp_version}.tar.gz")
-              open("/tmp/wordpress-#{@wp_version}.tar.gz", 'w') do |file|
-                file.write(resp.body)
-              end
-            end
+      # Download package file
+      @task.shell.mute do
+        unless ::File.exists?(package)
+          @task.get "https://wordpress.org/wordpress-#{@wp_version}.tar.gz" do |content|
+            @task.create_file package, content
           end
         end
-      rescue Exception => e
-        @task.say "Error while downloading wordpress-#{@wp_version}.tar.gz:"
-        @task.say e.message + "\n", :red
-        exit
       end
+
+      # Return package file
+      package
     end
 
-    def extract_wordpress
-      begin
-        @task.shell.mute do
-          filestamp = Time.now.to_i
-          download_location = File.join('/tmp', "wordpress-#{@wp_version}.tar.gz")
-          tmp_dir = "/tmp/wordpress-latest-#{filestamp}"
+    # Copy WordPress files
+    def copy_wordpress_files
+      package = download_wordpress
 
-          Dir.mkdir(tmp_dir)
-          `cd #{tmp_dir}; tar -xzf #{download_location}`
-
-          FileUtils.mv("#{tmp_dir}/wordpress", @server_path)
-          FileUtils.rm_r(tmp_dir)
-        end
-      rescue Exception => e
-        @task.say "Error while extracting wordpress-#{@wp_version}.tar.gz:"
-        @task.say e.message + "\n", :red
-        exit
+      # Get package content and extract to dir
+      tmp_dir = "/tmp/wordpress-latest-#{Time.now.to_i}"
+      # Create temporary dir
+      unless ::File.exists?(tmp_dir)
+        Dir.mkdir(tmp_dir)
       end
-      @task.say "WordPress files created", :green
+
+      # Extract package to temporary dir
+      @task.shell.mute do
+        @task.run "cd #{tmp_dir};tar -xzf #{package}"
+        @task.directory "#{tmp_dir}/wordpress", @server_path
+      end
+
+      # Remove temporary dir
+      if ::File.exists?(tmp_dir)
+        FileUtils.rm_r(tmp_dir)
+      end
     end
 
     def add_config_file(source, target)
@@ -224,12 +221,10 @@ module Marv
         @task.say e.message + "\n", :red
         exit
       end
-      @task.say "Mysql database created", :green
     end
 
     def remove_server_database
       begin
-        @task.say "Removing Mysql database..."
         @task.shell.mute do
           client = Mysql2::Client.new(:host => @db_host, :port => @db_port, :username => @db_user, :password => @db_password)
           client.query("DROP DATABASE IF EXISTS #{@db_name}")
@@ -241,7 +236,6 @@ module Marv
         @task.say "Error while removing Mysql database:"
         @task.say e.message + "\n", :red
       end
-      @task.say "Mysql database removed", :green
     end
 
     def add_global_content
