@@ -1,4 +1,4 @@
-require 'marv/server/config'
+require 'marv/server/server'
 require 'marv/server/create'
 require 'marv/server/actions'
 require 'marv/server/remove'
@@ -8,6 +8,10 @@ require 'marv/server/restore'
 module Marv
   module CLI
     class Server < Thor
+
+      def self.source_root
+        ::File.expand_path(::File.join(Marv.root, 'layouts'))
+      end
 
       include Thor::Actions
 
@@ -25,7 +29,7 @@ module Marv
       # Create a new Marv server
       desc "create SERVER", "Create a Marv server with the specified name"
       def create(dir)
-        server = Marv::Server::Config.new(self, dir)
+        server = Marv::Server::Server.new(self, dir)
         Marv::Server::Create.new(server)
       end
 
@@ -50,7 +54,7 @@ module Marv
       # Create a new Marv server
       desc "remove SERVER", "Remove the specified Marv server"
       def remove(dir)
-        server = Marv::Server::Config.new(self, dir)
+        server = Marv::Server::Server.new(self, dir)
         Marv::Server::Remove.new(server)
       end
 

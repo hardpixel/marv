@@ -1,6 +1,6 @@
 module Marv
   module Project
-    class Config
+    class Project
 
       attr_accessor :root, :config, :task, :assets
 

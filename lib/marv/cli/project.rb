@@ -1,9 +1,9 @@
-require 'marv/project/config'
+require 'marv/project/project'
+require 'marv/project/builder'
+require 'marv/project/guard'
 require 'marv/project/create'
 require 'marv/project/link'
 require 'marv/project/package'
-require 'marv/project/builder'
-require 'marv/project/guard'
 
 module Marv
   module CLI
@@ -23,7 +23,7 @@ module Marv
       long_desc "This command will symlink the compiled version of the project to the specified server or WordPress install path."+
       "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
       def link(dir=nil)
-        project = Marv::Project::Config.new(self, '.', nil)
+        project = Marv::Project::Project.new(self, '.', nil)
         Marv::Project::Link.new(project, dir)
       end
 
@@ -32,7 +32,7 @@ module Marv
       long_desc "Watches the source directory in your Marv project for changes, and reflects those changes in a compile folder"
       method_option :config, :type => :string, :desc => "Name of alternate config file"
       def watch
-        project = Marv::Project::Config.new(self, '.', options[:config])
+        project = Marv::Project::Project.new(self, '.', options[:config])
         builder = Marv::Project::Builder.new(project)
         Marv::Project::Guard.start(project, builder)
       end
@@ -41,7 +41,7 @@ module Marv
       desc "build DIRECTORY", "Build your theme into specified directory"
       method_option :config, :type => :string, :desc => "Name of alternate config file"
       def build(dir='build')
-        project = Marv::Project::Config.new(self, '.', options[:config])
+        project = Marv::Project::Project.new(self, '.', options[:config])
         builder = Marv::Project::Builder.new(project)
         builder.build_to(dir)
       end
@@ -50,7 +50,7 @@ module Marv
       desc "package FILENAME", "Compile and zip your Marv project to FILENAME.zip"
       method_option :config, :type => :string, :desc => "Name of alternate config file"
       def package(filename=nil)
-        project = Marv::Project::Config.new(self, '.', options[:config])
+        project = Marv::Project::Project.new(self, '.', options[:config])
         builder = Marv::Project::Builder.new(project)
         Marv::Project::Package.new(project, builder, filename)
       end

@@ -21,6 +21,6 @@
 # Additional assets
 # config[:additional_assets] = [['custom.js'], ['stylesheets', 'custom.css'], ['includes', 'javascripts', 'includes.js']]
 
-# You can also include additional Compass frameworks by requiring them:
+# You can also include additional frameworks by requiring them:
 # require 'bourbon'
 # require 'neat'

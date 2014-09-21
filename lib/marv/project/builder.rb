@@ -16,20 +16,18 @@ module Marv
 
       # Start builder
       def build_project
-        @task.shell.mute do
-          clean_directory
-          build_assets
-          clean_images
-          copy_images
-          clean_templates
-          copy_templates
-          clean_functions
-          copy_functions
-          clean_includes
-          copy_includes
-          clean_folders
-          copy_folders
-        end
+        clean_directory
+        build_assets
+        clean_images
+        copy_images
+        clean_templates
+        copy_templates
+        clean_functions
+        copy_functions
+        clean_includes
+        copy_includes
+        clean_folders
+        copy_folders
       end
 
       # Build project to a directory

@@ -84,7 +84,7 @@ module Marv
 
       # Parse layout files in project dir
       def parse_layout_files
-        project = Marv::Project::Config.new(@task, @path, nil)
+        project = Marv::Project::Project.new(@task, @path, nil)
 
         ::Dir.glob(::File.join(@layout, '**', '*')).each do |file|
           unless ::File.directory?(file)

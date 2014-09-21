@@ -16,7 +16,6 @@ module Marv
       # Ask for link details
       def link_options
         options = {}
-
         options[:folder] = @task.ask "Where do you want to link your project?", :limited_to => ["themes", "plugins"], :default => "themes"
 
         return options
@@ -39,6 +38,12 @@ module Marv
 
       # Create project link
       def create_link
+        unless ::File.directory?(@project.build_path)
+          @task.shell.mute do
+            @task.empty_directory @project.build_path
+          end
+        end
+
         @task.create_link link_target, @project.build_path
       end
 

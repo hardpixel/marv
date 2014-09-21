@@ -1,6 +1,6 @@
-require 'marv/project'
-require 'marv/server'
 require 'marv/global'
+require 'marv/cli/project'
+require 'marv/cli/server'
 
 module Marv
   module CLI
