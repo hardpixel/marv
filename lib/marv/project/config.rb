@@ -7,7 +7,7 @@ module Marv
       # Initialize project config
       def initialize(task, dir, options)
         @task = task
-        @dir = dir
+        @dir = ::File.expand_path(dir)
         @global = Marv::Global.new(task)
         @options = options
         @name = project_name
@@ -88,14 +88,9 @@ module Marv
         ::File.join(root_path, 'source')
       end
 
-      # Project watch path
-      def watch_path
-        ::File.join(root_path, '.watch', 'build')
-      end
-
       # Project build path
       def build_path
-        ::File.join(root_path, 'build')
+        ::File.join(root_path, '.watch', 'build')
       end
 
       # Project package path

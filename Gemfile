@@ -12,7 +12,7 @@ gem 'sass', '>= 3.3.0'
 gem 'less', '>= 2.6.0'
 gem 'coffee-script', '>= 2.3.0'
 gem 'therubyracer', '>= 0.12.0'
-# gem 'rubyzip', '>= 1.1.6'
+gem 'rubyzip', '>= 1.1.6'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

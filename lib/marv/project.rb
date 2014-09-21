@@ -1,6 +1,7 @@
 require 'marv/project/config'
 require 'marv/project/create'
 require 'marv/project/link'
+require 'marv/project/package'
 require 'marv/project/builder'
 require 'marv/project/guard'
 
@@ -23,7 +24,7 @@ module Marv
       "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
       def link(dir=nil)
         project = Marv::Project::Config.new(self, '.', nil)
-        Marv::Project::Link.new(project, dir, options)
+        Marv::Project::Link.new(project, dir)
       end
 
       # Watch a Marv project for changes
@@ -50,7 +51,8 @@ module Marv
       method_option :config, :type => :string, :desc => "Name of alternate config file"
       def package(filename=nil)
         project = Marv::Project::Config.new(self, '.', options[:config])
-        Marv::Project::Package.new(project, filename)
+        builder = Marv::Project::Builder.new(project)
+        Marv::Project::Package.new(project, builder, filename)
       end
 
     end

@@ -16,37 +16,45 @@ module Marv
 
       # Start builder
       def build_project
-        clean_directory
-        build_assets
-        copy_images
-        copy_templates
-        copy_functions
-        copy_includes
-        copy_folders
+        @task.shell.mute do
+          clean_directory
+          build_assets
+          clean_images
+          copy_images
+          clean_templates
+          copy_templates
+          clean_functions
+          copy_functions
+          clean_includes
+          copy_includes
+          clean_folders
+          copy_folders
+        end
       end
 
       # Build project to a directory
       def build_to(dir)
+        build_project
         # Remove build directory
         @task.shell.mute do
           @task.remove_dir ::File.expand_path(dir)
         end
         # Copy files from .watch/build directory
-        @task.directory @project.watch_path, ::File.expand_path(dir)
+        @task.directory @project.build_path, ::File.expand_path(dir)
       end
 
       # Clean build directory
       def clean_directory
         @task.shell.mute do
-          @task.remove_dir @project.watch_path
+          @task.remove_dir @project.build_path
         end
       end
 
       # Clean Templates
       def clean_templates
         @task.shell.mute do
-          ::Dir.glob(::File.join(@project.watch_path, '*.php')).each do |file|
-            unless file.include?('functions.php') || file.include?("#{@project.project_id.gsub('_', '-')}.php")
+          ::Dir.glob(::File.join(@project.build_path, '*.php')).each do |file|
+            unless file.include?('functions.php') || file.include?(::File.basename(@project.plugin_file))
               @task.remove_file file
             end
           end
@@ -57,7 +65,7 @@ module Marv
       def copy_templates
         @task.shell.mute do
           ::Dir.glob(::File.join(@project.templates_path, '**', '*')).each do |file|
-            target = ::File.join(@project.watch_path, ::File.basename(file))
+            target = ::File.join(@project.build_path, ::File.basename(file))
 
             @task.copy_file file, target, :force => true unless ::File.directory?(file)
           end
@@ -68,11 +76,11 @@ module Marv
       def clean_functions
         @task.shell.mute do
           #remove functions and plugin php
-          @task.remove_file ::File.join(@project.watch_path, ::File.basename(@project.functions_file))
-          @task.remove_file ::File.join(@project.watch_path, ::File.basename(@project.plugin_file))
+          @task.remove_file ::File.join(@project.build_path, ::File.basename(@project.functions_file))
+          @task.remove_file ::File.join(@project.build_path, ::File.basename(@project.plugin_file))
 
           # Remove functions folder
-          @task.remove_dir ::File.join(@project.watch_path, 'functions')
+          @task.remove_dir ::File.join(@project.build_path, 'functions')
         end
       end
 
@@ -81,9 +89,9 @@ module Marv
         @task.shell.mute do
           ::Dir.glob(::File.join(@project.functions_path, '*')).each do |file|
             if file == @project.functions_file || file == @project.plugin_file
-              @task.copy_file file, ::File.join(@project.watch_path, ::File.basename(file)), :force => true
+              @task.copy_file file, ::File.join(@project.build_path, ::File.basename(file)), :force => true
             else
-              @task.copy_file file, ::File.join(@project.watch_path, 'functions', ::File.basename(file)), :force => true
+              @task.copy_file file, ::File.join(@project.build_path, 'functions', ::File.basename(file)), :force => true
             end
           end
         end
@@ -92,7 +100,7 @@ module Marv
       # Clean includes
       def clean_includes
         @task.shell.mute do
-          @task.remove_dir ::File.join(@project.watch_path, 'includes')
+          @task.remove_dir ::File.join(@project.build_path, 'includes')
         end
       end
 
@@ -101,7 +109,7 @@ module Marv
         @task.shell.mute do
           ::Dir.glob(::File.join(@project.includes_path, '**', '*')).each do |file|
             source = file.gsub(@project.source_path, '')
-            target = ::File.join(@project.watch_path, source)
+            target = ::File.join(@project.build_path, source)
 
             @task.copy_file file, target, :force => true unless ::File.directory?(file)
           end
@@ -114,7 +122,7 @@ module Marv
           # Clean extra folder from project root
           extra_folders.each do |folder|
             source = folder.gsub(@project.source_path, '')
-            target = ::File.join(@project.watch_path, source)
+            target = ::File.join(@project.build_path, source)
 
             @task.remove_dir target
           end
@@ -127,10 +135,23 @@ module Marv
           # Copy extra folders to project root
           extra_folders.each do |folder|
             source = folder.gsub(@project.source_path, '')
-            target = ::File.join(@project.watch_path, source)
+            target = ::File.join(@project.build_path, source)
 
             @task.directory folder, target
           end
+        end
+      end
+
+      # Clean images
+      def clean_images
+        @task.shell.mute do
+          # Remove screenshot image
+          ::Dir.glob(::File.join(@project.build_path, 'screenshot.*')).each do |file|
+            @task.remove_file file
+          end
+
+          # Remove images folder
+          @task.remove_dir ::File.join(@project.build_path, 'images')
         end
       end
 
@@ -140,10 +161,10 @@ module Marv
           ::Dir.glob(::File.join(@project.assets_path, 'images', '*')).each do |filename|
             # Check for screenshot and move it into main build directory
             if filename.index(/screenshot/)
-              @task.copy_file filename, ::File.join(@project.watch_path, ::File.basename(filename))
+              @task.copy_file filename, ::File.join(@project.build_path, ::File.basename(filename)), :force => true
             else
               # Copy the other files in images directory
-              @task.copy_file filename, ::File.join(@project.watch_path, 'images')
+              @task.copy_file filename, ::File.join(@project.build_path, 'images'), :force => true
             end
           end
         end
@@ -153,7 +174,7 @@ module Marv
       def build_assets
         @task.shell.mute do
           @project.assets.each do |asset|
-            destination = ::File.join(@project.watch_path, asset)
+            destination = ::File.join(@project.build_path, asset)
             # Catch any sprockets errors and continue the process
             begin
               sprocket = @sprockets.find_asset(asset.last)

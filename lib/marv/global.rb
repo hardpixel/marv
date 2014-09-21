@@ -20,12 +20,12 @@ module Marv
 
   	# Load global config file
   	def global_config
-      load_ruby_config(::File.join(@path, 'config.rb'))
+      load_ruby_config(::File.join(global_path, 'config.rb'))
   	end
 
     # Servers folder path
     def servers_path
-      ::File.join(@path, 'servers')
+      ::File.join(global_path, 'servers')
     end
 
     # Local servers array
@@ -35,7 +35,7 @@ module Marv
 
     # Plugins path
     def plugins_path
-      ::File.join(@path, 'plugins')
+      ::File.join(global_path, 'plugins')
     end
 
     # Global plugins array
@@ -45,7 +45,7 @@ module Marv
 
     # Themes path
     def themes_path
-      ::File.join(@path, 'themes')
+      ::File.join(global_path, 'themes')
     end
 
     # Global themes array
@@ -55,7 +55,7 @@ module Marv
 
     # Layouts path
     def layouts_path
-      ::File.join(@path, 'layouts')
+      ::File.join(global_path, 'layouts')
     end
 
     # Global layouts array

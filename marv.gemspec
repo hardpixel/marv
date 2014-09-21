@@ -15,14 +15,15 @@ Gem::Specification.new do |s|
   s.executables = ["marv"]
   s.extra_rdoc_files = [
     "LICENSE",
-    "README"
+    "README.md"
   ]
   s.files = [
-    "CHANGELOG",
+    ".document",
+    "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE",
-    "README",
+    "README.md",
     "Rakefile",
     "VERSION",
     "bin/marv",
@@ -110,6 +111,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
       s.add_runtime_dependency(%q<coffee-script>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_runtime_dependency(%q<rubyzip>, [">= 1.1.6"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 2.0.1"])
@@ -124,6 +126,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<less>, [">= 2.6.0"])
       s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
       s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, ["~> 1.0"])
       s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
@@ -139,6 +142,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<less>, [">= 2.6.0"])
     s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
     s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+    s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, ["~> 1.0"])
     s.add_dependency(%q<jeweler>, ["~> 2.0.1"])

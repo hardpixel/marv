@@ -20,6 +20,7 @@ module Guard
     def run_all
       UI.info "Rebuilding all assets"
       @builder.build_assets
+      @builder.clean_images
       @builder.copy_images
     end
 

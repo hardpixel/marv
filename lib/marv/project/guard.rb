@@ -15,12 +15,18 @@ module Marv
         attr_accessor :project, :task, :builder
       end
 
+      # Add guard
+      def self.add_guard(&block)
+        @additional_guards ||= []
+        @additional_guards << block
+      end
+
       # Start project watcher
-      def self.start(project, builder)
+      def self.start(project, builder, options={}, livereload={})
         @project = project
         @task = project.task
         @builder = builder
-        options = {}
+        options = project.config
 
         options_hash = ""
         options.each do |k,v|
@@ -59,6 +65,10 @@ module Marv
           }
         end
 
+        (@additional_guards || []).each do |block|
+          result = block.call(options, livereload)
+          guardfile_contents << result unless result.nil?
+        end
         # Start guard watching
         ::Guard.start({ :guardfile_contents => guardfile_contents }).join
       end
