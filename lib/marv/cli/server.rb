@@ -36,19 +36,25 @@ module Marv
       # Start a Marv server
       desc "start SERVER", "Start the specified Marv server"
       def start(dir)
-        Marv::Server::Actions.start(self, dir)
+        server = Marv::Server::Server.new(self, dir)
+        action = Marv::Server::Actions.new(server)
+        action.start
       end
 
       # Start a Marv server
       desc "stop SERVER", "Stop the specified Marv server"
       def stop(dir)
-        Marv::Server::Actions.stop(self, dir)
+        server = Marv::Server::Server.new(self, dir)
+        action = Marv::Server::Actions.new(server)
+        action.stop
       end
 
       # Start a Marv server
       desc "restart SERVER", "Restart the specified Marv server"
       def restart(dir)
-        Marv::Server::Actions.restart(self, dir)
+        server = Marv::Server::Server.new(self, dir)
+        action = Marv::Server::Actions.new(server)
+        action.restart
       end
 
       # Create a new Marv server

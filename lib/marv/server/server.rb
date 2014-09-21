@@ -2,7 +2,7 @@ module Marv
   module Server
     class Server
 
-      attr_accessor :task, :name, :path, :config
+      attr_accessor :task, :name, :path, :config, :host, :port
 
       # Initialize server config
       def initialize(task, dir)
@@ -13,6 +13,8 @@ module Marv
         @config_file = config_file
         @options = server_options
         @config = server_config
+        @host = server_host
+        @port = server_port
       end
 
       # Server path
