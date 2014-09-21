@@ -1,134 +1,58 @@
-require 'pathname'
+require 'marv/project/config'
+require 'marv/project/create'
+require 'marv/project/link'
+require 'marv/project/builder'
+require 'marv/project/guard'
 
 module Marv
-  class Project
+  module CLI
+    class Project < Thor
 
-    class << self
-      def create(root, config, task, layout, local_layout)
-        root = File.expand_path(root)
+      include Thor::Actions
 
-        project = self.new(root, task, config)
-        Generator.run(project, layout, local_layout)
-
-        project
-      end
-    end
-
-    attr_accessor :root, :config, :task
-
-    def initialize(root, task, config={}, config_file=nil)
-      @root        = File.expand_path(root)
-      @config      = config || {}
-      @task        = task
-      @config_file = config_file
-
-      self.load_config if @config.empty?
-    end
-
-    def assets_path
-      @assets_path ||= File.join(self.source_path, 'assets')
-    end
-
-    def build_path
-      File.join(self.root, '.watch', 'build')
-    end
-
-    def source_path
-      File.join(self.root, 'source')
-    end
-
-    def package_path
-      File.join(self.root, 'package')
-    end
-
-    def templates_path
-      File.join(self.source_path, 'templates')
-    end
-
-    def functions_path
-      File.join(self.source_path, 'functions')
-    end
-
-    def includes_path
-      File.join(self.source_path, 'includes')
-    end
-
-    def config_file
-      @config_file ||= File.join(self.root, 'config.rb')
-    end
-
-    def global_config_file
-      @global_config_file ||= File.join(ENV['HOME'], '.marv', 'config.rb')
-    end
-
-    # Create a symlink from source to the project build dir
-    def link(source)
-      source = File.expand_path(source)
-
-      unless File.writable?(File.dirname(source))
-        @task.say "Permission Denied!", :red
-        @task.say "You do not have write permissions for the destination folder"
-        abort
+      # Create a new Marv project
+      desc "create DIRECTORY", "Creates a Marv project into specified directory"
+      long_desc "Creates a new project. Use the layout option to choose a scaffold"
+      def create(dir)
+        Marv::Project::Create.new(self, dir)
       end
 
-      unless File.directory?(File.dirname(source))
-        raise Marv::LinkSourceDirNotFound
+      # Link an existing project to a Marv server or an existing WordPress installation
+      desc "link SERVER or DIRECTORY", "Create a symbolic link to the compilation directory"
+      long_desc "This command will symlink the compiled version of the project to the specified server or WordPress install path."+
+      "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
+      def link(dir=nil)
+        project = Marv::Project::Config.new(self, '.', nil)
+        Marv::Project::Link.new(project, dir, options)
       end
 
-      @task.link_file build_path, source
-    end
-
-    def project_id
-      File.basename(self.root).gsub(/\W/, '_')
-    end
-
-    def project_php_file
-      "#{File.basename(self.root).gsub(/\W/, '-').downcase}.php"
-    end
-
-    def load_config
-      config = {}
-
-      # Check for global (user) config.rb
-      if File.exists?(self.global_config_file)
-        config.merge!(load_ruby_config(self.global_config_file))
+      # Watch a Marv project for changes
+      desc "watch", "Start watch process"
+      long_desc "Watches the source directory in your Marv project for changes, and reflects those changes in a compile folder"
+      method_option :config, :type => :string, :desc => "Name of alternate config file"
+      def watch
+        project = Marv::Project::Config.new(self, '.', options[:config])
+        builder = Marv::Project::Builder.new(project)
+        Marv::Project::Guard.start(project, builder)
       end
 
-      # Check for config.rb
-      if File.exists?(self.config_file)
-        config.merge!(load_ruby_config(self.config_file))
-      else
-        @task.say "Could not find the config file!", :red
-        @task.say "Are you sure you're in a marv project directory?"
-        abort
+      # Build a Marv project to a directory
+      desc "build DIRECTORY", "Build your theme into specified directory"
+      method_option :config, :type => :string, :desc => "Name of alternate config file"
+      def build(dir='build')
+        project = Marv::Project::Config.new(self, '.', options[:config])
+        builder = Marv::Project::Builder.new(project)
+        builder.build_to(dir)
       end
 
-      @config = config
-    end
-
-    def get_binding
-      binding
-    end
-
-    def parse_erb(file)
-      ERB.new(::File.binread(file), nil, '-', '@output_buffer').result(binding)
-    end
-
-    private
-
-    def load_ruby_config(file)
-      config = {}
-
-      begin
-        # Config file is just executed as straight ruby
-        eval(File.read(file))
-      rescue Exception => e
-        @task.say "Error while evaluating config file:"
-        @task.say e.message, :red
+      # Package a Marv project in a .zip file
+      desc "package FILENAME", "Compile and zip your Marv project to FILENAME.zip"
+      method_option :config, :type => :string, :desc => "Name of alternate config file"
+      def package(filename=nil)
+        project = Marv::Project::Config.new(self, '.', options[:config])
+        Marv::Project::Package.new(project, filename)
       end
 
-      return config
     end
-
   end
 end

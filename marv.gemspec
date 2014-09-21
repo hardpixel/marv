@@ -5,85 +5,90 @@
 
 Gem::Specification.new do |s|
   s.name = "marv"
-  s.version = "0.3.2"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-09-17"
+  s.date = "2014-09-21"
   s.description = "A toolkit for bootstrapping and developing WordPress themes and plugins using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
   s.extra_rdoc_files = [
     "LICENSE",
-    "README.md"
+    "README"
   ]
   s.files = [
-    ".rspec",
-    "CHANGELOG.md",
+    "CHANGELOG",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE",
-    "README.md",
+    "README",
     "Rakefile",
     "VERSION",
     "bin/marv",
-    "features/step_definitions/marv_steps.rb",
-    "features/support/env.rb",
-    "layouts/config/project-config.rb",
-    "layouts/config/router.php.erb",
-    "layouts/config/wp-config.php.erb",
-    "layouts/plugin/functions/plugin.php.erb",
-    "layouts/plugin/images/screenshot.png",
-    "layouts/plugin/javascripts/admin.coffee",
-    "layouts/plugin/javascripts/admin.js",
-    "layouts/plugin/javascripts/plugin.coffee",
-    "layouts/plugin/javascripts/plugin.js",
-    "layouts/plugin/stylesheets/plugin.scss",
-    "layouts/theme/functions/functions.php.erb",
-    "layouts/theme/images/screenshot.png",
-    "layouts/theme/includes/filters-admin.php.erb",
-    "layouts/theme/includes/filters.php.erb",
-    "layouts/theme/includes/helpers.php.erb",
-    "layouts/theme/javascripts/admin.coffee",
-    "layouts/theme/javascripts/admin.js",
-    "layouts/theme/javascripts/theme.coffee",
-    "layouts/theme/javascripts/theme.js",
-    "layouts/theme/stylesheets/_header.scss.erb",
-    "layouts/theme/stylesheets/style.scss.erb",
-    "layouts/theme/templates/404.php.erb",
-    "layouts/theme/templates/archive.php.erb",
-    "layouts/theme/templates/author.php.erb",
+    "layouts/config/global.rb",
+    "layouts/config/project.rb",
+    "layouts/config/router.php",
+    "layouts/config/server.rb",
+    "layouts/config/wp-config.php",
+    "layouts/plugin/assets/images/screenshot.png",
+    "layouts/plugin/assets/javascripts/admin.coffee",
+    "layouts/plugin/assets/javascripts/admin.js",
+    "layouts/plugin/assets/javascripts/plugin.coffee",
+    "layouts/plugin/assets/javascripts/plugin.js",
+    "layouts/plugin/assets/stylesheets/plugin.scss",
+    "layouts/plugin/functions/plugin.php",
+    "layouts/theme/assets/images/screenshot.png",
+    "layouts/theme/assets/javascripts/admin.coffee",
+    "layouts/theme/assets/javascripts/admin.js",
+    "layouts/theme/assets/javascripts/theme.coffee",
+    "layouts/theme/assets/javascripts/theme.js",
+    "layouts/theme/assets/stylesheets/_header.scss",
+    "layouts/theme/assets/stylesheets/style.scss",
+    "layouts/theme/functions/functions.php",
+    "layouts/theme/includes/filters-admin.php",
+    "layouts/theme/includes/filters.php",
+    "layouts/theme/includes/helpers.php",
     "layouts/theme/templates/footer.php",
     "layouts/theme/templates/header.php",
     "layouts/theme/templates/index.php",
     "layouts/theme/templates/page.php",
-    "layouts/theme/templates/partials/comments.php.erb",
-    "layouts/theme/templates/partials/content-none.php.erb",
+    "layouts/theme/templates/pages/404.php",
+    "layouts/theme/templates/pages/archive.php",
+    "layouts/theme/templates/pages/author.php",
+    "layouts/theme/templates/pages/search.php",
+    "layouts/theme/templates/partials/comments.php",
+    "layouts/theme/templates/partials/content-none.php",
     "layouts/theme/templates/partials/content-page.php",
     "layouts/theme/templates/partials/content-single.php",
-    "layouts/theme/templates/partials/content.php.erb",
-    "layouts/theme/templates/partials/searchform.php.erb",
+    "layouts/theme/templates/partials/content.php",
+    "layouts/theme/templates/partials/searchform.php",
     "layouts/theme/templates/partials/sidebar.php",
-    "layouts/theme/templates/search.php.erb",
     "layouts/theme/templates/single.php",
     "lib/guard/marv/assets.rb",
     "lib/guard/marv/config.rb",
-    "lib/guard/marv/folders.rb",
     "lib/guard/marv/functions.rb",
     "lib/guard/marv/templates.rb",
     "lib/marv.rb",
-    "lib/marv/builder.rb",
     "lib/marv/cli.rb",
     "lib/marv/engines.rb",
-    "lib/marv/error.rb",
-    "lib/marv/generator.rb",
-    "lib/marv/guard.rb",
+    "lib/marv/global.rb",
     "lib/marv/project.rb",
+    "lib/marv/project/builder.rb",
+    "lib/marv/project/config.rb",
+    "lib/marv/project/create.rb",
+    "lib/marv/project/guard.rb",
+    "lib/marv/project/link.rb",
+    "lib/marv/project/package.rb",
     "lib/marv/server.rb",
-    "marv-0.3.2.gem",
-    "marv.gemspec",
-    "spec/lib/marv/project_spec.rb",
-    "spec/spec_helper.rb"
+    "lib/marv/server/actions.rb",
+    "lib/marv/server/backup.rb",
+    "lib/marv/server/config.rb",
+    "lib/marv/server/create.rb",
+    "lib/marv/server/remove.rb",
+    "lib/marv/server/restore.rb",
+    "marv-0.4.0.gem",
+    "marv.gemspec"
   ]
   s.homepage = "http://hardpixel.github.io/marv"
   s.licenses = ["MIT"]
@@ -98,54 +103,45 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<thor>, [">= 0.19.1"])
       s.add_runtime_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<sprockets>, [">= 2.12.0"])
-      s.add_runtime_dependency(%q<rubyzip>, [">= 1.1.6"])
       s.add_runtime_dependency(%q<childprocess>, [">= 0.3.5"])
       s.add_runtime_dependency(%q<mysql2>, [">= 0.3.15"])
+      s.add_runtime_dependency(%q<uglifier>, [">= 2.5.0"])
       s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
       s.add_runtime_dependency(%q<coffee-script>, [">= 2.3.0"])
       s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
-      s.add_runtime_dependency(%q<uglifier>, [">= 2.5.0"])
-      s.add_development_dependency(%q<rake>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<aruba>, [">= 0"])
-      s.add_development_dependency(%q<cucumber>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 2.0.1"])
     else
       s.add_dependency(%q<thor>, [">= 0.19.1"])
       s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
       s.add_dependency(%q<sprockets>, [">= 2.12.0"])
-      s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
       s.add_dependency(%q<childprocess>, [">= 0.3.5"])
       s.add_dependency(%q<mysql2>, [">= 0.3.15"])
+      s.add_dependency(%q<uglifier>, [">= 2.5.0"])
       s.add_dependency(%q<sass>, [">= 3.3.0"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
       s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
       s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
-      s.add_dependency(%q<uglifier>, [">= 2.5.0"])
-      s.add_dependency(%q<rake>, [">= 0"])
-      s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<aruba>, [">= 0"])
-      s.add_dependency(%q<cucumber>, [">= 0"])
-      s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_dependency(%q<bundler>, ["~> 1.0"])
+      s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
     end
   else
     s.add_dependency(%q<thor>, [">= 0.19.1"])
     s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
     s.add_dependency(%q<sprockets>, [">= 2.12.0"])
-    s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
     s.add_dependency(%q<childprocess>, [">= 0.3.5"])
     s.add_dependency(%q<mysql2>, [">= 0.3.15"])
+    s.add_dependency(%q<uglifier>, [">= 2.5.0"])
     s.add_dependency(%q<sass>, [">= 3.3.0"])
     s.add_dependency(%q<less>, [">= 2.6.0"])
     s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
     s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
-    s.add_dependency(%q<uglifier>, [">= 2.5.0"])
-    s.add_dependency(%q<rake>, [">= 0"])
-    s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<aruba>, [">= 0"])
-    s.add_dependency(%q<cucumber>, [">= 0"])
-    s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<rdoc>, ["~> 3.12"])
+    s.add_dependency(%q<bundler>, ["~> 1.0"])
+    s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
   end
 end
 

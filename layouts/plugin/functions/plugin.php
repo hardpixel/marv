@@ -1,12 +1,13 @@
 <?php
 /**
- * Plugin Name: <%= config[:name].capitalize %>
- * Plugin URI: <%= config[:uri] %>
- * Description: <%= config[:name].capitalize %> plugin created with Marv.
- * Version: 0.1
- * Author: <%= config[:author] %>
- * Author URI: <%= config[:author_uri] %>
- * License: GPL2
+ * Plugin Name: <%= project_name %>
+ * Plugin URI: <%= project_uri %>
+ * Description: <%= if project_description then project_description else "Wordpress plugin made with Marv." end %>
+ * Version: <%= if project_version then project_version else "0.1" end %>
+ * Author: <%= project_author %>
+ * Author URI: <%= project_author_uri %>
+ * License: <%= if project_license_name then project_license_name else "GPLv3" end %>
+ * License URI: <%= if project_license_uri then project_license_uri else "http://www.gnu.org/copyleft/gpl.html" end %>
  */
 
 // Block direct access

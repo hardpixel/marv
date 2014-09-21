@@ -1,0 +1,18 @@
+/*!
+ * Theme Name: <%= project_name %>
+ * Theme URI: <%= project_uri %>
+ * Author: <%= project_author %>
+ * Author URI: <%= project_author_uri %>
+ * Description: <%= if project_description then project_description else "Wordpress theme made with Marv." end %>
+ * Version: <%= if project_version then project_version else "0.1" end %>
+ * License: <%= if project_license_name then project_license_name else "GPLv3" end %>
+ * License URI: <%= if project_license_uri then project_license_uri else "http://www.gnu.org/copyleft/gpl.html" end %>
+ * Tags: <%= if project_tags then project_tags.join(", ") else "" end %>
+<% if project_template -%>
+ * Template: <%= project_template %>
+<% end -%>
+<%- unless project_comments.nil? || project_comments.empty? -%>
+ *
+ * Comments: <%= project_comments %>
+<%- end -%>
+ */

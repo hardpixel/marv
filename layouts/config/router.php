@@ -1,13 +1,17 @@
 <?php
 
+/**
+* WordPress routing for PHP buit in web server
+**/
+
 $root = $_SERVER['DOCUMENT_ROOT'];
 chdir( $root );
 
 $path = '/'. ltrim( parse_url( $_SERVER['REQUEST_URI'] )['path'], '/' );
-set_include_path( get_include_path().':'.__DIR__ );
+set_include_path( get_include_path() .':'. __DIR__ );
 
-if( file_exists( $root.$path ) )
-{
+if( file_exists( $root.$path ) ) {
+
 	if( is_dir( $root.$path ) && substr( $path, strlen( $path ) - 1, 1 ) !== '/' ) {
 		$path = rtrim( $path, '/' ) .'/index.php';
 	}

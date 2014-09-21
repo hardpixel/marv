@@ -1,5 +1,5 @@
 module Tilt
-  class LessTemplateWithPaths < LessTemplate
+  class SprocketsLessTemplate < LessTemplate
 
     class << self
       attr_accessor :load_path

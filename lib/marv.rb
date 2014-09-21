@@ -1,11 +1,10 @@
-require 'marv/error'
+require 'thor'
+require 'marv/cli'
 
 module Marv
-  ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-  autoload :Guard, 'marv/guard'
-  autoload :CLI, 'marv/cli'
-  autoload :Project, 'marv/project'
-  autoload :Builder, 'marv/builder'
-  autoload :Generator, 'marv/generator'
-  autoload :Server, 'marv/server'
+
+  def self.root
+    ::File.expand_path(::File.join(::File.dirname(__FILE__), '..'))
+  end
+
 end

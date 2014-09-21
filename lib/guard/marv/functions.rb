@@ -2,32 +2,34 @@ require 'guard'
 require 'guard/guard'
 
 module Guard
-  class MarvFunctions < ::Guard::Guard
+  class Functions < ::Guard::Guard
 
     def initialize(watchers=[], options={})
+      @builder = Marv::Project::Guard.builder
       super
     end
 
     # Runs on marv watch
     def start
-      copy_functions("Copying functions over", true)
+      UI.info "Copying functions over"
+      @builder.copy_functions
+      @builder.copy_includes
     end
 
     # Runs on all command in guard console
     def run_all
-      copy_functions("Rebuilding all functions", true)
+      UI.info "Rebuilding all functions"
+      @builder.clean_functions
+      @builder.copy_functions
+      @builder.clean_includes
+      @builder.copy_includes
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
-      copy_functions("Functions have changed, copying over", nil)
-    end
-
-    # Copy and clean functions and includes folder
-    def copy_functions(message, clean)
-      UI.info message
-      ::Marv::Guard.builder.copy_functions(clean)
-      ::Marv::Guard.builder.copy_includes(clean)
+      UI.info "Functions have changed, copying over"
+      @builder.copy_functions
+      @builder.copy_includes
     end
 
   end

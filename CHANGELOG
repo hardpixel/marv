@@ -1,8 +1,14 @@
+## v0.4.0
+* Complete rewrite
+* Make server subcommand
+* Fix PHP server issues
+
 ## v0.3.2
 * Fix bug when creating server
 * Use Thor to download wordpress
 * Fix marv watch not compiling assets
 * Fix error when compression enabled
+* Update router.php
 
 ## v0.3.1
 * Remove command servers
