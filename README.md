@@ -71,6 +71,6 @@ See the [user's manual](https://github.com/hardpixel/marv/wiki) for more informa
 
 ## Credits
 
-Marv is based on [Forge](https://github.com/thethemefoundry/forge) by ThemeFoundry.
+Marv is inspired from [Forge](https://github.com/thethemefoundry/forge) by ThemeFoundry.
 
 Scaffold Wordpress theme is based on [WP-Scaffold](https://github.com/gizburdt/wp-scaffold) by Gizburdt.
