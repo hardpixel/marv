@@ -3,7 +3,7 @@
 Marv is a free command-line toolkit for bootstrapping and developing WordPress themes and plugins in a tidy environment using front-end languages like Sass, LESS, and CoffeeScript.
 
 [![Gem Version](https://badge.fury.io/rb/marv.png)](http://badge.fury.io/rb/marv)
-[![Code Climate](https://codeclimate.com/github/hardpixel/marv/badges/gpa.svg)](https://codeclimate.com/github/hardpixel/marv)
+[![Code Climate](https://codeclimate.com/github/hardpixel/marv/badges/gpa.png)](https://codeclimate.com/github/hardpixel/marv)
 
 
 ## How does it work?
