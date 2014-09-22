@@ -20,9 +20,9 @@ module Marv
       # Create server
       def create_server
         @task.shell.mute do
-          create_server_directory
+          create_server_dir
           copy_wordpress_files
-          create_database
+          @server.create_database
           add_config_files
         end
 
@@ -31,7 +31,7 @@ module Marv
       end
 
       # Creates a directory for a new server
-      def create_server_directory
+      def create_server_dir
         if ::File.exists?(@server.config_file)
           @task.say "A server with the name #{@name} already exists", :red
           abort
@@ -79,25 +79,6 @@ module Marv
         @global.template ::File.join(layouts, 'server.rb'), ::File.join(@path, 'config.rb'), @server.context
         @global.template ::File.join(layouts, 'router.php'), ::File.join(@path, 'router.php'), @server.context
         @global.template ::File.join(layouts, 'wp-config.php'), ::File.join(@path, 'wp-config.php'), @server.context
-      end
-
-      def create_database
-        begin
-          @database.query("CREATE DATABASE IF NOT EXISTS #{@server.db_name}")
-          @database.query("GRANT ALL PRIVILEGES ON #{@server.db_name}.* TO '#{@server.db_user}'@'#{@server.db_host}'")
-          @database.query("FLUSH PRIVILEGES")
-          @database.close
-        rescue Exception => e
-          @task.say "Error while creating Mysql database:"
-          @task.say e.message + "\n", :red
-
-          abort_and_revert
-        end
-      end
-
-      # Abort and revert changes
-      def abort_and_revert
-        @task.remove_dir @path
       end
 
     end

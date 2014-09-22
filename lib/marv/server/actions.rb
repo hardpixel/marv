@@ -11,7 +11,6 @@ module Marv
         @task = server.task
         @path = server.path
         @name = server.name
-        @database = server.database
       end
 
       # Initialize server start
@@ -58,15 +57,7 @@ module Marv
 
       # Remove server
       def remove
-        begin
-          @database.query("DROP DATABASE IF EXISTS #{@server.db_name}")
-          @database.query("REVOKE ALL PRIVILEGES ON #{@server.db_name}.* FROM '#{@server.db_user}'@'#{@server.db_host}'")
-          @database.query("FLUSH PRIVILEGES")
-          @database.close
-        rescue Exception => e
-          @task.say "Error while removing database:"
-          @task.say e.message + "\n", :red
-        end
+        @server.remove_database
 
         @task.shell.mute do
           stop
