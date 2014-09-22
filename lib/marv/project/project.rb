@@ -2,7 +2,7 @@ module Marv
   module Project
     class Project
 
-      attr_accessor :root, :config, :task, :assets
+      attr_accessor :root, :config, :task, :assets, :context
 
       # Initialize project config
       def initialize(task, dir, options)
@@ -16,6 +16,7 @@ module Marv
         @config_file = config_file
         @config = project_config
         @assets = project_assets
+        @context = project_context
       end
 
       # Project name
@@ -177,19 +178,9 @@ module Marv
         end
       end
 
-      # Parse template from source to destination
-      def template(source, *args, &block)
-        config = args.last.is_a?(Hash) ? args.pop : {}
-        destination = args.first || source.sub(/\.tt$/, '')
-
-        source  = ::File.expand_path(@task.find_in_source_paths(source.to_s))
-        context = instance_eval('binding')
-
-        @task.create_file destination, nil, config do
-          content = ERB.new(::File.binread(source), nil, '-', '@output_buffer').result(context)
-          content = block.call(content) if block
-          content
-        end
+      # Get project class context
+      def project_context
+        instance_eval('binding')
       end
 
     end

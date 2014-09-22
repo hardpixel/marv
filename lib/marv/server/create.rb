@@ -76,9 +76,9 @@ module Marv
       def add_config_files
         layouts = ::File.join(Marv.root, 'layouts', 'config')
 
-        @server.template ::File.join(layouts, 'server.rb'), ::File.join(@path, 'config.rb')
-        @server.template ::File.join(layouts, 'router.php'), ::File.join(@path, 'router.php')
-        @server.template ::File.join(layouts, 'wp-config.php'), ::File.join(@path, 'wp-config.php')
+        @global.template ::File.join(layouts, 'server.rb'), ::File.join(@path, 'config.rb'), @server.context
+        @global.template ::File.join(layouts, 'router.php'), ::File.join(@path, 'router.php'), @server.context
+        @global.template ::File.join(layouts, 'wp-config.php'), ::File.join(@path, 'wp-config.php'), @server.context
       end
 
       def create_database

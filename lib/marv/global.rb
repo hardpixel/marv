@@ -78,6 +78,21 @@ module Marv
       return config
     end
 
+    # Parse template from source to destination
+    def template(source, *args, &block)
+      config = args.last.is_a?(Hash) ? args.pop : {}
+      destination = args.first || source.sub(/\.tt$/, '')
+      context = args.last || instance_eval('binding')
+
+      source  = ::File.expand_path(@task.find_in_source_paths(source.to_s))
+
+      @task.create_file destination, nil, config do
+        content = ERB.new(::File.binread(source), nil, '-', '@output_buffer').result(context)
+        content = block.call(content) if block
+        content
+      end
+    end
+
     # Get subfolder basenames
     def subfolders_basenames(folder)
       subfolders = []

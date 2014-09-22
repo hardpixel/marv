@@ -92,7 +92,7 @@ module Marv
             source_file = file.gsub(@layout, '')
             target_file = ::File.join(@path, 'source', source_file)
             # Parse template file
-            project.template file, target_file
+            @global.template file, target_file, @project.context
           end
         end
       end

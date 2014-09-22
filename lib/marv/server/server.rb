@@ -4,7 +4,7 @@ module Marv
   module Server
     class Server
 
-      attr_accessor :task, :name, :path, :config, :host, :port, :database
+      attr_accessor :task, :name, :path, :config, :host, :port, :database, :context
 
       # Initialize server config
       def initialize(task, dir)
@@ -18,6 +18,7 @@ module Marv
         @host = server_host
         @port = server_port
         @database = server_database
+        @context = server_context
       end
 
       # Server path
@@ -112,19 +113,9 @@ module Marv
         ::Mysql2::Client.new(:host => db_host, :port => db_port, :username => db_user, :password => db_password)
       end
 
-      # Parse template from source to destination
-      def template(source, *args, &block)
-        config = args.last.is_a?(Hash) ? args.pop : {}
-        destination = args.first || source.sub(/\.tt$/, '')
-
-        source  = ::File.expand_path(@task.find_in_source_paths(source.to_s))
-        context = instance_eval('binding')
-
-        @task.create_file destination, nil, config do
-          content = ERB.new(::File.binread(source), nil, '-', '@output_buffer').result(context)
-          content = block.call(content) if block
-          content
-        end
+      # Get server class context
+      def server_context
+        instance_eval('binding')
       end
 
     end
