@@ -30,21 +30,13 @@ module Marv
         # Get project options
         options = {}
 
-        options.merge!(ask_project_details)
-        options.merge!(ask_author_details)
-        options.merge!(ask_project_layout)
-
-        return options
-      end
-
-      # Ask project details
-      def ask_project_details
-        options = {}
-
         options[:name] = @task.ask "Enter project name", :default => @global.config[:name]
         options[:uri] = @task.ask "Enter project URI", :default => @global.config[:uri]
         options[:version] = @task.ask "Enter project version", :default => @global.config[:version]
         options[:description] = @task.ask "Enter project description", :default => @global.config[:description]
+
+        options.merge!(ask_author_details)
+        options.merge!(ask_project_layout)
 
         return options
       end
