@@ -1,3 +1,8 @@
+require 'marv/project/builder'
+require 'marv/project/guard'
+require 'marv/project/actions'
+require 'marv/project/create'
+
 module Marv
   module Project
     class Project

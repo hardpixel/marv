@@ -24,7 +24,7 @@ module Guard
     end
 
     def copy_all_templates(message, clean=nil)
-      builder = Marv::Project::Guard.builder
+      builder = Marv::Project::Guard.builder.templates
 
       UI.info message
       builder.clean_templates unless clean.nil?

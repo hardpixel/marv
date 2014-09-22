@@ -25,7 +25,7 @@ module Guard
 
     # Copy all functions
     def copy_all_functions(message, clean=nil)
-      builder = Marv::Project::Guard.builder
+      builder = Marv::Project::Guard.builder.functions
 
       UI.info message
 

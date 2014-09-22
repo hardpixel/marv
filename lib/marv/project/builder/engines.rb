@@ -1,3 +1,5 @@
+require 'tilt'
+
 module Tilt
   class SprocketsLessTemplate < LessTemplate
 

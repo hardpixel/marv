@@ -1,5 +1,6 @@
 require 'thor'
-require 'marv/cli/cli'
+require 'marv/cli'
+require 'marv/global'
 
 module Marv
 

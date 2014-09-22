@@ -1,9 +1,4 @@
 require 'marv/project/project'
-require 'marv/project/builder'
-require 'marv/project/guard'
-require 'marv/project/create'
-require 'marv/project/link'
-require 'marv/project/package'
 
 module Marv
   module CLI
@@ -24,7 +19,8 @@ module Marv
       "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
       def link(dir=nil)
         project = Marv::Project::Project.new(self, '.', nil)
-        Marv::Project::Link.new(project, dir)
+        actions = Marv::Project::Actions.new(project, nil)
+        actions.link(dir)
       end
 
       # Watch a Marv project for changes
@@ -52,7 +48,8 @@ module Marv
       def package(filename=nil)
         project = Marv::Project::Project.new(self, '.', options[:config])
         builder = Marv::Project::Builder.new(project)
-        Marv::Project::Package.new(project, builder, filename)
+        actions = Marv::Project::Actions.new(project, builder)
+        actions.package(filename)
       end
 
     end

@@ -1,4 +1,3 @@
-require 'marv/global'
 require 'marv/cli/project'
 require 'marv/cli/server'
 

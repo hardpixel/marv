@@ -1,6 +1,4 @@
 require 'marv/server/server'
-require 'marv/server/create'
-require 'marv/server/actions'
 
 module Marv
   module CLI

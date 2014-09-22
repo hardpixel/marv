@@ -2,10 +2,10 @@ require 'guard'
 require 'guard/guard'
 
 # Marv pry console actions
-require 'guard/marv/assets'
-require 'guard/marv/config'
-require 'guard/marv/templates'
-require 'guard/marv/functions'
+require 'marv/project/guard/assets'
+require 'marv/project/guard/config'
+require 'marv/project/guard/functions'
+require 'marv/project/guard/templates'
 
 module Marv
   module Project
@@ -28,9 +28,9 @@ module Marv
         @builder = builder
         @options = project.config
 
-        options_hash = ""
+        @options_hash = ""
         @options.each do |k,v|
-          options_hash << ", :#{k} => '#{v}'"
+          @options_hash << ", :#{k} => '#{v}'"
         end
 
         (@additional_guards || []).each do |block|
@@ -48,7 +48,7 @@ module Marv
         config_file = @project.config_file.gsub(/#{@project.root}\//, '')
 
         contents = %Q{
-          guard 'config'#{options_hash} do
+          guard 'config'#{@options_hash} do
             watch("#{config_file}")
           end
           guard 'assets' do

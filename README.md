@@ -8,7 +8,7 @@ Marv is a free command-line toolkit for bootstrapping and developing WordPress t
 
 ## How does it work?
 
-Marv creates a neatly organized source folder with clean and simple scaffolding (base template files, SCSS files). The source folder is automatically compiled to your Marv development server(s) or local WordPress install(s) as you save changes and work on your project. When you are ready to distribute your project Marv will build it to a folder of your choice or bundle the project up into an easy to install zip package.
+Marv creates a neatly organized source folder with clean and simple scaffolding (base template files, SCSS files). The source folder is automatically compiled to your development server(s) as you save changes and work on your project. When you are ready to distribute your project Marv will build it to a folder of your choice or bundle the project up into an easy to install zip package.
 
 
 ## Why use Marv?
@@ -26,21 +26,19 @@ Create your new project:
 
     $ marv create project-name
 
-Create a Marv development server:
+Create your development server:
 
-	$ marv server server-name
+	$ marv server create server-name
 
-Link to your Marv server:
+Link to your development server:
 
 	$ cd project-name
-    $ marv link server-name --folder themes
-    $ marv link server-name --folder plugins
+    $ marv link server-name
 
 Also you can link to a WordPress installation:
 
 	$ cd project-name
-    $ marv link /var/www/wordpress --folder themes
-    $ marv link /var/www/wordpress --folder plugins
+    $ marv link /var/www/wordpress
 
 Watch for changes and start developing!
 
@@ -71,6 +69,6 @@ See the [user's manual](https://github.com/hardpixel/marv/wiki) for more informa
 
 ## Credits
 
-Marv is inspired from [Forge](https://github.com/thethemefoundry/forge) by ThemeFoundry.
+Wordpress theme layout is based on [WP-Scaffold](https://github.com/gizburdt/wp-scaffold) by Gizburdt.
 
-Scaffold Wordpress theme is based on [WP-Scaffold](https://github.com/gizburdt/wp-scaffold) by Gizburdt.
+Marv is inspired from [Forge](https://github.com/thethemefoundry/forge) by ThemeFoundry.

@@ -25,7 +25,7 @@ module Guard
 
     # Build all assets
     def build_all_assets(message, clean=nil)
-      builder = Marv::Project::Guard.builder
+      builder = Marv::Project::Guard.builder.assets
 
       UI.info message
       builder.clean_images unless clean.nil?

@@ -1,5 +1,8 @@
 require 'mysql2'
 
+require 'marv/server/actions'
+require 'marv/server/create'
+
 module Marv
   module Server
     class Server
@@ -93,9 +96,9 @@ module Marv
         options = {}
 
         unless ::File.exists?(@config_file)
-          ask_server_details
-          ask_database_details
-          ask_wordpress_details
+          options.merge!(ask_server_details)
+          options.merge!(ask_database_details)
+          options.merge!(ask_wordpress_details)
         end
 
         return options
@@ -103,21 +106,30 @@ module Marv
 
       # Server details
       def ask_server_details
+        options = {}
         options[:server_host] = @task.ask "Where do you want to run the server?", :default => "localhost"
         options[:server_port] = @task.ask "Which port do you want to use?", :default => "3000"
+
+        return options
       end
 
       # Database details
       def ask_database_details
+        options = {}
         options[:db_user] = @task.ask "MySQL database username?", :default => "root" unless @global.config[:db_user]
         options[:db_password] = @task.ask "MySQL database password?", :default => "root" unless @global.config[:db_password]
         options[:db_host] = @task.ask "MySQL database host?", :default => "localhost" unless @global.config[:db_host]
         options[:db_port] = @task.ask "MySQL database port?", :default => "3306" unless @global.config[:db_port]
+
+        return options
       end
 
       # Wordpress details
       def ask_wordpress_details
+        options = {}
         options[:wp_version] = @task.ask "WordPress version to install?", :default => "latest" unless @global.config[:wp_version]
+
+        return options
       end
 
       # Server database
@@ -127,22 +139,22 @@ module Marv
 
       # MySQL create database
       def db_client_create
-        @database.query("CREATE DATABASE IF NOT EXISTS #{@db_name}")
+        @database.query("CREATE DATABASE IF NOT EXISTS #{db_name}")
       end
 
       # MySQL create database
       def db_client_drop
-        @database.query("DROP DATABASE IF EXISTS #{@db_name}")
+        @database.query("DROP DATABASE IF EXISTS #{db_name}")
       end
 
       # MySQL grant all privileges
       def db_client_grant_all
-        @database.query("GRANT ALL PRIVILEGES ON #{@db_name}.* TO '#{@db_user}'@'#{@db_host}'")
+        @database.query("GRANT ALL PRIVILEGES ON #{db_name}.* TO '#{@db_user}'@'#{db_host}'")
       end
 
       # MySQL revoke all privileges
       def db_client_revoke_all
-        @database.query("REVOKE ALL PRIVILEGES ON #{@db_name}.* FROM '#{@db_user}'@'#{@db_host}'")
+        @database.query("REVOKE ALL PRIVILEGES ON #{db_name}.* FROM '#{@db_user}'@'#{db_host}'")
       end
 
       # MySQL flush privileges
