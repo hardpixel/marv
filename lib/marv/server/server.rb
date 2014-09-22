@@ -88,24 +88,36 @@ module Marv
         return config
       end
 
-      # Ask for server details
+      # Ask for server options
       def server_options
         options = {}
 
         unless ::File.exists?(@config_file)
-          # Server details
-          options[:server_host] = @task.ask "Where do you want to run the server?", :default => "localhost"
-          options[:server_port] = @task.ask "Which port do you want to use?", :default => "3000"
-          # Database details
-          options[:db_user] = @task.ask "MySQL database username?", :default => "root" unless @global.config[:db_user]
-          options[:db_password] = @task.ask "MySQL database password?", :default => "root" unless @global.config[:db_password]
-          options[:db_host] = @task.ask "MySQL database host?", :default => "localhost" unless @global.config[:db_host]
-          options[:db_port] = @task.ask "MySQL database port?", :default => "3306" unless @global.config[:db_port]
-          # Wordpress details
-          options[:wp_version] = @task.ask "WordPress version to install?", :default => "latest" unless @global.config[:wp_version]
+          ask_server_details
+          ask_database_details
+          ask_wordpress_details
         end
 
         return options
+      end
+
+      # Server details
+      def ask_server_details
+        options[:server_host] = @task.ask "Where do you want to run the server?", :default => "localhost"
+        options[:server_port] = @task.ask "Which port do you want to use?", :default => "3000"
+      end
+
+      # Database details
+      def ask_database_details
+        options[:db_user] = @task.ask "MySQL database username?", :default => "root" unless @global.config[:db_user]
+        options[:db_password] = @task.ask "MySQL database password?", :default => "root" unless @global.config[:db_password]
+        options[:db_host] = @task.ask "MySQL database host?", :default => "localhost" unless @global.config[:db_host]
+        options[:db_port] = @task.ask "MySQL database port?", :default => "3306" unless @global.config[:db_port]
+      end
+
+      # Wordpress details
+      def ask_wordpress_details
+        options[:wp_version] = @task.ask "WordPress version to install?", :default => "latest" unless @global.config[:wp_version]
       end
 
       # Server database
