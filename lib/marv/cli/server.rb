@@ -1,9 +1,6 @@
 require 'marv/server/server'
 require 'marv/server/create'
 require 'marv/server/actions'
-require 'marv/server/remove'
-require 'marv/server/backup'
-require 'marv/server/restore'
 
 module Marv
   module CLI
@@ -61,7 +58,8 @@ module Marv
       desc "remove SERVER", "Remove the specified Marv server"
       def remove(dir)
         server = Marv::Server::Server.new(self, dir)
-        Marv::Server::Remove.new(server)
+        action = Marv::Server::Actions.new(server)
+        action.remove
       end
 
     end

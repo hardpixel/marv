@@ -1,5 +1,4 @@
 require 'zip'
-require 'mysql2'
 
 module Marv
   module Server
@@ -11,6 +10,7 @@ module Marv
         @task = server.task
         @name = server.name
         @path = server.path
+        @database = server.database
         @config = server.config
         @global = Marv::Global.new(server.task)
 
@@ -83,11 +83,10 @@ module Marv
 
       def create_database
         begin
-          client = Mysql2::Client.new(:host => @server.db_host, :port => @server.db_port, :username => @server.db_user, :password => @server.db_password)
-          client.query("CREATE DATABASE IF NOT EXISTS #{@server.db_name}")
-          client.query("GRANT ALL PRIVILEGES ON #{@server.db_name}.* TO '#{@server.db_user}'@'#{@server.db_host}'")
-          client.query("FLUSH PRIVILEGES")
-          client.close
+          @database.query("CREATE DATABASE IF NOT EXISTS #{@server.db_name}")
+          @database.query("GRANT ALL PRIVILEGES ON #{@server.db_name}.* TO '#{@server.db_user}'@'#{@server.db_host}'")
+          @database.query("FLUSH PRIVILEGES")
+          @database.close
         rescue Exception => e
           @task.say "Error while creating Mysql database:"
           @task.say e.message + "\n", :red

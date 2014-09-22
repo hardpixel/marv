@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-09-21"
+  s.date = "2014-09-22"
   s.description = "A toolkit for bootstrapping and developing WordPress themes and plugins using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
@@ -83,10 +83,7 @@ Gem::Specification.new do |s|
     "lib/marv/project/package.rb",
     "lib/marv/project/project.rb",
     "lib/marv/server/actions.rb",
-    "lib/marv/server/backup.rb",
     "lib/marv/server/create.rb",
-    "lib/marv/server/remove.rb",
-    "lib/marv/server/restore.rb",
     "lib/marv/server/server.rb",
     "marv-0.4.0.gem",
     "marv.gemspec"

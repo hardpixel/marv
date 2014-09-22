@@ -1,8 +1,10 @@
+require 'mysql2'
+
 module Marv
   module Server
     class Server
 
-      attr_accessor :task, :name, :path, :config, :host, :port
+      attr_accessor :task, :name, :path, :config, :host, :port, :database
 
       # Initialize server config
       def initialize(task, dir)
@@ -15,6 +17,7 @@ module Marv
         @config = server_config
         @host = server_host
         @port = server_port
+        @database = server_database
       end
 
       # Server path
@@ -88,7 +91,7 @@ module Marv
       def server_options
         options = {}
 
-        unless ::File.directory?(@config_file)
+        unless ::File.exists?(@config_file)
           # Server details
           options[:server_host] = @task.ask "Where do you want to run the server?", :default => "localhost"
           options[:server_port] = @task.ask "Which port do you want to use?", :default => "3000"
@@ -102,6 +105,11 @@ module Marv
         end
 
         return options
+      end
+
+      # Server database
+      def server_database
+        ::Mysql2::Client.new(:host => db_host, :port => db_port, :username => db_user, :password => db_password)
       end
 
       # Parse template from source to destination

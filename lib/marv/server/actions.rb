@@ -11,6 +11,7 @@ module Marv
           @task = server.task
           @path = server.path
           @name = server.name
+          @database = server.database
         end
 
         # Initialize server start
@@ -21,11 +22,12 @@ module Marv
           server.close()
 
           # Run PHP server
+          ::Dir.chdir @path
+          @php = ChildProcess.build 'php', '-S', "#{@server.host}:#{@server.port}", 'router.php'
+          @php.start
+
+          # Write PHP proccess id to file
           @task.shell.mute do
-            ::Dir.chdir @path
-            @php = ChildProcess.build 'php', '-S', "#{@server.host}:#{@server.port}", 'router.php'
-            @php.start
-            # Write PHP proccess id to file
             @task.create_file ::File.join(@path, 'php.pid'), @php.pid, :force => true
           end
 
@@ -34,18 +36,17 @@ module Marv
 
         # Initialize server stop
         def stop
-          @task.shell.mute do
-            pid_file = ::File.join(@path, 'php.pid')
+          pid_file = ::File.join(@path, 'php.pid')
 
+          begin
             if File.exists?(pid_file)
               pid = ::File.read(pid_file).to_i
 
               ::Process.kill('KILL', pid)
               @task.say "Server #{@name} stopped", :yellow
-              exit
             end
-
-            @task.say "Server #{@name} is not running", :red
+          rescue Exception => e
+            @task.say "Server #{@name} is not running", :yellow
           end
         end
 
@@ -53,6 +54,29 @@ module Marv
         def restart
           stop
           start
+        end
+
+        # Remove server
+        def remove
+          # Stop server
+          stop
+          # Remove server
+          begin
+            @database.query("DROP DATABASE IF EXISTS #{@server.db_name}")
+            @database.query("REVOKE ALL PRIVILEGES ON #{@server.db_name}.* FROM '#{@server.db_user}'@'#{@server.db_host}'")
+            @database.query("FLUSH PRIVILEGES")
+            @database.close
+
+            @task.shell.mute do
+              @task.remove_dir @path
+            end
+          rescue Exception => e
+            @task.say "Error while removing server:"
+            @task.say e.message + "\n", :red
+            abort
+          end
+
+          @task.say "Server successfuly removed!", :green
         end
 
     end
