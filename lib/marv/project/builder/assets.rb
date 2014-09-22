@@ -44,28 +44,38 @@ module Marv
 
       # Build assets
       def build_assets
-        @task.shell.mute do
-          @project.assets.each do |asset|
-            destination = ::File.join(@project.build_path, asset)
-            # Catch any sprockets errors and continue the process
-            begin
-              sprocket = @sprockets.find_asset(asset.last)
-              # Create assets destination
-              unless ::File.directory?(::File.dirname(destination))
-                @task.empty_directory ::File.dirname(destination)
-              end
-              # Write file to destination
-              sprocket.write_to(destination) unless sprocket.nil?
-            rescue Exception => e
-              @task.say "Error while building #{asset.last}:"
-              @task.say e.message, :red
-
-              # Print error to file
-              @task.create_file destination unless ::File.exists?(destination)
-              @task.append_to_file destination, e.message
-            end
+        @project.assets.each do |asset|
+          # Catch any sprockets errors and continue the process
+          begin
+            build_asset_file asset
+          rescue Exception => e
+            print_asset_error asset, e.message
           end
         end
+      end
+
+      # Build asset file
+      def build_asset_file(asset)
+        destination = ::File.join(@project.build_path, asset)
+
+        @task.shell.mute do
+          sprocket = @sprockets.find_asset(asset.last)
+          # Create asset destination
+          @task.empty_directory ::File.dirname(destination) unless ::File.directory?(::File.dirname(destination))
+          # Write file to destination
+          sprocket.write_to(destination) unless sprocket.nil?
+        end
+      end
+
+      # Print error to screen and file
+      def print_asset_error(asset, message)
+        destination = ::File.join(@project.build_path, asset)
+
+        @task.say "Error while building #{asset.last}:"
+        @task.say message, :red
+
+        @task.create_file destination unless ::File.exists?(destination)
+        @task.append_to_file destination, message
       end
 
       # Init sprockets
