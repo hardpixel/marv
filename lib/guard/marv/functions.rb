@@ -12,24 +12,19 @@ module Guard
     # Runs on marv watch
     def start
       UI.info "Copying functions over"
-      @builder.copy_functions
-      @builder.copy_includes
+      @builder.run_functions
     end
 
     # Runs on all command in guard console
     def run_all
       UI.info "Rebuilding all functions"
-      @builder.clean_functions
-      @builder.copy_functions
-      @builder.clean_includes
-      @builder.copy_includes
+      @builder.run_functions(true)
     end
 
     # Called on file(s) modifications
     def run_on_change(paths)
       UI.info "Functions have changed, copying over"
-      @builder.copy_functions
-      @builder.copy_includes
+      @builder.run_functions
     end
 
   end
