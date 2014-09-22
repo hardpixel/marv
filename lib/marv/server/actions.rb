@@ -57,14 +57,20 @@ module Marv
 
       # Remove server
       def remove
-        @server.remove_database
+        begin
+          @server.remove_database
 
-        @task.shell.mute do
-          stop
-          @task.remove_dir @path
+          @task.shell.mute do
+            stop
+            @task.remove_dir @path
+          end
+        rescue Exception => e
+          @task.say "Error while removing server:"
+          @task.say e.message + "\n", :red
+          exit
         end
 
-        @task.say "Server successfully removed!", :green
+        @task.say "Server successfully removed", :green
       end
 
     end

@@ -19,11 +19,17 @@ module Marv
 
       # Create server
       def create_server
-        @task.shell.mute do
-          create_server_dir
-          copy_wordpress_files
-          @server.create_database
-          add_config_files
+        begin
+          @task.shell.mute do
+            create_server_dir
+            copy_wordpress_files
+            @server.create_database
+            add_config_files
+          end
+        rescue Exception => e
+          @task.say "Error while creating server:"
+          @task.say e.message + "\n", :red
+          abort
         end
 
         @task.say "Server #{@name} created successfully!", :green
