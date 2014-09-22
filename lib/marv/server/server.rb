@@ -114,8 +114,23 @@ module Marv
       end
 
       # MySQL create database
-      def db_client_create_db
+      def db_client_create
+        @database.query("CREATE DATABASE IF NOT EXISTS #{@db_name}")
+      end
 
+      # MySQL create database
+      def db_client_drop
+        @database.query("DROP DATABASE IF EXISTS #{@db_name}")
+      end
+
+      # MySQL grant all privileges
+      def db_client_grant_all
+        @database.query("GRANT ALL PRIVILEGES ON #{@db_name}.* TO '#{@db_user}'@'#{@db_host}'")
+      end
+
+      # MySQL revoke all privileges
+      def db_client_revoke_all
+        @database.query("REVOKE ALL PRIVILEGES ON #{@db_name}.* FROM '#{@db_user}'@'#{@db_host}'")
       end
 
       # MySQL flush privileges
@@ -123,25 +138,20 @@ module Marv
         @database.query("FLUSH PRIVILEGES")
       end
 
-      # MySQL close client
-      def db_client_close
-        @database.close
-      end
-
       # Create MySQL database
       def create_database
-        @database.query("CREATE DATABASE IF NOT EXISTS #{@db_name}")
-        @database.query("GRANT ALL PRIVILEGES ON #{@db_name}.* TO '#{@db_user}'@'#{@db_host}'")
+        db_client_create
+        db_client_grant_all
         db_client_flush_priv
-        db_client_close
+        @database.close
       end
 
       # Remove MySQL database
       def remove_database
-        @database.query("DROP DATABASE IF EXISTS #{@db_name}")
-        @database.query("REVOKE ALL PRIVILEGES ON #{@db_name}.* FROM '#{@db_user}'@'#{@db_host}'")
+        db_client_drop
+        db_client_revoke_all
         db_client_flush_priv
-        db_client_close
+        @database.close
       end
 
       # Get server class context
