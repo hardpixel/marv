@@ -113,6 +113,11 @@ module Marv
         ::Mysql2::Client.new(:host => db_host, :port => db_port, :username => db_user, :password => db_password)
       end
 
+      # MySQL create database
+      def db_client_create_db
+
+      end
+
       # MySQL flush privileges
       def db_client_flush_priv
         @database.query("FLUSH PRIVILEGES")
@@ -125,28 +130,18 @@ module Marv
 
       # Create MySQL database
       def create_database
-        begin
-          @database.query("CREATE DATABASE IF NOT EXISTS #{@db_name}")
-          @database.query("GRANT ALL PRIVILEGES ON #{@db_name}.* TO '#{@db_user}'@'#{@db_host}'")
-          db_client_flush_priv
-          db_client_close
-        rescue Exception => e
-          @task.say "Error while creating Mysql database:"
-          @task.say e.message + "\n", :red
-        end
+        @database.query("CREATE DATABASE IF NOT EXISTS #{@db_name}")
+        @database.query("GRANT ALL PRIVILEGES ON #{@db_name}.* TO '#{@db_user}'@'#{@db_host}'")
+        db_client_flush_priv
+        db_client_close
       end
 
       # Remove MySQL database
       def remove_database
-        begin
-          @database.query("DROP DATABASE IF EXISTS #{@db_name}")
-          @database.query("REVOKE ALL PRIVILEGES ON #{@db_name}.* FROM '#{@db_user}'@'#{@db_host}'")
-          db_client_flush_priv
-          db_client_close
-        rescue Exception => e
-          @task.say "Error while removing database:"
-          @task.say e.message + "\n", :red
-        end
+        @database.query("DROP DATABASE IF EXISTS #{@db_name}")
+        @database.query("REVOKE ALL PRIVILEGES ON #{@db_name}.* FROM '#{@db_user}'@'#{@db_host}'")
+        db_client_flush_priv
+        db_client_close
       end
 
       # Get server class context
