@@ -85,7 +85,6 @@ Gem::Specification.new do |s|
     "lib/marv/server/actions.rb",
     "lib/marv/server/create.rb",
     "lib/marv/server/server.rb",
-    "marv-0.4.0.gem",
     "marv.gemspec"
   ]
   s.homepage = "http://hardpixel.github.io/marv"
