@@ -15,8 +15,6 @@ module Marv
         @dir = ::File.expand_path(dir)
         @global = Marv::Global.new(task)
         @options = options
-        @name = project_name
-        @id = project_id
         @root = root_path
         @config_file = config_file
         @config = project_config
@@ -26,7 +24,7 @@ module Marv
 
       # Project name
       def project_name
-        ::File.basename(@dir).gsub(/\W/, ' ').capitalize
+        project_config[:name]
       end
 
       # Project URI
@@ -81,7 +79,7 @@ module Marv
 
       # Project id
       def project_id
-        project_name.gsub(' ', '_').downcase
+        ::File.basename(@dir).gsub(/\W/, '_').downcase
       end
 
       # Project root path
@@ -141,30 +139,40 @@ module Marv
 
       # Project config file
       def project_config
-        project_config = @config_file
         config = {}
-
-        # Add project name
-        config[:name] = @name
 
         # Merge global config
         config.merge!(@global.config)
 
-        # Check for config file in options
-        unless @opt_config.nil?
-          project_config = ::File.expand_path(@opt_config)
+        if @options.nil?
+          config.merge!(project_config_file)
+        else
+          config.merge!(@options)
         end
 
-        # Check for config.rb in project folder
-        if ::File.exists?(project_config)
-          config.merge!(@global.load_ruby_config(project_config))
+        return config
+      end
+
+      # Check for config.rb in project folder
+      def project_config_file
+        config_file = {}
+
+        if ::File.exists?(@config_file)
+          config_file = @global.load_ruby_config(@config_file)
         else
           @task.say "Could not find the config file!", :red
           @task.say "Are you sure you're in a marv project directory?"
           abort
         end
 
-        return config
+        return config_file
+      end
+
+      # Check for config file in options
+      def optional_config_file
+        if ::File.exists?(@options)
+          @options = @global.load_ruby_config(::File.expand_path(@opt_config))
+        end
       end
 
       # Get all project assets

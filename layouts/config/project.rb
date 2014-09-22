@@ -1,15 +1,15 @@
 # WordPress theme/plugin information
-# config[:name] = 'Project Name'
-# config[:uri] = 'http://www.project.com'
-# config[:author] = 'Author Name'
-# config[:author_uri] = 'http://project.author.com'
-# config[:description] = 'Description text'
-# config[:version] = '0.1.0'
-# config[:template] = 'parent-theme'
-# config[:license_name] = 'GPLv3'
-# config[:license_uri] = 'http://www.gnu.org/copyleft/gpl.html'
-# config[:tags] = ['mobile', 'slider']
-# config[:comments] = 'Comments text'
+config[:name] = "<%= project_name %>"
+config[:uri] = "<%= project_uri %>"
+config[:author] = "<%= project_author %>"
+config[:author_uri] = "<%= project_author_uri %>"
+config[:description] = "<%= project_description %>"
+config[:version] = "<%= project_version %>"
+config[:license_name] = "<%= project_license_name %>"
+config[:license_uri] = "<%= project_license_uri %>"
+# config[:template] = "<%= project_template %>"
+# config[:tags] = ["<%= project_tags %>"]
+# config[:comments] = "<%= project_comments %>"
 
 # Assets compression
 # config[:compress_js] = true

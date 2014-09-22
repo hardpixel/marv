@@ -14,8 +14,10 @@ module Marv
 
       # Link project
       def link(dir)
-        @link_target = dir
+        @link_dir = dir
 
+        link_options
+        link_target
         create_link
       end
 
@@ -31,30 +33,32 @@ module Marv
         options = {}
         options[:folder] = @task.ask "Where do you want to link your project?", :limited_to => ["themes", "plugins"], :default => "themes"
 
-        return options
-      end
-
-      # Link target
-      def link_target
-        target = ::File.join(@global.global_path, link_options[:folder], ::File.basename(@project.root))
-        target = link_to_server
-        target = link_to_folder
-
-        return target
+        @link_options = options
       end
 
       # Link to server
       def link_to_server
-        unless @link_target.nil?
-          ::File.join(@global.servers_path, @link_target, 'wp-content', link_options[:folder], ::File.basename(@project.root))
+        unless @link_dir.nil?
+          ::File.join(@global.servers_path, @link_dir, 'wp-content', @link_options[:folder], ::File.basename(@project.root))
         end
       end
 
       # Link to wordpress
       def link_to_folder
-        unless @global.servers.include?(@link_target)
-          ::File.join(@link_target, 'wp-content', link_options[:folder], ::File.basename(@project.root))
+        unless @link_dir.nil?
+          unless @global.servers.include?(@link_dir)
+            ::File.join(@link_dir, 'wp-content', @link_options[:folder], ::File.basename(@project.root))
+          end
         end
+      end
+
+      # Link target
+      def link_target
+        target = ::File.join(@global.global_path, @link_options[:folder], ::File.basename(@project.root))
+        target = link_to_server unless link_to_server.nil?
+        target = link_to_folder unless link_to_folder.nil?
+
+        @link_target = target
       end
 
       # Create project link
@@ -65,7 +69,7 @@ module Marv
           end
         end
 
-        @task.create_link link_target, @project.build_path
+        @task.create_link @link_target, @project.build_path
       end
 
       # Create package

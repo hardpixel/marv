@@ -30,6 +30,50 @@ module Marv
         # Get project options
         options = {}
 
+        options.merge!(ask_project_details)
+        options.merge!(ask_author_details)
+        options.merge!(ask_license_details)
+        options.merge!(ask_project_layout)
+
+        return options
+      end
+
+      # Ask project details
+      def ask_project_details
+        options = {}
+
+        options[:name] = @task.ask "Enter project name", :default => @global.config[:name]
+        options[:uri] = @task.ask "Enter project URI", :default => @global.config[:uri]
+        options[:version] = @task.ask "Enter project version", :default => @global.config[:version]
+        options[:description] = @task.ask "Enter project description", :default => @global.config[:description]
+
+        return options
+      end
+
+      # Ask author details
+      def ask_author_details
+        options = {}
+
+        options[:author] = @task.ask "Enter project author", :default => @global.config[:author]
+        options[:author_uri] = @task.ask "Enter project author URI", :default => @global.config[:author_uri]
+
+        return options
+      end
+
+      # Ask license details
+      def ask_license_details
+        options = {}
+
+        options[:license_name] = @task.ask "Enter project license name", :default => @global.config[:license_name]
+        options[:license_uri] = @task.ask "Enter project license URI", :default => @global.config[:license_uri]
+
+        return options
+      end
+
+      # Ask project layout
+      def ask_project_layout
+        options = {}
+
         if @task.yes?("Do you want to use a local layout?")
           options[:local_layout] = true
           options[:layout] = @task.ask "Which layout do you want to use?", :limited_to => @global.layouts
@@ -78,21 +122,21 @@ module Marv
 
       # Create config file
       def create_config_file
+        @project = Marv::Project::Project.new(@task, @path, @options)
+
         config_rb = ::File.join(@path, 'config.rb')
-        @task.template config_template, config_rb unless ::File.exists?(config_rb)
+        @global.template config_template, config_rb, @project.context unless ::File.exists?(config_rb)
       end
 
       # Parse layout files in project dir
       def parse_layout_files
-        project = Marv::Project::Project.new(@task, @path, nil)
-
         ::Dir.glob(::File.join(@layout, '**', '*')).each do |file|
           unless ::File.directory?(file)
             # Get source and target files
             source_file = file.gsub(@layout, '')
             target_file = ::File.join(@path, 'source', source_file)
             # Parse template file
-            @global.template file, target_file, project.context
+            @global.template file, target_file, @project.context
           end
         end
       end
