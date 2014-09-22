@@ -31,6 +31,7 @@ module Marv
         options = {}
 
         options.merge!(ask_project_details)
+        options.merge!(ask_author_details)
         options.merge!(ask_project_layout)
 
         return options
@@ -44,6 +45,14 @@ module Marv
         options[:uri] = @task.ask "Enter project URI", :default => @global.config[:uri]
         options[:version] = @task.ask "Enter project version", :default => @global.config[:version]
         options[:description] = @task.ask "Enter project description", :default => @global.config[:description]
+
+        return options
+      end
+
+      # Ask author details
+      def ask_author_details
+        options = {}
+
         options[:author] = @task.ask "Enter project author", :default => @global.config[:author]
         options[:author_uri] = @task.ask "Enter project author URI", :default => @global.config[:author_uri]
         options[:license_name] = @task.ask "Enter project license name", :default => @global.config[:license_name]
