@@ -14,7 +14,7 @@ module Marv
 
       # Link project
       def link(dir)
-        @link_dir = dir
+        @link_target = dir
 
         create_link
       end
@@ -37,16 +37,24 @@ module Marv
       # Link target
       def link_target
         target = ::File.join(@global.global_path, link_options[:folder], ::File.basename(@project.root))
-
-        unless @link_dir.nil?
-          target = ::File.join(@global.servers_path, @link_dir, 'wp-content', link_options[:folder], ::File.basename(@project.root))
-
-          unless @global.servers.include?(@link_dir)
-            target = ::File.join(@link_dir, 'wp-content', link_options[:folder], ::File.basename(@project.root))
-          end
-        end
+        target = link_to_server
+        target = link_to_folder
 
         return target
+      end
+
+      # Link to server
+      def link_to_server
+        unless @link_target.nil?
+          ::File.join(@global.servers_path, @link_target, 'wp-content', link_options[:folder], ::File.basename(@project.root))
+        end
+      end
+
+      # Link to wordpress
+      def link_to_folder
+        unless @global.servers.include?(@link_target)
+          ::File.join(@link_target, 'wp-content', link_options[:folder], ::File.basename(@project.root))
+        end
       end
 
       # Create project link

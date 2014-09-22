@@ -25,14 +25,27 @@ module Marv
       # Copy functions
       def copy_functions
         @task.shell.mute do
+          files = copy_functions_files
+
           ::Dir.glob(::File.join(@project.functions_path, '*')).each do |file|
-            if file == @project.functions_file || file == @project.plugin_file
-              @task.copy_file file, ::File.join(@project.build_path, ::File.basename(file)), :force => true
-            else
+            unless files.include?(file)
               @task.copy_file file, ::File.join(@project.build_path, 'functions', ::File.basename(file)), :force => true
             end
           end
         end
+      end
+
+      # Copy functions
+      def copy_functions_files
+        files = [@project.functions_file, @project.plugin_file]
+
+        ::Dir.glob(::File.join(@project.functions_path, '*')).each do |file|
+          if files.include?(file)
+            @task.copy_file file, ::File.join(@project.build_path, ::File.basename(file)), :force => true
+          end
+        end
+
+        return files
       end
 
       # Clean includes
