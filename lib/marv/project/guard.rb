@@ -26,18 +26,28 @@ module Marv
         @project = project
         @task = project.task
         @builder = builder
-        options = project.config
+        @options = project.config
 
         options_hash = ""
-        options.each do |k,v|
+        @options.each do |k,v|
           options_hash << ", :#{k} => '#{v}'"
         end
 
-        assets_path = project.assets_path.gsub(/#{project.root}\//, '')
-        source_path = project.source_path.gsub(/#{project.root}\//, '')
-        config_file = project.config_file.gsub(/#{project.root}\//, '')
+        (@additional_guards || []).each do |block|
+          result = block.call(@options, livereload)
+          self.project_contents << result unless result.nil?
+        end
+        # Start guard watching
+        ::Guard.start({ :guardfile_contents => self.project_contents }).join
+      end
 
-        guardfile_contents = %Q{
+      # Guard contents
+      def self.project_contents
+        assets_path = @project.assets_path.gsub(/#{@project.root}\//, '')
+        source_path = @project.source_path.gsub(/#{@project.root}\//, '')
+        config_file = @project.config_file.gsub(/#{@project.root}\//, '')
+
+        contents = %Q{
           guard 'config'#{options_hash} do
             watch("#{config_file}")
           end
@@ -57,20 +67,15 @@ module Marv
         }
 
         # Enable livereload
-        if options[:livereload]
-          guardfile_contents << %Q{
+        if @options[:livereload]
+          contents << %Q{
             guard 'livereload' do
               watch(%r{#{source_path}/*})
             end
           }
         end
 
-        (@additional_guards || []).each do |block|
-          result = block.call(options, livereload)
-          guardfile_contents << result unless result.nil?
-        end
-        # Start guard watching
-        ::Guard.start({ :guardfile_contents => guardfile_contents }).join
+        return contents
       end
 
     end
