@@ -3,8 +3,8 @@ module Marv
 
     attr_accessor :config, :path, :servers, :plugins, :themes, :layouts
 
-  	def initialize(task)
-  		@task = task
+    def initialize(task)
+      @task = task
 
       create_global_folders
       create_global_config
@@ -15,7 +15,7 @@ module Marv
       @plugins = global_plugins
       @themes = global_themes
       @layouts = global_layouts
-  	end
+    end
 
     # Global Marv folder path
     def global_path
@@ -27,10 +27,10 @@ module Marv
       ::File.join(::File.join(global_path, 'config.rb'))
     end
 
-  	# Load global config file
-  	def global_config
+    # Load global config file
+    def global_config
       load_ruby_config(config_file)
-  	end
+    end
 
     # Servers folder path
     def servers_path
