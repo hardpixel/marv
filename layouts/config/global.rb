@@ -1,16 +1,16 @@
 # Marv server configuration
-# config[:db_user] = "root"
-# config[:db_password] = "root"
-# config[:db_host] = "localhost"
-# config[:db_port] = "3306"
-# config[:wp_version] = "latest"
+# config[:db_user] = "<%= global_options[:db_user] %>"
+# config[:db_password] = "<%= global_options[:db_password] %>"
+# config[:db_host] = "<%= global_options[:db_host] %>"
+# config[:db_port] = "<%= global_options[:db_port] %>"
+# config[:wp_version] = "<%= global_options[:wp_version] %>"
 
 # WordPress theme/plugin information
-# config[:uri] = 'http://www.project.com'
-# config[:author] = 'Author Name'
-# config[:author_uri] = 'http://project.author.com'
-# config[:license_name] = 'GPLv3'
-# config[:license_uri] = 'http://www.gnu.org/copyleft/gpl.html'
+# config[:uri] = <%= global_options[:uri] %>
+# config[:author] = <%= global_options[:author] %>
+# config[:author_uri] = <%= global_options[:author_uri] %>
+# config[:license_name] = <%= global_options[:license_name] %>
+# config[:license_uri] = <%= global_options[:license_uri] %>
 
 # Assets compression
 # config[:compress_js] = true

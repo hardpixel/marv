@@ -2,6 +2,13 @@
 * Complete rewrite
 * Make server subcommand
 * Fix PHP server issues
+* Add marv create wizard
+* Add marv server create wizard
+* Add global config wizard
+* Update project config.rb and layouts
+* Add config.rb for servers
+* Update global config.rb
+* Optimize code (code climate 4.0!)
 
 ## v0.3.2
 * Fix bug when creating server

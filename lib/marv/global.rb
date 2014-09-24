@@ -5,6 +5,10 @@ module Marv
 
   	def initialize(task)
   		@task = task
+
+      create_global_folders
+      create_global_config
+
       @path = global_path
       @config = global_config
       @servers = local_servers
@@ -18,9 +22,14 @@ module Marv
       ::File.join(ENV['HOME'], '.marv')
     end
 
+    # Global config file
+    def config_file
+      ::File.join(::File.join(global_path, 'config.rb'))
+    end
+
   	# Load global config file
   	def global_config
-      load_ruby_config(::File.join(global_path, 'config.rb'))
+      load_ruby_config(config_file)
   	end
 
     # Servers folder path
@@ -38,19 +47,9 @@ module Marv
       ::File.join(global_path, 'plugins')
     end
 
-    # Global plugins array
-    def global_plugins
-      @plugins = subfolders_basenames(plugins_path)
-    end
-
     # Themes path
     def themes_path
       ::File.join(global_path, 'themes')
-    end
-
-    # Global themes array
-    def global_themes
-      @themes = subfolders_basenames(themes_path)
     end
 
     # Layouts path
@@ -58,9 +57,131 @@ module Marv
       ::File.join(global_path, 'layouts')
     end
 
+     # Global themes array
+    def global_themes
+      @themes = subfolders_basenames(themes_path)
+    end
+
+    # Global plugins array
+    def global_plugins
+      @plugins = subfolders_basenames(plugins_path)
+    end
+
     # Global layouts array
     def global_layouts
       @layouts = subfolders_basenames(layouts_path)
+    end
+
+    # Create global folders
+    def create_global_folders
+      @task.shell.mute do
+        create_global_path
+        create_servers_path
+        create_themes_path
+        create_plugins_path
+        create_layouts_path
+      end
+    end
+
+    # Create global path
+    def create_global_path
+      unless ::File.directory?(global_path)
+        @task.empty_directory global_path
+      end
+    end
+
+    # Create servers path
+    def create_servers_path
+      unless ::File.directory?(servers_path)
+        @task.empty_directory servers_path
+      end
+    end
+
+    # Create themes path
+    def create_themes_path
+      unless ::File.directory?(themes_path)
+        @task.empty_directory themes_path
+      end
+    end
+
+    # Create plugins path
+    def create_plugins_path
+      unless ::File.directory?(plugins_path)
+        @task.empty_directory plugins_path
+      end
+    end
+
+    # Create layouts path
+    def create_layouts_path
+      unless ::File.directory?(layouts_path)
+        @task.empty_directory layouts_path
+      end
+    end
+
+    # Server details
+    def ask_server_details
+      options = {}
+
+      if @task.ask("Do you want to set default server settings?").yes?
+        options[:server_host] = @task.ask "Default host for servers?", :default => "localhost"
+        options[:server_port] = @task.ask "Default port for servers?", :default => "3000"
+      end
+
+      return options
+    end
+
+    # Database details
+    def ask_database_details
+      options = {}
+
+      if @task.ask("Do you want to set default database settings?").yes?
+        options[:db_user] = @task.ask "Default database username?", :default => "root"
+        options[:db_password] = @task.ask "Default database password?", :default => "root"
+        options[:db_host] = @task.ask "Default database host?", :default => "localhost"
+        options[:db_port] = @task.ask "Default database port?", :default => "3306"
+      end
+
+      return options
+    end
+
+    # Wordpress details
+    def ask_wordpress_details
+      options = {}
+
+      if @task.ask("Do you want to set default WordPress version?").yes?
+        options[:wp_version] = @task.ask "Default WordPress version?", :default => "latest"
+      end
+
+      return options
+    end
+
+    # Get global options
+    def global_options
+      options = {}
+
+      @task.say "Setting default options for Marv:", :yellow
+
+      if @task.ask("Do you want to set default project details?").yes?
+        options[:uri] = @task.ask "Default project URI"
+        options[:author] = @task.ask "Default project author"
+        options[:author_uri] = @task.ask "Default project author URI"
+        options[:license_name] = @task.ask "Default project license name"
+        options[:license_uri] = @task.ask "Default project license URI"
+      end
+
+      options.merge!(ask_author_details)
+      options.merge!(ask_server_details)
+      options.merge!(ask_database_details)
+
+      return options
+    end
+
+    # Create global config
+    def create_global_config
+      unless ::File.exists?(config_file)
+        global_options
+        template ::File.join(Marv.root, 'layouts', 'config', 'global.rb'), ::File.join(global_path, 'config.rb')
+      end
     end
 
     # Load ruby config file

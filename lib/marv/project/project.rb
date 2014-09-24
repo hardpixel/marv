@@ -12,69 +12,14 @@ module Marv
       # Initialize project config
       def initialize(task, dir, options)
         @task = task
-        @dir = ::File.expand_path(dir)
         @global = Marv::Global.new(task)
+        @dir = ::File.expand_path(dir)
         @options = options
         @root = root_path
         @config_file = config_file
         @config = project_config
         @assets = project_assets
         @context = project_context
-      end
-
-      # Project name
-      def project_name
-        project_config[:name]
-      end
-
-      # Project URI
-      def project_uri
-        project_config[:uri]
-      end
-
-      # Project author
-      def project_author
-        project_config[:author]
-      end
-
-      # Project author URI
-      def project_author_uri
-        project_config[:author_uri]
-      end
-
-      # Project description
-      def project_description
-        project_config[:description]
-      end
-
-      # Project version
-      def project_version
-        project_config[:version]
-      end
-
-      # Project template
-      def project_template
-        project_config[:template]
-      end
-
-      # Project license_name
-      def project_license_name
-        project_config[:license_name]
-      end
-
-      # Project license URI
-      def project_license_uri
-        project_config[:license_uri]
-      end
-
-      # Project tags
-      def project_tags
-        project_config[:tags]
-      end
-
-      # Project comments
-      def project_comments
-        project_config[:comments]
       end
 
       # Project id
@@ -147,6 +92,7 @@ module Marv
         if @options.nil?
           config.merge!(project_config_file)
         else
+          optional_config_file
           config.merge!(@options)
         end
 

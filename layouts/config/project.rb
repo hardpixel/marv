@@ -1,15 +1,16 @@
 # WordPress theme/plugin information
-config[:name] = "<%= project_name %>"
-config[:uri] = "<%= project_uri %>"
-config[:author] = "<%= project_author %>"
-config[:author_uri] = "<%= project_author_uri %>"
-config[:description] = "<%= project_description %>"
-config[:version] = "<%= project_version %>"
-config[:license_name] = "<%= project_license_name %>"
-config[:license_uri] = "<%= project_license_uri %>"
-# config[:template] = "<%= project_template %>"
-# config[:tags] = ["<%= project_tags %>"]
-# config[:comments] = "<%= project_comments %>"
+config[:id] = "<%= project_id %>"
+config[:name] = "<%= project_config[:name] %>"
+config[:uri] = "<%= project_config[:uri] %>"
+config[:author] = "<%= project_config[:author] %>"
+config[:author_uri] = "<%= project_config[:author_uri] %>"
+config[:description] = "<%= project_config[:description] %>"
+config[:version] = "<%= project_config[:version] %>"
+config[:license_name] = "<%= project_config[:license_name] %>"
+config[:license_uri] = "<%= project_config[:license_uri] %>"
+# config[:template] = "<%= project_config[:template] %>"
+# config[:tags] = ["<%= project_config[:tags] %>"]
+# config[:comments] = "<%= project_config[:comments] %>"
 
 # Assets compression
 # config[:compress_js] = true
