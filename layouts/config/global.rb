@@ -1,16 +1,16 @@
 # Marv server configuration
-# config[:db_user] = "<%= global_options[:db_user] %>"
-# config[:db_password] = "<%= global_options[:db_password] %>"
-# config[:db_host] = "<%= global_options[:db_host] %>"
-# config[:db_port] = "<%= global_options[:db_port] %>"
-# config[:wp_version] = "<%= global_options[:wp_version] %>"
+config[:db_user] = "<%= global_options[:db_user] %>"
+config[:db_password] = "<%= global_options[:db_password] %>"
+config[:db_host] = "<%= global_options[:db_host] %>"
+config[:db_port] = "<%= global_options[:db_port] %>"
+config[:wp_version] = "<%= global_options[:wp_version] %>"
 
 # WordPress theme/plugin information
-# config[:uri] = <%= global_options[:uri] %>
-# config[:author] = <%= global_options[:author] %>
-# config[:author_uri] = <%= global_options[:author_uri] %>
-# config[:license_name] = <%= global_options[:license_name] %>
-# config[:license_uri] = <%= global_options[:license_uri] %>
+config[:uri] = "<%= global_options[:uri] %>"
+config[:author] = "<%= global_options[:author] %>"
+config[:author_uri] = "<%= global_options[:author_uri] %>"
+config[:license_name] = "<%= global_options[:license_name] %>"
+config[:license_uri] = "<%= global_options[:license_uri] %>"
 
 # Assets compression
 # config[:compress_js] = true

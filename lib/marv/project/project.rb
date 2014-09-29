@@ -116,8 +116,8 @@ module Marv
 
       # Check for config file in options
       def optional_config_file
-        if ::File.exists?(@options)
-          @options = @global.load_ruby_config(::File.expand_path(@opt_config))
+        if ::File.exists?(@options.to_s)
+          @options = @global.load_ruby_config(::File.expand_path(@options))
         end
       end
 
@@ -135,6 +135,8 @@ module Marv
         if project_config[:additional_assets]
           assets = assets | project_config[:additional_assets]
         end
+
+        return assets
       end
 
       # Get project class context

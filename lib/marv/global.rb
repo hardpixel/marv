@@ -157,6 +157,11 @@ module Marv
 
     # Get global options
     def global_options
+      @options
+    end
+
+    # Ask global options
+    def ask_global_options
       options = {}
 
       @task.say "Marv global config is missing!", :red
@@ -170,18 +175,18 @@ module Marv
         options[:license_uri] = @task.ask "Default project license URI"
       end
 
-      options.merge!(ask_author_details)
       options.merge!(ask_server_details)
       options.merge!(ask_database_details)
+      options.merge!(ask_wordpress_details)
 
-      return options
+      @options = options
     end
 
     # Create global config
     def create_global_config
       unless ::File.exists?(config_file)
-        global_options
-        template ::File.join(Marv.root, 'layouts', 'config', 'global.rb'), ::File.join(global_path, 'config.rb')
+        ask_global_options
+        template ::File.join(Marv.root, 'layouts', 'config', 'global.rb'), ::File.join(global_path, 'config.rb'), instance_eval('binding')
       end
     end
 

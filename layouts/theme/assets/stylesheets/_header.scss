@@ -7,7 +7,7 @@
  * Version: <%= project_config[:version] %>
  * License: <%= project_config[:license_name] %>
  * License URI: <%= project_config[:license_uri] %>
- * Tags: <%= if project_config[:tags] %>
+ * Tags: <%= project_config[:tags] %>
 <% if project_config[:template] -%>
  * Template: <%= project_config[:template] %>
 <% end -%>
