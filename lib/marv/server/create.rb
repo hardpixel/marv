@@ -25,7 +25,6 @@ module Marv
             copy_wordpress_files
             @server.create_database
             add_config_files
-            start_server
           end
         rescue Exception => e
           @task.say "Error while creating server:"
@@ -34,7 +33,7 @@ module Marv
         end
 
         @task.say "Server #{@name} created successfully!", :green
-        @task.say "Start server using\nmarv server start #{@name}"
+        start_server
       end
 
       # Starts the new server
