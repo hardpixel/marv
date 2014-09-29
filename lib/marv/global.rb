@@ -122,7 +122,7 @@ module Marv
     def ask_server_details
       options = {}
 
-      if @task.ask("Do you want to set default server settings?").yes?
+      if @task.yes?("Do you want to set default server settings?")
         options[:server_host] = @task.ask "Default host for servers?", :default => "localhost"
         options[:server_port] = @task.ask "Default port for servers?", :default => "3000"
       end
@@ -134,7 +134,7 @@ module Marv
     def ask_database_details
       options = {}
 
-      if @task.ask("Do you want to set default database settings?").yes?
+      if @task.yes?("Do you want to set default database settings?")
         options[:db_user] = @task.ask "Default database username?", :default => "root"
         options[:db_password] = @task.ask "Default database password?", :default => "root"
         options[:db_host] = @task.ask "Default database host?", :default => "localhost"
@@ -148,7 +148,7 @@ module Marv
     def ask_wordpress_details
       options = {}
 
-      if @task.ask("Do you want to set default WordPress version?").yes?
+      if @task.yes?("Do you want to set default WordPress version?")
         options[:wp_version] = @task.ask "Default WordPress version?", :default => "latest"
       end
 
@@ -159,9 +159,10 @@ module Marv
     def global_options
       options = {}
 
-      @task.say "Setting default options for Marv:", :yellow
+      @task.say "Marv global config is missing!", :red
+      @task.say "Answer the questions to create the configuration file."
 
-      if @task.ask("Do you want to set default project details?").yes?
+      if @task.yes?("Do you want to set default project details?")
         options[:uri] = @task.ask "Default project URI"
         options[:author] = @task.ask "Default project author"
         options[:author_uri] = @task.ask "Default project author URI"
@@ -182,6 +183,16 @@ module Marv
         global_options
         template ::File.join(Marv.root, 'layouts', 'config', 'global.rb'), ::File.join(global_path, 'config.rb')
       end
+    end
+
+    # Reconfig Marv global options
+    def reconfigure
+      @task.shell.mute do
+        @task.remove_file config_file
+      end
+
+      create_global_folders
+      create_global_config
     end
 
     # Load ruby config file

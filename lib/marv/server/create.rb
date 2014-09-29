@@ -8,11 +8,11 @@ module Marv
       def initialize(server)
         @server = server
         @task = server.task
+        @global = Marv::Global.new(server.task)
         @name = server.name
         @path = server.path
         @database = server.database
         @config = server.config
-        @global = Marv::Global.new(server.task)
 
         create_server
       end
@@ -25,6 +25,7 @@ module Marv
             copy_wordpress_files
             @server.create_database
             add_config_files
+            start_server
           end
         rescue Exception => e
           @task.say "Error while creating server:"
@@ -34,6 +35,14 @@ module Marv
 
         @task.say "Server #{@name} created successfully!", :green
         @task.say "Start server using\nmarv server start #{@name}"
+      end
+
+      # Starts the new server
+      def start_server
+        unless @task.no?("Would you like to start #{@name} server?")
+          action = Marv::Server::Actions.new(@server)
+          action.start
+        end
       end
 
       # Creates a directory for a new server

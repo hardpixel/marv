@@ -13,7 +13,8 @@ module Marv
       desc "config", "Configure Marv projects and servers"
       long_desc "Creates a global config.rb file that can be used to auto-configure your projects and servers"
       def config
-        Marv::Global.new(self)
+        global = Marv::Global.new(self)
+        global.reconfigure
       end
 
       desc "server [SUBCOMMAND]", "Manage marv servers (create, start and more...)"
