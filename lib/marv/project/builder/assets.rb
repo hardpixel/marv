@@ -74,8 +74,10 @@ module Marv
         @task.say "Error while building #{asset.last}:"
         @task.say message, :red
 
-        @task.create_file destination unless ::File.exists?(destination)
-        @task.append_to_file destination, message
+        @task.shell.mute do
+          @task.create_file destination unless ::File.exists?(destination)
+          @task.append_to_file destination, message
+        end
       end
 
       # Init sprockets

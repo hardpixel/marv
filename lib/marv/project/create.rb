@@ -27,6 +27,9 @@ module Marv
           abort
         end
 
+        @task.say "This will create a new project.", :cyan
+        @task.say "Please enter project details below."
+
         # Get project options
         options = {}
 

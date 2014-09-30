@@ -30,6 +30,7 @@ module Marv
           @task.create_file ::File.join(@path, 'php.pid'), @php.pid, :force => true
         end
 
+        @task.say "Server #{@server.name} is running", :cyan
         @task.say "Visit http://#{@server.host}:#{@server.port}", :green
       end
 

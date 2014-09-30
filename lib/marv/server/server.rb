@@ -22,6 +22,8 @@ module Marv
         @port = server_port
         @database = db_client
         @context = server_context
+
+        @global.clean_broken_links(server_projects_paths)
       end
 
       # Server path
@@ -96,6 +98,9 @@ module Marv
         options = {}
 
         unless ::File.exists?(@config_file)
+          @task.say "This will create a new development server.", :cyan
+          @task.say "Please enter server settings below."
+
           options.merge!(ask_server_details)
           options.merge!(ask_database_details)
           options.merge!(ask_wordpress_details)
@@ -181,6 +186,14 @@ module Marv
       # Get server class context
       def server_context
         instance_eval('binding')
+      end
+
+      # Server projects paths
+      def server_projects_paths
+        paths = ::Dir.glob(::File.join(server_path, 'wp-content', 'themes', '*'))
+        paths = paths + ::Dir.glob(::File.join(server_path, 'wp-content', 'plugins', '*'))
+
+        return paths
       end
 
     end

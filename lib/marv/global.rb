@@ -15,6 +15,9 @@ module Marv
       @plugins = global_plugins
       @themes = global_themes
       @layouts = global_layouts
+
+      clean_broken_links(global_projects_paths)
+      link_global_projects
     end
 
     # Global Marv folder path
@@ -164,8 +167,7 @@ module Marv
     def ask_global_options
       options = {}
 
-      @task.say "Marv global config is missing!", :red
-      @task.say "Answer the questions to create the configuration file."
+      @task.say "This will create a new global configuration file.", :cyan
 
       if @task.yes?("Do you want to set default project details?")
         options[:uri] = @task.ask "Default project URI"
@@ -192,12 +194,48 @@ module Marv
 
     # Reconfig Marv global options
     def reconfigure
-      @task.shell.mute do
-        @task.remove_file config_file
-      end
+      @task.say "This will overwrite your global configuration file.", :cyan
 
-      create_global_folders
-      create_global_config
+      if @task.yes?("Do you want to continue?")
+        @task.shell.mute do
+          @task.remove_file config_file
+        end
+
+        create_global_folders
+        create_global_config
+      end
+    end
+
+    # Global projects paths
+    def global_projects_paths
+      paths = ::Dir.glob(::File.join(plugins_path, '*'))
+      paths = paths + ::Dir.glob(::File.join(themes_path, '*'))
+
+      return paths
+    end
+
+    # Global servers paths
+    def global_servers_paths
+      ::Dir.glob(::File.join(servers_path, '*'))
+    end
+
+    # Clean broken global links
+    def clean_broken_links(paths)
+      paths.each do |path|
+        unless ::File.exists?(path)
+          ::FileUtils.rm_r path
+        end
+      end
+    end
+
+    # Link global projects
+    def link_global_projects
+      global_projects_paths.each do |project|
+        global_servers_paths.each do |server|
+          target = project.gsub(global_path, ::File.join(server, 'wp-content'))
+          @task.create_link target, project unless ::File.exists?(target)
+        end
+      end
     end
 
     # Load ruby config file

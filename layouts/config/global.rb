@@ -1,4 +1,8 @@
 # Marv server configuration
+config[:server_host] = "<%= global_options[:server_host] %>"
+config[:server_port] = "<%= global_options[:server_port] %>"
+
+# Database configuration
 config[:db_user] = "<%= global_options[:db_user] %>"
 config[:db_password] = "<%= global_options[:db_password] %>"
 config[:db_host] = "<%= global_options[:db_host] %>"
