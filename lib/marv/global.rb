@@ -16,8 +16,10 @@ module Marv
       @themes = global_themes
       @layouts = global_layouts
 
-      clean_broken_links(global_projects_paths)
-      link_global_projects
+      @task.shell.mute do
+        clean_broken_links(global_projects_paths)
+        link_global_projects
+      end
     end
 
     # Global Marv folder path
