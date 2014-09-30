@@ -66,13 +66,9 @@ a:hover {
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  border-bottom: solid 1px #660808;
-  background-color: #730909;
-  background-image: linear-gradient(90deg, rgba(255,0,0,.007) 50%, transparent 50%),
-  linear-gradient(90deg, rgba(255,0,0,.03) 50%, transparent 50%),
-  linear-gradient(90deg, transparent 50%, rgba(255,0,0,.07) 50%),
-  linear-gradient(90deg, transparent 50%, rgba(255,0,0,.09) 50%);
-  background-size: 13px, 29px, 37px, 53px;
+  box-shadow: inset 0 -3px 3px -3px #660808;
+  background: url(../images/background.svg) no-repeat bottom right #730909;
+  background-size: cover;
 }
 
 header h1 {
