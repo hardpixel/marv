@@ -36,7 +36,7 @@ module Marv
               @task.copy_file filename, ::File.join(@project.build_path, ::File.basename(filename)), :force => true
             else
               # Copy the other files in images directory
-              @task.copy_file filename, ::File.join(@project.build_path, 'images'), :force => true
+              @task.copy_file filename, ::File.join(@project.build_path, 'images', ::File.basename(filename)), :force => true
             end
           end
         end
