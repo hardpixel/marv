@@ -31,9 +31,21 @@ module Marv
       # Start a Marv server
       desc "start SERVER", "Start the specified Marv server"
       def start(dir)
-        server = Marv::Server::Server.new(self, dir)
-        action = Marv::Server::Actions.new(server)
-        action.start
+        servers_path = Marv::Global.new(self).servers_path
+
+        if ::File.directory?(::File.join(servers_path, dir))
+          server = Marv::Server::Server.new(self, dir)
+          action = Marv::Server::Actions.new(server)
+          action.start
+        end
+
+        # Create server if it does not exist
+        unless ::File.directory?(::File.join(servers_path, dir))
+          say "Server #{dir} does not exist.", :yellow
+          if yes?("Would you like to create the server?")
+            create(dir)
+          end
+        end
       end
 
       # Start a Marv server

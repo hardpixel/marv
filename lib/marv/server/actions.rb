@@ -1,4 +1,3 @@
-require 'net/http'
 require 'childprocess'
 
 module Marv
@@ -15,12 +14,6 @@ module Marv
 
       # Initialize server start
       def start
-        # Setup server
-        server = TCPServer.new('127.0.0.1', 0)
-        port = server.addr[1]
-        server.close()
-
-        # Run PHP server
         ::Dir.chdir @path
         @php = ChildProcess.build 'php', '-S', "#{@server.host}:#{@server.port}", 'router.php'
         @php.start
