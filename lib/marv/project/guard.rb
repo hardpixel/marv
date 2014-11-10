@@ -38,7 +38,7 @@ module Marv
           self.project_contents << result unless result.nil?
         end
         # Start guard watching
-        ::Guard.start({ :guardfile_contents => self.project_contents }).join
+        ::Guard.start({ :guardfile_contents => self.project_contents })
       end
 
       # Guard contents
