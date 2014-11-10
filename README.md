@@ -45,7 +45,7 @@ Watch for changes and start developing!
     $ cd project-name
     $ marv watch
 
-	Press Ctrl + Z to exit watch mode
+	Press Ctrl + D to exit watch mode
 
 Build your project into the build_here directory:
 
