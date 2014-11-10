@@ -104,7 +104,7 @@ module Marv
 
         # Copy build files to temporary directory
         @task.shell.mute do
-          @task.directory @project.build_path, ::File.join(@project.package_path, @package_name)
+          @task.directory @project.build_path, ::File.join(@project.package_path, @package_name), :force => true
         end
       end
 

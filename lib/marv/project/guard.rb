@@ -51,16 +51,16 @@ module Marv
           guard 'config'#{@options_hash} do
             watch("#{config_file}")
           end
-          guard 'assets' do
-            watch(%r{#{assets_path}/javascripts/*})
-            watch(%r{#{assets_path}/stylesheets/*})
-            watch(%r{#{assets_path}/images/*})
+          guard 'functions' do
+            watch(%r{#{source_path}/*})
           end
           guard 'templates' do
             watch(%r{#{source_path}/templates/*})
           end
-          guard 'functions' do
-            watch(%r{#{source_path}/*})
+          guard 'assets' do
+            watch(%r{#{assets_path}/javascripts/*})
+            watch(%r{#{assets_path}/stylesheets/*})
+            watch(%r{#{assets_path}/images/*})
           end
         }
 

@@ -88,7 +88,7 @@ module Marv
             source = folder.gsub(@project.source_path, '')
             target = ::File.join(@project.build_path, source)
 
-            @task.directory folder, target
+            @task.directory folder, target, :force => true
           end
         end
       end
