@@ -1,10 +1,10 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 
 module Guard
-  class Config < ::Guard::Guard
+  class Config < ::Guard::Plugin
 
-    def initialize(watchers=[], options={})
+    def initialize(options={})
       @builder = Marv::Project::Guard.builder
       super
     end

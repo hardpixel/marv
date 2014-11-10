@@ -1,10 +1,10 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 
 module Guard
-  class Functions < ::Guard::Guard
+  class Functions < ::Guard::Plugin
 
-    def initialize(watchers=[], options={})
+    def initialize(options={})
       super
     end
 
@@ -33,6 +33,7 @@ module Guard
         builder.clean_functions
         builder.clean_includes
         builder.clean_folders
+        builder.build_assets
       end
 
       builder.copy_functions

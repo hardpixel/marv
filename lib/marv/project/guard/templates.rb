@@ -1,10 +1,10 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 
 module Guard
-  class Templates < ::Guard::Guard
+  class Templates < ::Guard::Plugin
 
-    def initialize(watchers=[], options={})
+    def initialize(options={})
       super
     end
 

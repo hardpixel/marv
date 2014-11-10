@@ -23,18 +23,12 @@ module Marv
       def build_project
         clean_directory
 
-        @functions.clean_folders
         @functions.copy_folders
-
-        @templates.clean_templates
         @templates.copy_templates
 
-        @functions.clean_functions
         @functions.copy_functions
-        @functions.clean_includes
         @functions.copy_includes
 
-        @assets.clean_images
         @assets.copy_images
         @assets.build_assets
       end

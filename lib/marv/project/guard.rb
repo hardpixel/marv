@@ -1,5 +1,5 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 
 # Marv pry console actions
 require 'marv/project/guard/assets'
@@ -58,11 +58,9 @@ module Marv
           end
           guard 'templates' do
             watch(%r{#{source_path}/templates/*})
-            watch(%r{#{source_path}/partials/*})
           end
           guard 'functions' do
-            watch(%r{#{source_path}/functions/*})
-            watch(%r{#{source_path}/includes/*})
+            watch(%r{#{source_path}/*})
           end
         }
 

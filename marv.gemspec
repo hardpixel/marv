@@ -9,12 +9,12 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonian Guveli", "Olibia Tsati"]
-  s.date = "2014-10-28"
+  s.date = "2014-11-10"
   s.description = "A toolkit for bootstrapping and developing WordPress themes and plugins using Sass, LESS, and CoffeeScript."
   s.email = "info@hardpixel.eu"
   s.executables = ["marv"]
   s.extra_rdoc_files = [
-    "LICENSE",
+    "LICENSE.txt",
     "README.md"
   ]
   s.files = [
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
     "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
-    "LICENSE",
+    "LICENSE.txt",
     "README.md",
     "Rakefile",
     "VERSION",
@@ -100,30 +100,30 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<thor>, [">= 0.19.1"])
-      s.add_runtime_dependency(%q<guard-livereload>, [">= 2.3.0"])
-      s.add_runtime_dependency(%q<sprockets>, [">= 2.12.0"])
-      s.add_runtime_dependency(%q<childprocess>, [">= 0.3.5"])
-      s.add_runtime_dependency(%q<mysql2>, [">= 0.3.15"])
-      s.add_runtime_dependency(%q<uglifier>, [">= 2.5.0"])
-      s.add_runtime_dependency(%q<sass>, [">= 3.3.0"])
+      s.add_runtime_dependency(%q<guard-livereload>, [">= 2.3.1"])
+      s.add_runtime_dependency(%q<sprockets>, [">= 2.12.3"])
+      s.add_runtime_dependency(%q<childprocess>, [">= 0.5.5"])
+      s.add_runtime_dependency(%q<mysql2>, [">= 0.3.16"])
+      s.add_runtime_dependency(%q<uglifier>, [">= 2.5.3"])
+      s.add_runtime_dependency(%q<sass>, [">= 3.4.7"])
       s.add_runtime_dependency(%q<less>, [">= 2.6.0"])
       s.add_runtime_dependency(%q<coffee-script>, [">= 2.3.0"])
-      s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_runtime_dependency(%q<therubyracer>, [">= 0.12.1"])
       s.add_runtime_dependency(%q<rubyzip>, [">= 1.1.6"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 2.0.1"])
     else
       s.add_dependency(%q<thor>, [">= 0.19.1"])
-      s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
-      s.add_dependency(%q<sprockets>, [">= 2.12.0"])
-      s.add_dependency(%q<childprocess>, [">= 0.3.5"])
-      s.add_dependency(%q<mysql2>, [">= 0.3.15"])
-      s.add_dependency(%q<uglifier>, [">= 2.5.0"])
-      s.add_dependency(%q<sass>, [">= 3.3.0"])
+      s.add_dependency(%q<guard-livereload>, [">= 2.3.1"])
+      s.add_dependency(%q<sprockets>, [">= 2.12.3"])
+      s.add_dependency(%q<childprocess>, [">= 0.5.5"])
+      s.add_dependency(%q<mysql2>, [">= 0.3.16"])
+      s.add_dependency(%q<uglifier>, [">= 2.5.3"])
+      s.add_dependency(%q<sass>, [">= 3.4.7"])
       s.add_dependency(%q<less>, [">= 2.6.0"])
       s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
-      s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+      s.add_dependency(%q<therubyracer>, [">= 0.12.1"])
       s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, ["~> 1.0"])
@@ -131,15 +131,15 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<thor>, [">= 0.19.1"])
-    s.add_dependency(%q<guard-livereload>, [">= 2.3.0"])
-    s.add_dependency(%q<sprockets>, [">= 2.12.0"])
-    s.add_dependency(%q<childprocess>, [">= 0.3.5"])
-    s.add_dependency(%q<mysql2>, [">= 0.3.15"])
-    s.add_dependency(%q<uglifier>, [">= 2.5.0"])
-    s.add_dependency(%q<sass>, [">= 3.3.0"])
+    s.add_dependency(%q<guard-livereload>, [">= 2.3.1"])
+    s.add_dependency(%q<sprockets>, [">= 2.12.3"])
+    s.add_dependency(%q<childprocess>, [">= 0.5.5"])
+    s.add_dependency(%q<mysql2>, [">= 0.3.16"])
+    s.add_dependency(%q<uglifier>, [">= 2.5.3"])
+    s.add_dependency(%q<sass>, [">= 3.4.7"])
     s.add_dependency(%q<less>, [">= 2.6.0"])
     s.add_dependency(%q<coffee-script>, [">= 2.3.0"])
-    s.add_dependency(%q<therubyracer>, [">= 0.12.0"])
+    s.add_dependency(%q<therubyracer>, [">= 0.12.1"])
     s.add_dependency(%q<rubyzip>, [">= 1.1.6"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, ["~> 1.0"])
