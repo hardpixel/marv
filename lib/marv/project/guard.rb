@@ -1,7 +1,10 @@
+gem 'guard', '~> 2.8.0'
+gem 'guard-livereload', '~> 2.4.0'
+
 require 'guard'
 require 'guard/plugin'
 
-# Marv pry console actions
+# Marv Guard plugins
 require 'marv/project/guard/assets'
 require 'marv/project/guard/config'
 require 'marv/project/guard/functions'

@@ -1,6 +1,3 @@
-require 'guard'
-require 'guard/plugin'
-
 module Guard
   class Assets < ::Guard::Plugin
 

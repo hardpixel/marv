@@ -4,6 +4,10 @@ module Marv
   module CLI
     class Project < Thor
 
+      def self.source_root
+        ::File.expand_path(::File.join(Marv.root, 'layouts'))
+      end
+
       include Thor::Actions
 
       # Create a new Marv project

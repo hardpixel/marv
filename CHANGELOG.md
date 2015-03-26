@@ -1,3 +1,15 @@
+## v0.6.0
+* Use specific guard versions
+* Use specific livereload versions
+* Add debug option for server
+* Fix marv link creating link inside project
+* Give option to change server port if port unavailable
+* Add option to list running servers
+* Add option to stop all servers
+
+## v0.5.0
+* Fix issues after complete rewrite
+
 ## v0.4.0
 * Complete rewrite
 * Make server subcommand

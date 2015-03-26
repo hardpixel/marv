@@ -9,3 +9,10 @@ module Marv
   end
 
 end
+
+trap 'SIGINT' do
+  puts
+  puts
+  puts ::Time.now.strftime('%T') + ' - INFO - Bye bye...'
+  exit 130
+end

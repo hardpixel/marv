@@ -12,12 +12,36 @@ module Marv
 
       # List all Marv servers
       desc "list", "List all Marv servers"
-      def list
+      def list(dir='all')
         servers = Marv::Global.new(self).servers
 
-        say "Available marv servers:"
-        servers.each do |server|
-          say '- ' + server, :cyan
+        if dir == 'all'
+          say "Available marv servers:"
+          servers.each_with_index do |server, index|
+            say "#{index + 1}. #{server}", :cyan
+          end
+
+          if servers.empty?
+            say "No servers found", :yellow
+          end
+        end
+
+        if dir == 'running'
+          index = 0
+          say "Running marv servers:"
+          servers.each do |dir|
+            server = Marv::Server::Server.new(self, dir)
+            action = Marv::Server::Actions.new(server)
+
+            if action.is_server_running?
+              say "#{index + 1}. #{server.name} [http://#{server.host}:#{server.port}]", :green
+              index += 1
+            end
+          end
+
+          if index == 0
+            say "No running servers found", :yellow
+          end
         end
       end
 
@@ -30,12 +54,13 @@ module Marv
 
       # Start a Marv server
       desc "start SERVER", "Start the specified Marv server"
+      method_option :debug, :type => :boolean, :desc => "Start server in debug mode"
       def start(dir)
         servers_path = Marv::Global.new(self).servers_path
 
         if ::File.directory?(::File.join(servers_path, dir))
           server = Marv::Server::Server.new(self, dir)
-          action = Marv::Server::Actions.new(server)
+          action = Marv::Server::Actions.new(server, options[:debug])
           action.start
         end
 
@@ -51,9 +76,24 @@ module Marv
       # Start a Marv server
       desc "stop SERVER", "Stop the specified Marv server"
       def stop(dir)
-        server = Marv::Server::Server.new(self, dir)
-        action = Marv::Server::Actions.new(server)
-        action.stop
+        unless dir == 'all'
+          server = Marv::Server::Server.new(self, dir)
+          action = Marv::Server::Actions.new(server)
+          action.stop
+        end
+
+        if dir == 'all'
+          servers = Marv::Global.new(self).servers
+
+          servers.each do |dir|
+            server = Marv::Server::Server.new(self, dir)
+            action = Marv::Server::Actions.new(server)
+
+            if action.is_server_running?
+              action.stop
+            end
+          end
+        end
       end
 
       # Start a Marv server
