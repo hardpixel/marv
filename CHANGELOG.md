@@ -1,3 +1,7 @@
+## v0.6.1
+* Fix server running message when server not running
+* Use specific version of tilt gem
+
 ## v0.6.0
 * Use specific guard versions
 * Use specific livereload versions

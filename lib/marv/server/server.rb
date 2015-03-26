@@ -169,18 +169,28 @@ module Marv
 
       # Create MySQL database
       def create_database
-        db_client_create
-        db_client_grant_all
-        db_client_flush_priv
-        @database.close
+        begin
+          db_client_create
+          db_client_grant_all
+          db_client_flush_priv
+          @database.close
+        rescue Exception => e
+          @task.say "An error occured while creating database", :red
+          @task.say e.message
+        end
       end
 
       # Remove MySQL database
       def remove_database
-        db_client_drop
-        db_client_revoke_all
-        db_client_flush_priv
-        @database.close
+        begin
+          db_client_drop
+          db_client_revoke_all
+          db_client_flush_priv
+          @database.close
+        rescue Exception => e
+          @task.say "An error occured while removing database", :red
+          @task.say e.message
+        end
       end
 
       # Get server class context

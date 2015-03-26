@@ -1,3 +1,5 @@
+gem 'tilt', '!= 1.3.0', '~> 1.1'
+
 require 'tilt'
 
 module Tilt

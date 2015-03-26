@@ -40,7 +40,7 @@ module Marv
             ::Process.kill('KILL', pid)
             @task.say "Server #{@name} stopped", :yellow
           end
-        rescue Exception => e
+        rescue
           @task.say "Server #{@name} is not running", :yellow
         end
       end
@@ -116,7 +116,7 @@ module Marv
           pid = ::File.read(pid_file).to_i
 
           ::Process.kill(0, pid)
-        rescue Exception => e
+        rescue
           return false
         end
 
@@ -126,8 +126,9 @@ module Marv
       # Check if port is available
       def is_port_available?(host=@server.host, port=@server.port)
         begin
-          ::TCPServer.new(host, port)
-        rescue Exception => e
+          server = ::TCPServer.new(host, port)
+          server.close()
+        rescue
           return false
         end
 

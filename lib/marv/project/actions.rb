@@ -77,7 +77,12 @@ module Marv
           end
         end
 
-        @task.create_link @link_target, @project.build_path
+        begin
+          @task.create_link @link_target, @project.build_path
+        rescue Exception => e
+          @task.say "An error occured while creating project link", :red
+          @task.say e.message
+        end
       end
 
       # Create package
