@@ -21,7 +21,7 @@ module Marv
       desc "link SERVER or DIRECTORY", "Create a symbolic link to the compilation directory"
       long_desc "This command will symlink the compiled version of the project to the specified server or WordPress install path."+
       "If you don't provide a directory or a server name, the symlink will be created in Marv global themes or plugins folder."
-      def link(dir=nil)
+      def link(dir='global')
         project = Marv::Project::Project.new(self, '.', nil)
         actions = Marv::Project::Actions.new(project, nil)
         actions.link(dir)

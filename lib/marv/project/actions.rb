@@ -38,7 +38,7 @@ module Marv
 
       # Link to server
       def link_to_server
-        unless @link_dir.nil?
+        unless @link_dir == 'global'
           path = ::File.join(@global.servers_path, @link_dir, 'wp-content', @link_options[:folder])
 
           if ::File.directory?(path)
@@ -49,10 +49,17 @@ module Marv
 
       # Link to wordpress
       def link_to_folder
-        unless @link_dir.nil?
+        unless @link_dir == 'global'
           if ::File.directory?(@link_dir)
             ::File.join(@link_dir, 'wp-content', @link_options[:folder], ::File.basename(@project.root))
           end
+        end
+      end
+
+      # Link global
+      def link_global
+        if @link_dir == 'global'
+          ::File.join(@global.global_path, @link_options[:folder], ::File.basename(@project.root))
         end
       end
 
@@ -60,6 +67,7 @@ module Marv
       def link_target
         target = link_to_server unless link_to_server.nil?
         target = link_to_folder unless link_to_folder.nil?
+        target = link_global unless link_global.nil?
 
         if target.nil?
           @task.say "Destination server does not exist!", :red

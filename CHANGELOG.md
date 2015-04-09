@@ -1,3 +1,9 @@
+## v0.6.2
+* Fix global link
+* Fix server debug mode
+* Fix server restart
+* Optimize server running detection
+
 ## v0.6.1
 * Fix server running message when server not running
 * Use specific version of tilt gem

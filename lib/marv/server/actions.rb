@@ -40,7 +40,7 @@ module Marv
             ::Process.kill('KILL', pid)
             @task.say "Server #{@name} stopped", :yellow
           end
-        rescue
+        rescue Errno::EPERM, Errno::ESRCH
           @task.say "Server #{@name} is not running", :yellow
         end
       end
@@ -48,6 +48,7 @@ module Marv
       # Initialize server restart
       def restart
         stop
+        sleep 3
         start
       end
 
@@ -71,8 +72,9 @@ module Marv
 
       # Run server
       def run_server
+        ::Dir.chdir @path
+
         unless @debug
-          ::Dir.chdir @path
           @php = ChildProcess.build 'php', '-S', "#{@server.host}:#{@server.port}", 'router.php'
           @php.start
 
@@ -111,16 +113,15 @@ module Marv
 
       # Check if port is available
       def is_server_running?(server=@server)
-        begin
-          pid_file = ::File.join(server.path, 'php.pid')
-          pid = ::File.read(pid_file).to_i
+        pid_file = ::File.join(server.path, 'php.pid')
+        pid = ::File.read(pid_file).to_i
 
+        begin
           ::Process.kill(0, pid)
-        rescue
+          return true
+        rescue Errno::EPERM, Errno::ESRCH
           return false
         end
-
-        return true
       end
 
       # Check if port is available
@@ -128,11 +129,10 @@ module Marv
         begin
           server = ::TCPServer.new(host, port)
           server.close()
-        rescue
+          return true
+        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, SocketError
           return false
         end
-
-        return true
       end
 
     end

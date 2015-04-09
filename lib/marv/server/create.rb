@@ -60,6 +60,8 @@ module Marv
         package = "/tmp/wordpress-#{@config[:wp_version]}.zip"
         # Download package file
         unless ::File.exists?(package)
+          @task.say "Downloading WordPress...", :cyan
+
           @task.get "https://wordpress.org/wordpress-#{@config[:wp_version]}.zip" do |content|
             @task.create_file package, content
           end
