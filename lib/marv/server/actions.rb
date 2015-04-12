@@ -34,7 +34,7 @@ module Marv
         pid_file = ::File.join(@path, 'php.pid')
 
         begin
-          if File.exists?(pid_file)
+          if ::File.exists?(pid_file)
             pid = ::File.read(pid_file).to_i
 
             ::Process.kill('KILL', pid)
@@ -113,12 +113,15 @@ module Marv
 
       # Check if port is available
       def is_server_running?(server=@server)
-        pid_file = ::File.join(server.path, 'php.pid')
-        pid = ::File.read(pid_file).to_i
-
         begin
-          ::Process.kill(0, pid)
-          return true
+          pid_file = ::File.join(server.path, 'php.pid')
+
+          if ::File.exists?(pid_file)
+            pid = ::File.read(pid_file).to_i
+
+            ::Process.kill(0, pid)
+            return true
+          end
         rescue Errno::EPERM, Errno::ESRCH
           return false
         end

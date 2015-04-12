@@ -1,3 +1,6 @@
+## v0.6.3
+* Fix new server start
+
 ## v0.6.2
 * Fix global link
 * Fix server debug mode
