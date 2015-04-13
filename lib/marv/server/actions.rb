@@ -40,7 +40,7 @@ module Marv
             ::Process.kill('KILL', pid)
             @task.say "Server #{@name} stopped", :yellow
           end
-        rescue Errno::EPERM, Errno::ESRCH
+        rescue
           @task.say "Server #{@name} is not running", :yellow
         end
       end
@@ -122,7 +122,7 @@ module Marv
             ::Process.kill(0, pid)
             return true
           end
-        rescue Errno::EPERM, Errno::ESRCH
+        rescue
           return false
         end
       end
@@ -133,7 +133,7 @@ module Marv
           server = ::TCPServer.new(host, port)
           server.close()
           return true
-        rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, SocketError
+        rescue
           return false
         end
       end

@@ -1,5 +1,4 @@
-gem 'guard', '~> 2.8.0'
-gem 'guard-livereload', '~> 2.4.0'
+gem 'guard', '~> 2.8', '< 2.9'
 
 require 'guard'
 require 'guard/plugin'

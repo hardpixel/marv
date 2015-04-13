@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 # Add dependencies required to use your gem here.
-gem 'guard', '~> 2.8.0'
-gem 'guard-livereload', '~> 2.4.0'
+gem 'guard', '~> 2.8', '< 2.9'
+gem 'guard-livereload', '~> 2.4'
 gem 'thor', '~> 0.19'
 gem 'sprockets', '~> 2.12'
 gem 'childprocess', '~> 0.5'

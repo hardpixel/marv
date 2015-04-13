@@ -1,3 +1,7 @@
+## v0.6.4
+* Fix port availability check
+* Update gem dependencies
+
 ## v0.6.3
 * Fix new server start
 

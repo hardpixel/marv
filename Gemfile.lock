@@ -11,7 +11,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1)
+    coffee-script-source (1.9.1.1)
     commonjs (0.2.7)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -120,8 +120,8 @@ DEPENDENCIES
   bundler (~> 1.0)
   childprocess (~> 0.5)
   coffee-script (~> 2.3)
-  guard (~> 2.8.0)
-  guard-livereload (~> 2.4.0)
+  guard (~> 2.8, < 2.9)
+  guard-livereload (~> 2.4)
   jeweler (~> 2.0)
   less (~> 2.6)
   mysql2 (~> 0.3)
