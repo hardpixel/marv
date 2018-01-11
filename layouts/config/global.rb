@@ -16,6 +16,9 @@ config[:author_uri] = "<%= global_options[:author_uri] %>"
 config[:license_name] = "<%= global_options[:license_name] %>"
 config[:license_uri] = "<%= global_options[:license_uri] %>"
 
+# Autoprefixer
+# config[:autoprefixer] = { browsers: '> 1%' }
+
 # Assets compression
 # config[:compress_js] = true
 # config[:compress_css] = true

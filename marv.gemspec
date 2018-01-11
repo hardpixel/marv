@@ -91,63 +91,66 @@ Gem::Specification.new do |s|
     "lib/marv/server/server.rb",
     "marv.gemspec"
   ]
-  s.homepage = "http://hardpixel.github.io/marv"
-  s.licenses = ["MIT"]
-  s.rubygems_version = "2.2.2"
-  s.summary = "A command-line tool for developing wordpress themes and plugins"
+  s.homepage = "http://hardpixel.github.io/marv".freeze
+  s.licenses = ["MIT".freeze]
+  s.rubygems_version = "2.7.3".freeze
+  s.summary = "A command-line tool for developing wordpress themes and plugins".freeze
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<guard>, ["< 2.9", "~> 2.8"])
-      s.add_runtime_dependency(%q<guard-livereload>, ["~> 2.4"])
-      s.add_runtime_dependency(%q<thor>, ["~> 0.19"])
-      s.add_runtime_dependency(%q<sprockets>, ["~> 2.12"])
-      s.add_runtime_dependency(%q<childprocess>, ["~> 0.5"])
-      s.add_runtime_dependency(%q<mysql2>, ["~> 0.3"])
-      s.add_runtime_dependency(%q<uglifier>, ["~> 2.7"])
-      s.add_runtime_dependency(%q<sass>, ["~> 3.4"])
-      s.add_runtime_dependency(%q<less>, ["~> 2.6"])
-      s.add_runtime_dependency(%q<coffee-script>, ["~> 2.3"])
-      s.add_runtime_dependency(%q<therubyracer>, ["~> 0.12"])
-      s.add_runtime_dependency(%q<rubyzip>, ["~> 1.1"])
-      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 2.0"])
+      s.add_runtime_dependency(%q<guard>.freeze, ["< 2.9", "~> 2.8"])
+      s.add_runtime_dependency(%q<guard-livereload>.freeze, ["~> 2.4"])
+      s.add_runtime_dependency(%q<thor>.freeze, ["~> 0.19"])
+      s.add_runtime_dependency(%q<sprockets>.freeze, ["~> 2.12"])
+      s.add_runtime_dependency(%q<childprocess>.freeze, ["~> 0.5"])
+      s.add_runtime_dependency(%q<mysql2>.freeze, ["~> 0.3"])
+      s.add_runtime_dependency(%q<uglifier>.freeze, ["~> 2.7"])
+      s.add_runtime_dependency(%q<sass>.freeze, ["~> 3.4"])
+      s.add_runtime_dependency(%q<less>.freeze, ["~> 2.6"])
+      s.add_runtime_dependency(%q<coffee-script>.freeze, ["~> 2.3"])
+      s.add_runtime_dependency(%q<therubyracer>.freeze, ["~> 0.12"])
+      s.add_runtime_dependency(%q<rubyzip>.freeze, ["~> 1.1"])
+      s.add_runtime_dependency(%q<autoprefixer-rails>.freeze, ["~> 7.2"])
+      s.add_development_dependency(%q<rdoc>.freeze, [">= 0"])
+      s.add_development_dependency(%q<bundler>.freeze, [">= 0"])
+      s.add_development_dependency(%q<jeweler>.freeze, [">= 0"])
     else
-      s.add_dependency(%q<guard>, ["< 2.9", "~> 2.8"])
-      s.add_dependency(%q<guard-livereload>, ["~> 2.4"])
-      s.add_dependency(%q<thor>, ["~> 0.19"])
-      s.add_dependency(%q<sprockets>, ["~> 2.12"])
-      s.add_dependency(%q<childprocess>, ["~> 0.5"])
-      s.add_dependency(%q<mysql2>, ["~> 0.3"])
-      s.add_dependency(%q<uglifier>, ["~> 2.7"])
-      s.add_dependency(%q<sass>, ["~> 3.4"])
-      s.add_dependency(%q<less>, ["~> 2.6"])
-      s.add_dependency(%q<coffee-script>, ["~> 2.3"])
-      s.add_dependency(%q<therubyracer>, ["~> 0.12"])
-      s.add_dependency(%q<rubyzip>, ["~> 1.1"])
-      s.add_dependency(%q<rdoc>, ["~> 3.12"])
-      s.add_dependency(%q<bundler>, ["~> 1.0"])
-      s.add_dependency(%q<jeweler>, ["~> 2.0"])
+      s.add_dependency(%q<guard>.freeze, ["< 2.9", "~> 2.8"])
+      s.add_dependency(%q<guard-livereload>.freeze, ["~> 2.4"])
+      s.add_dependency(%q<thor>.freeze, ["~> 0.19"])
+      s.add_dependency(%q<sprockets>.freeze, ["~> 2.12"])
+      s.add_dependency(%q<childprocess>.freeze, ["~> 0.5"])
+      s.add_dependency(%q<mysql2>.freeze, ["~> 0.3"])
+      s.add_dependency(%q<uglifier>.freeze, ["~> 2.7"])
+      s.add_dependency(%q<sass>.freeze, ["~> 3.4"])
+      s.add_dependency(%q<less>.freeze, ["~> 2.6"])
+      s.add_dependency(%q<coffee-script>.freeze, ["~> 2.3"])
+      s.add_dependency(%q<therubyracer>.freeze, ["~> 0.12"])
+      s.add_dependency(%q<rubyzip>.freeze, ["~> 1.1"])
+      s.add_dependency(%q<autoprefixer-rails>.freeze, ["~> 7.2"])
+      s.add_dependency(%q<rdoc>.freeze, [">= 0"])
+      s.add_dependency(%q<bundler>.freeze, [">= 0"])
+      s.add_dependency(%q<jeweler>.freeze, [">= 0"])
     end
   else
-    s.add_dependency(%q<guard>, ["< 2.9", "~> 2.8"])
-    s.add_dependency(%q<guard-livereload>, ["~> 2.4"])
-    s.add_dependency(%q<thor>, ["~> 0.19"])
-    s.add_dependency(%q<sprockets>, ["~> 2.12"])
-    s.add_dependency(%q<childprocess>, ["~> 0.5"])
-    s.add_dependency(%q<mysql2>, ["~> 0.3"])
-    s.add_dependency(%q<uglifier>, ["~> 2.7"])
-    s.add_dependency(%q<sass>, ["~> 3.4"])
-    s.add_dependency(%q<less>, ["~> 2.6"])
-    s.add_dependency(%q<coffee-script>, ["~> 2.3"])
-    s.add_dependency(%q<therubyracer>, ["~> 0.12"])
-    s.add_dependency(%q<rubyzip>, ["~> 1.1"])
-    s.add_dependency(%q<rdoc>, ["~> 3.12"])
-    s.add_dependency(%q<bundler>, ["~> 1.0"])
-    s.add_dependency(%q<jeweler>, ["~> 2.0"])
+    s.add_dependency(%q<guard>.freeze, ["< 2.9", "~> 2.8"])
+    s.add_dependency(%q<guard-livereload>.freeze, ["~> 2.4"])
+    s.add_dependency(%q<thor>.freeze, ["~> 0.19"])
+    s.add_dependency(%q<sprockets>.freeze, ["~> 2.12"])
+    s.add_dependency(%q<childprocess>.freeze, ["~> 0.5"])
+    s.add_dependency(%q<mysql2>.freeze, ["~> 0.3"])
+    s.add_dependency(%q<uglifier>.freeze, ["~> 2.7"])
+    s.add_dependency(%q<sass>.freeze, ["~> 3.4"])
+    s.add_dependency(%q<less>.freeze, ["~> 2.6"])
+    s.add_dependency(%q<coffee-script>.freeze, ["~> 2.3"])
+    s.add_dependency(%q<therubyracer>.freeze, ["~> 0.12"])
+    s.add_dependency(%q<rubyzip>.freeze, ["~> 1.1"])
+    s.add_dependency(%q<autoprefixer-rails>.freeze, ["~> 7.2"])
+    s.add_dependency(%q<rdoc>.freeze, [">= 0"])
+    s.add_dependency(%q<bundler>.freeze, [">= 0"])
+    s.add_dependency(%q<jeweler>.freeze, [">= 0"])
   end
 end
 

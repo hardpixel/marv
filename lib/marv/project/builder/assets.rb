@@ -1,4 +1,5 @@
 require 'sprockets'
+require 'autoprefixer-rails'
 
 module Marv
   module Project
@@ -82,7 +83,8 @@ module Marv
 
       # Init sprockets
       def init_sprockets
-        @sprockets = ::Sprockets::Environment.new
+        @sprockets   = ::Sprockets::Environment.new
+        autoprefixer = @config[:autoprefixer]
 
         ['javascripts', 'stylesheets'].each do |dir|
           @sprockets.append_path ::File.join(@project.assets_path, dir)
@@ -104,6 +106,10 @@ module Marv
           define_method :config do
             project.config
           end
+        end
+
+        unless autoprefixer == false
+          AutoprefixerRails.install(@sprockets, Hash(autoprefixer))
         end
       end
 

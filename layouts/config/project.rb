@@ -12,6 +12,9 @@ config[:license_uri] = "<%= project_config[:license_uri] %>"
 # config[:tags] = ["<%= project_config[:tags] %>"]
 # config[:comments] = "<%= project_config[:comments] %>"
 
+# Autoprefixer
+# config[:autoprefixer] = { browsers: '> 1%' }
+
 # Assets compression
 # config[:compress_js] = true
 # config[:compress_css] = true
