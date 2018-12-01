@@ -8,6 +8,11 @@ module Marv
     ::File.expand_path(::File.join(::File.dirname(__FILE__), '..'))
   end
 
+  def self.exit_message
+    time = ::Time.now.strftime('%T')
+    puts  "\n\n#{time} - INFO - Bye bye..."
+  end
+
 end
 
 trap 'SIGINT' do

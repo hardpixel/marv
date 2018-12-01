@@ -21,6 +21,10 @@ banner = <<-TEXT
 
 TEXT
 
+at_exit do
+  Marv.exit_message
+end
+
 puts(banner)
 
 Marv::CLI::Commands.start
