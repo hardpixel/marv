@@ -5,9 +5,10 @@ module Marv
 
     def initialize(task)
       @task = task
+      @current = current_options
+      @default = default_options
 
-      create_global_folders
-      create_global_config
+      generate_config
 
       @path = global_path
       @config = global_config
@@ -20,6 +21,49 @@ module Marv
         clean_broken_links(global_projects_paths)
         link_global_projects
       end
+    end
+
+    # Generate configuration
+    def generate_config
+      if ::File.exists?(config_file)
+        reconfigure
+      else
+        configure
+      end
+    end
+
+    # Default config options
+    def default_options
+      defaults = {
+        :server_host  => "localhost",
+        :server_port  => "3000",
+        :db_user      => "root",
+        :db_password  => "root",
+        :db_host      => "localhost",
+        :db_port      => "3306",
+        :wp_version   => "latest",
+        :uri          => "https://wordpress.org",
+        :author       => username,
+        :author_uri   => "https://wordpress.org",
+        :license_name => "GPLv3",
+        :license_uri  => "http://www.gnu.org/licenses/gpl.html"
+      }
+
+      defaults.merge(@current)
+    end
+
+    # Get current options
+    def current_options
+      if ::File.exists?(config_file)
+        global_config.reject { |opt| opt.nil? || opt == '' }
+      else
+        {}
+      end
+    end
+
+    # Get user name
+    def username
+      ENV['USERNAME'] || 'marv'
     end
 
     # Global Marv folder path
@@ -128,8 +172,8 @@ module Marv
       options = {}
 
       if @task.yes?("Do you want to set default server settings?")
-        options[:server_host] = @task.ask "Default host for servers?", :default => "localhost"
-        options[:server_port] = @task.ask "Default port for servers?", :default => "3000"
+        options[:server_host] = @task.ask "Default host for servers?", :default => @default[:server_host]
+        options[:server_port] = @task.ask "Default port for servers?", :default => @default[:server_port]
       end
 
       return options
@@ -140,10 +184,10 @@ module Marv
       options = {}
 
       if @task.yes?("Do you want to set default database settings?")
-        options[:db_user] = @task.ask "Default database username?", :default => "root"
-        options[:db_password] = @task.ask "Default database password?", :default => "root"
-        options[:db_host] = @task.ask "Default database host?", :default => "localhost"
-        options[:db_port] = @task.ask "Default database port?", :default => "3306"
+        options[:db_user] = @task.ask "Default database username?", :default => @default[:db_user]
+        options[:db_password] = @task.ask "Default database password?", :default => @default[:db_password]
+        options[:db_host] = @task.ask "Default database host?", :default => @default[:db_host]
+        options[:db_port] = @task.ask "Default database port?", :default => @default[:db_port]
       end
 
       return options
@@ -154,7 +198,7 @@ module Marv
       options = {}
 
       if @task.yes?("Do you want to set default WordPress version?")
-        options[:wp_version] = @task.ask "Default WordPress version?", :default => "latest"
+        options[:wp_version] = @task.ask "Default WordPress version?", :default => @default[:wp_version]
       end
 
       return options
@@ -167,16 +211,16 @@ module Marv
 
     # Ask global options
     def ask_global_options
-      options = {}
+      options = @default
 
       @task.say "This will create a new global configuration file.", :cyan
 
       if @task.yes?("Do you want to set default project details?")
-        options[:uri] = @task.ask "Default project URI"
-        options[:author] = @task.ask "Default project author"
-        options[:author_uri] = @task.ask "Default project author URI"
-        options[:license_name] = @task.ask "Default project license name"
-        options[:license_uri] = @task.ask "Default project license URI"
+        options[:uri] = @task.ask "Default project URI", :default => @default[:uri]
+        options[:author] = @task.ask "Default project author", :default => @default[:author]
+        options[:author_uri] = @task.ask "Default project author URI", :default => @default[:author_uri]
+        options[:license_name] = @task.ask "Default project license name", :default => @default[:license_name]
+        options[:license_uri] = @task.ask "Default project license URI", :default => @default[:license_uri]
       end
 
       options.merge!(ask_server_details)
@@ -194,6 +238,12 @@ module Marv
       end
     end
 
+    # Configure Marv global options
+    def configure
+      create_global_folders
+      create_global_config
+    end
+
     # Reconfig Marv global options
     def reconfigure
       @task.say "This will overwrite your global configuration file.", :cyan
@@ -203,7 +253,6 @@ module Marv
           @task.remove_file config_file
         end
 
-        create_global_folders
         create_global_config
       end
     end
