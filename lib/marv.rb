@@ -16,8 +16,5 @@ module Marv
 end
 
 trap 'SIGINT' do
-  puts
-  puts
-  puts ::Time.now.strftime('%T') + ' - INFO - Bye bye...'
   exit 130
 end

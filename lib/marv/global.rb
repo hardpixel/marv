@@ -8,6 +8,7 @@ module Marv
       @current = current_options
       @default = default_options
 
+      create_global_folders
       generate_config(from_command)
 
       @path = global_path
@@ -25,10 +26,10 @@ module Marv
 
     # Generate configuration
     def generate_config(from_command=false)
-      if from_command && ::File.exists?(config_file)
-        reconfigure
+      if from_command
+        ::File.exists?(config_file) ? reconfigure : configure(from_command)
       else
-        configure
+        configure unless ::File.exists?(config_file)
       end
     end
 
@@ -78,7 +79,11 @@ module Marv
 
     # Load global config file
     def global_config
-      load_ruby_config(config_file)
+      if ::File.exists?(config_file)
+        load_ruby_config(config_file)
+      else
+        {}
+      end
     end
 
     # Servers folder path
@@ -172,11 +177,11 @@ module Marv
       options = {}
 
       if @task.yes?("Do you want to set default project details?")
-        options[:uri] = @task.ask "Default project URI", :default => @default[:uri]
-        options[:author] = @task.ask "Default project author", :default => @default[:author]
-        options[:author_uri] = @task.ask "Default project author URI", :default => @default[:author_uri]
-        options[:license_name] = @task.ask "Default project license name", :default => @default[:license_name]
-        options[:license_uri] = @task.ask "Default project license URI", :default => @default[:license_uri]
+        options[:uri] = @task.ask "Default project URI:", :default => @default[:uri]
+        options[:author] = @task.ask "Default project author:", :default => @default[:author]
+        options[:author_uri] = @task.ask "Default project author URI:", :default => @default[:author_uri]
+        options[:license_name] = @task.ask "Default project license name:", :default => @default[:license_name]
+        options[:license_uri] = @task.ask "Default project license URI:", :default => @default[:license_uri]
       end
 
       return options
@@ -187,8 +192,8 @@ module Marv
       options = {}
 
       if @task.yes?("Do you want to set default server settings?")
-        options[:server_host] = @task.ask "Default host for servers?", :default => @default[:server_host]
-        options[:server_port] = @task.ask "Default port for servers?", :default => @default[:server_port]
+        options[:server_host] = @task.ask "Default host for servers:", :default => @default[:server_host]
+        options[:server_port] = @task.ask "Default port for servers:", :default => @default[:server_port]
       end
 
       return options
@@ -199,10 +204,10 @@ module Marv
       options = {}
 
       if @task.yes?("Do you want to set default database settings?")
-        options[:db_user] = @task.ask "Default database username?", :default => @default[:db_user]
-        options[:db_password] = @task.ask "Default database password?", :default => @default[:db_password]
-        options[:db_host] = @task.ask "Default database host?", :default => @default[:db_host]
-        options[:db_port] = @task.ask "Default database port?", :default => @default[:db_port]
+        options[:db_user] = @task.ask "Default database username:", :default => @default[:db_user]
+        options[:db_password] = @task.ask "Default database password:", :default => @default[:db_password]
+        options[:db_host] = @task.ask "Default database host:", :default => @default[:db_host]
+        options[:db_port] = @task.ask "Default database port:", :default => @default[:db_port]
       end
 
       return options
@@ -228,14 +233,10 @@ module Marv
     def ask_global_options
       options = @default
 
-      @task.say "This will create a new global configuration file.", :cyan
-
-      if @task.yes?("Do you want to continue?")
-        options.merge!(ask_project_details)
-        options.merge!(ask_server_details)
-        options.merge!(ask_database_details)
-        options.merge!(ask_wordpress_details)
-      end
+      options.merge!(ask_project_details)
+      options.merge!(ask_server_details)
+      options.merge!(ask_database_details)
+      options.merge!(ask_wordpress_details)
 
       @options = options
     end
@@ -249,14 +250,20 @@ module Marv
     end
 
     # Configure Marv global options
-    def configure
-      create_global_folders
-      create_global_config
+    def configure(from_command=false)
+      @task.say_warning "You do not have a global configuration file.", false
+      @task.say_info "This will create a new global configuration file.", true
+
+      if @task.yes?("Do you want to continue?")
+        create_global_config
+      end
+
+      @task.say_success "Global configuration created successfully.", !from_command, true
     end
 
     # Reconfig Marv global options
     def reconfigure
-      @task.say "This will overwrite your global configuration file.", :cyan
+      @task.say_warning "This will overwrite your global configuration file."
 
       if @task.yes?("Do you want to continue?")
         @task.shell.mute do
@@ -264,6 +271,8 @@ module Marv
         end
 
         create_global_config
+
+        @task.say_success "Global configuration recreated successfully.", false, true
       end
     end
 
@@ -307,8 +316,7 @@ module Marv
         # Config file is just executed as straight ruby
         eval(::File.read(file))
       rescue Exception => e
-        @task.say "Error while evaluating config file:"
-        @task.say e.message, :red
+        @task.say_error "Error while evaluating config file:", e.message
       end
 
       return config
