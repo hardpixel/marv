@@ -29,8 +29,8 @@ module Marv
         if dir == 'running'
           index = 0
           say "Running marv servers:"
-          servers.each do |dir|
-            server = Marv::Server::Server.new(self, dir)
+          servers.each do |server_dir|
+            server = Marv::Server::Server.new(self, server_dir)
             action = Marv::Server::Actions.new(server)
 
             if action.is_server_running?
@@ -85,8 +85,8 @@ module Marv
         if dir == 'all'
           servers = Marv::Global.new(self).servers
 
-          servers.each do |dir|
-            server = Marv::Server::Server.new(self, dir)
+          servers.each do |server_dir|
+            server = Marv::Server::Server.new(self, server_dir)
             action = Marv::Server::Actions.new(server)
 
             if action.is_server_running?
