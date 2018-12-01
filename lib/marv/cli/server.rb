@@ -1,14 +1,9 @@
+require 'marv/cli/base'
 require 'marv/server/server'
 
 module Marv
   module CLI
-    class Server < Thor
-
-      def self.source_root
-        ::File.expand_path(::File.join(Marv.root, 'layouts'))
-      end
-
-      include Thor::Actions
+    class Server < Base
 
       # List all Marv servers
       desc "list", "List all Marv servers"

@@ -1,14 +1,9 @@
+require 'marv/cli/base'
 require 'marv/project/project'
 
 module Marv
   module CLI
-    class Project < Thor
-
-      def self.source_root
-        ::File.expand_path(::File.join(Marv.root, 'layouts'))
-      end
-
-      include Thor::Actions
+    class Project < Base
 
       # Create a new Marv project
       desc "create DIRECTORY", "Creates a Marv project into specified directory"
