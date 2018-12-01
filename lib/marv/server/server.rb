@@ -154,12 +154,12 @@ module Marv
 
       # MySQL grant all privileges
       def db_client_grant_all
-        @database.query("GRANT ALL PRIVILEGES ON #{db_name}.* TO '#{@db_user}'@'#{db_host}'")
+        @database.query("GRANT ALL PRIVILEGES ON #{db_name}.* TO '#{db_user}'@'#{db_host}'")
       end
 
       # MySQL revoke all privileges
       def db_client_revoke_all
-        @database.query("REVOKE ALL PRIVILEGES ON #{db_name}.* FROM '#{@db_user}'@'#{db_host}'")
+        @database.query("REVOKE ALL PRIVILEGES ON #{db_name}.* FROM '#{db_user}'@'#{db_host}'")
       end
 
       # MySQL flush privileges
