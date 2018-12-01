@@ -3,12 +3,12 @@ module Marv
 
     attr_accessor :config, :path, :servers, :plugins, :themes, :layouts
 
-    def initialize(task)
+    def initialize(task, from_command=false)
       @task = task
       @current = current_options
       @default = default_options
 
-      generate_config
+      generate_config(from_command)
 
       @path = global_path
       @config = global_config
@@ -24,8 +24,8 @@ module Marv
     end
 
     # Generate configuration
-    def generate_config
-      if ::File.exists?(config_file)
+    def generate_config(from_command=false)
+      if from_command && ::File.exists?(config_file)
         reconfigure
       else
         configure
