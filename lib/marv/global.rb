@@ -167,6 +167,21 @@ module Marv
       end
     end
 
+    # Project details
+    def ask_project_details
+      options = {}
+
+      if @task.yes?("Do you want to set default project details?")
+        options[:uri] = @task.ask "Default project URI", :default => @default[:uri]
+        options[:author] = @task.ask "Default project author", :default => @default[:author]
+        options[:author_uri] = @task.ask "Default project author URI", :default => @default[:author_uri]
+        options[:license_name] = @task.ask "Default project license name", :default => @default[:license_name]
+        options[:license_uri] = @task.ask "Default project license URI", :default => @default[:license_uri]
+      end
+
+      return options
+    end
+
     # Server details
     def ask_server_details
       options = {}
@@ -215,17 +230,12 @@ module Marv
 
       @task.say "This will create a new global configuration file.", :cyan
 
-      if @task.yes?("Do you want to set default project details?")
-        options[:uri] = @task.ask "Default project URI", :default => @default[:uri]
-        options[:author] = @task.ask "Default project author", :default => @default[:author]
-        options[:author_uri] = @task.ask "Default project author URI", :default => @default[:author_uri]
-        options[:license_name] = @task.ask "Default project license name", :default => @default[:license_name]
-        options[:license_uri] = @task.ask "Default project license URI", :default => @default[:license_uri]
+      if @task.yes?("Do you want to continue?")
+        options.merge!(ask_project_details)
+        options.merge!(ask_server_details)
+        options.merge!(ask_database_details)
+        options.merge!(ask_wordpress_details)
       end
-
-      options.merge!(ask_server_details)
-      options.merge!(ask_database_details)
-      options.merge!(ask_wordpress_details)
 
       @options = options
     end
