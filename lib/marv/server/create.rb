@@ -42,7 +42,7 @@ module Marv
 
       # Starts the new server
       def start_server
-        if @task.yes?("Would you like to start #{@name} server?")
+        if @task.said_yes?("Would you like to start #{@name} server?")
           action = Marv::Server::Actions.new(@server)
           action.start(false)
         end

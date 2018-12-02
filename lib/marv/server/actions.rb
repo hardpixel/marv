@@ -56,7 +56,7 @@ module Marv
       def remove
         @task.say_warning("This will remove server #{@name} and all data will be lost.")
 
-        if @task.yes?("Are you sure you want to remove server?")
+        if @task.said_yes?("Are you sure you want to remove server?")
           begin
             @server.remove_database
 

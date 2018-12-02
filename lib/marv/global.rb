@@ -178,12 +178,12 @@ module Marv
     def ask_project_details
       options = {}
 
-      if @task.yes?("Do you want to set default project details?")
-        options[:uri] = @task.ask "Default project URI:", :default => @default[:uri]
-        options[:author] = @task.ask "Default project author:", :default => @default[:author]
-        options[:author_uri] = @task.ask "Default project author URI:", :default => @default[:author_uri]
-        options[:license_name] = @task.ask "Default project license name:", :default => @default[:license_name]
-        options[:license_uri] = @task.ask "Default project license URI:", :default => @default[:license_uri]
+      if @task.said_change?("Do you want to set default project details?")
+        options[:uri] = @task.ask_option "Default project URI:", :default => @default[:uri]
+        options[:author] = @task.ask_option "Default project author:", :default => @default[:author]
+        options[:author_uri] = @task.ask_option "Default project author URI:", :default => @default[:author_uri]
+        options[:license_name] = @task.ask_option "Default project license name:", :default => @default[:license_name]
+        options[:license_uri] = @task.ask_option "Default project license URI:", :default => @default[:license_uri]
       end
 
       return options
@@ -193,9 +193,9 @@ module Marv
     def ask_server_details
       options = {}
 
-      if @task.yes?("Do you want to set default server settings?")
-        options[:server_host] = @task.ask "Default host for servers:", :default => @default[:server_host]
-        options[:server_port] = @task.ask "Default port for servers:", :default => @default[:server_port]
+      if @task.said_change?("Do you want to set default server settings?")
+        options[:server_host] = @task.ask_option "Default host for servers:", :default => @default[:server_host]
+        options[:server_port] = @task.ask_option "Default port for servers:", :default => @default[:server_port]
       end
 
       return options
@@ -205,11 +205,11 @@ module Marv
     def ask_database_details
       options = {}
 
-      if @task.yes?("Do you want to set default database settings?")
-        options[:db_user] = @task.ask "Default database username:", :default => @default[:db_user]
-        options[:db_password] = @task.ask "Default database password:", :default => @default[:db_password]
-        options[:db_host] = @task.ask "Default database host:", :default => @default[:db_host]
-        options[:db_port] = @task.ask "Default database port:", :default => @default[:db_port]
+      if @task.said_change?("Do you want to set default database settings?")
+        options[:db_user] = @task.ask_option "Default database username:", :default => @default[:db_user]
+        options[:db_password] = @task.ask_option "Default database password:", :default => @default[:db_password]
+        options[:db_host] = @task.ask_option "Default database host:", :default => @default[:db_host]
+        options[:db_port] = @task.ask_option "Default database port:", :default => @default[:db_port]
       end
 
       return options
@@ -219,8 +219,8 @@ module Marv
     def ask_wordpress_details
       options = {}
 
-      if @task.yes?("Do you want to set default WordPress version?")
-        options[:wp_version] = @task.ask "Default WordPress version?", :default => @default[:wp_version]
+      if @task.said_change?("Do you want to set default WordPress version?")
+        options[:wp_version] = @task.ask_option "Default WordPress version?", :default => @default[:wp_version]
       end
 
       return options
@@ -260,7 +260,7 @@ module Marv
       @task.say_warning "You do not have a global configuration file.", false
       @task.say_info "This will create a new global configuration file.", true
 
-      if @task.yes?("Do you want to change the default options?")
+      if @task.said_change?("Do you want to change the default options?")
         ask_global_options
       end
 
@@ -274,7 +274,7 @@ module Marv
     def reconfigure
       @task.say_warning "This will overwrite your global configuration file."
 
-      if @task.yes?("Do you want to continue?")
+      if @task.said_change?("Do you want to continue?")
         @task.shell.mute do
           ask_global_options
 

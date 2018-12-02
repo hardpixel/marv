@@ -112,8 +112,8 @@ module Marv
       # Server details
       def ask_server_details
         options = {}
-        options[:server_host] = @task.ask "Where do you want to run the server?", :default => @global.config[:server_host]
-        options[:server_port] = @task.ask "Which port do you want to use?", :default => @global.config[:server_port]
+        options[:server_host] = @task.ask_input "Where do you want to run the server?", :default => @global.config[:server_host]
+        options[:server_port] = @task.ask_input "Which port do you want to use?", :default => @global.config[:server_port]
 
         return options
       end
@@ -121,10 +121,10 @@ module Marv
       # Database details
       def ask_database_details
         options = {}
-        options[:db_user] = @task.ask "MySQL database username:", :default => @global.config[:db_user]
-        options[:db_password] = @task.ask "MySQL database password:", :default => @global.config[:db_password]
-        options[:db_host] = @task.ask "MySQL database host:", :default => @global.config[:db_host]
-        options[:db_port] = @task.ask "MySQL database port:", :default => @global.config[:db_port]
+        options[:db_user] = @task.ask_input "MySQL database username:", :default => @global.config[:db_user]
+        options[:db_password] = @task.ask_input "MySQL database password:", :default => @global.config[:db_password]
+        options[:db_host] = @task.ask_input "MySQL database host:", :default => @global.config[:db_host]
+        options[:db_port] = @task.ask_input "MySQL database port:", :default => @global.config[:db_port]
 
         return options
       end
@@ -132,7 +132,7 @@ module Marv
       # Wordpress details
       def ask_wordpress_details
         options = {}
-        options[:wp_version] = @task.ask "WordPress version to install:", :default => @global.config[:wp_version]
+        options[:wp_version] = @task.ask_input "WordPress version to install:", :default => @global.config[:wp_version]
 
         return options
       end
