@@ -48,7 +48,8 @@ module Marv
 
       # Initialize server restart
       def restart
-        stop
+        stop(false)
+        @task.say_info "Restarting server #{@name}...", true
         sleep 3
         start
       end
