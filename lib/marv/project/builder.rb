@@ -37,13 +37,18 @@ module Marv
       def build_to(dir)
         @task.say_warning "This will build project #{@project.project_id} in directory #{dir}."
 
-        build_project
-        # Remove build directory
-        @task.shell.mute do
-          @task.remove_dir ::File.expand_path(dir)
+        begin
+          build_project
+          # Remove build directory
+          @task.shell.mute do
+            @task.remove_dir ::File.expand_path(dir)
+          end
+          # Copy files from .watch/build directory
+          @task.directory @project.build_path, ::File.expand_path(dir)
+        rescue Exception => e
+          @task.say_error "There was an error while building the project:", e.message, false
+          abort
         end
-        # Copy files from .watch/build directory
-        @task.directory @project.build_path, ::File.expand_path(dir)
       end
 
       # Clean build directory
