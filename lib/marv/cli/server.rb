@@ -11,31 +11,31 @@ module Marv
         servers = Marv::Global.new(self).servers
 
         if dir == 'all'
-          say "Available marv servers:"
+          say_info "Available marv servers:", true
           servers.each_with_index do |server, index|
-            say "#{index + 1}. #{server}", :cyan
+            say_message "#{index + 1}. #{server}", false
           end
 
           if servers.empty?
-            say "No servers found", :yellow
+            say_warning "No servers found", false
           end
         end
 
         if dir == 'running'
           index = 0
-          say "Running marv servers:"
+          say_success "Running marv servers:", true
           servers.each do |server_dir|
             server = Marv::Server::Server.new(self, server_dir)
             action = Marv::Server::Actions.new(server)
 
             if action.is_server_running?
-              say "#{index + 1}. #{server.name} [http://#{server.host}:#{server.port}]", :green
+              say_message "#{index + 1}. #{server.name} [http://#{server.host}:#{server.port}]", false
               index += 1
             end
           end
 
           if index == 0
-            say "No running servers found", :yellow
+            say_warning "No running servers found", false
           end
         end
       end
@@ -61,8 +61,9 @@ module Marv
 
         # Create server if it does not exist
         unless ::File.directory?(::File.join(servers_path, dir))
-          say "Server #{dir} does not exist.", :yellow
-          if yes?("Would you like to create the server?")
+          say_warning "Server #{dir} does not exist."
+          if said_yes?("Would you like to create the server?")
+            say_empty
             create(dir)
           end
         end

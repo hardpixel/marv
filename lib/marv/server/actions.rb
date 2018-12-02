@@ -99,7 +99,7 @@ module Marv
       # Change server port
       def change_server_port
         @task.say_warning "Use another port to run the server.", true
-        port = @task.ask "Which port would you like to use?"
+        port = @task.ask_input "Which port would you like to use?"
 
         # Check if port available
         if is_port_available?(@server.host, port)
