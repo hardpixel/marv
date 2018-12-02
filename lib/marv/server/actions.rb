@@ -1,4 +1,4 @@
-require 'socket'
+require 'net/http'
 require 'childprocess'
 
 module Marv
@@ -22,7 +22,7 @@ module Marv
         end
 
         unless is_port_available?(@server.host, @server.port)
-          @task.say_warning "Port is not available!"
+          @task.say_warning "Port is not available!", false, true
           change_server_port
         end
 
@@ -154,11 +154,13 @@ module Marv
       # Check if port is available
       def is_port_available?(host=@server.host, port=@server.port)
         begin
-          server = ::TCPServer.new(host, port)
-          server.close()
-          return true
-        rescue
+          url = URI.parse("http://#{host}:#{port}/")
+          req = Net::HTTP.new(url.host, url.port)
+          req.request_head(url)
+
           return false
+        rescue
+          return true
         end
       end
 
