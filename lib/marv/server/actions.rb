@@ -97,6 +97,7 @@ module Marv
 
         # Start server in debug mode
         if @debug
+          @task.say_empty
           system "php -S #{@server.host}:#{@server.port} router.php"
         end
       end
