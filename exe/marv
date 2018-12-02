@@ -9,22 +9,9 @@ $LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
 
 require 'marv'
 
-banner = <<-TEXT
-
-  ::::    ::::      :::     :::::::::  :::     :::
-  +:+:+: :+:+:+   :+: :+:   :+:    :+: :+:     :+:
-  +:+ +:+:+ +:+  +:+   +:+  +:+    +:+ +:+     +:+
-  +#+  +:+  +#+ +#++:++#++: +#++:++#:  +#+     +:+
-  +#+       +#+ +#+     +#+ +#+    +#+  +#+   +#+
-  #+#       #+# #+#     #+# #+#    #+#   #+#+#+#
-  ###       ### ###     ### ###    ###     ###
-
-TEXT
-
 at_exit do
   Marv.exit_message
 end
 
-puts(banner)
-
+Marv.banner_message
 Marv::CLI::Commands.start
