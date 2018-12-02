@@ -5,10 +5,12 @@ module Marv
 
     def initialize(task, from_command=false)
       @task = task
+
+      create_global_folders
+
       @current = current_options
       @default = default_options
 
-      create_global_folders
       generate_config(from_command)
 
       @path = global_path
@@ -244,8 +246,12 @@ module Marv
     # Create global config
     def create_global_config
       unless ::File.exists?(config_file)
-        ask_global_options
-        template ::File.join(Marv.root, 'layouts', 'config', 'global.rb'), ::File.join(global_path, 'config.rb'), instance_eval('binding')
+        @task.shell.mute do
+          layout = ::File.join(Marv.root, 'layouts', 'config', 'global.rb')
+          filepath = ::File.join(global_path, 'config.rb')
+
+          template layout, filepath, instance_eval('binding')
+        end
       end
     end
 
@@ -254,9 +260,12 @@ module Marv
       @task.say_warning "You do not have a global configuration file.", false
       @task.say_info "This will create a new global configuration file.", true
 
-      if @task.yes?("Do you want to continue?")
-        create_global_config
+      if @task.yes?("Do you want to change the default options?")
+        ask_global_options
       end
+
+      @options = @default
+      create_global_config
 
       @task.say_success "Global configuration created successfully.", !from_command, true
     end
@@ -267,10 +276,11 @@ module Marv
 
       if @task.yes?("Do you want to continue?")
         @task.shell.mute do
-          @task.remove_file config_file
-        end
+          ask_global_options
 
-        create_global_config
+          @task.remove_file config_file
+          create_global_config
+        end
 
         @task.say_success "Global configuration recreated successfully.", false, true
       end
