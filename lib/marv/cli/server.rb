@@ -12,8 +12,9 @@ module Marv
 
         if dir == 'all'
           say_info "Available marv servers:", true
-          servers.each_with_index do |server, index|
-            say_message "#{index + 1}. #{server}", false
+          servers.each_with_index do |server_dir, index|
+            server = Marv::Server::Server.new(self, server_dir)
+            say_message "#{index + 1}. #{server.name} [http://#{server.host}:#{server.port}]", false
           end
 
           if servers.empty?

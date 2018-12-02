@@ -21,7 +21,7 @@ module Marv
           abort
         end
 
-        unless is_port_available?
+        unless is_port_available?(@server.host, @server.port)
           @task.say_warning "Port is not available!"
           change_server_port
         end
@@ -88,7 +88,7 @@ module Marv
         end
 
         @task.say_success "Server #{@server.name} is running.", false, !from_command
-        @task.say_message "↳ http://#{@server.host}:#{@server.port}", false, false
+        @task.say_message "✔ http://#{@server.host}:#{@server.port}", false, false
 
         # Start server in debug mode
         if @debug
@@ -98,7 +98,7 @@ module Marv
 
       # Change server port
       def change_server_port
-        @task.say_warning "Use another port to run the server.", true
+        @task.say_info "Use another port to run the server.", true
         port = @task.ask_input "Which port would you like to use?"
 
         # Check if port available

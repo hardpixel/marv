@@ -21,8 +21,11 @@ module Marv
       def create_server
         if ::File.exists?(@server.config_file)
           @task.say_error "A server with the name #{@name} already exists!"
-          exit
+          abort
         end
+
+        @server.server_options
+        @config = @server.server_config
 
         begin
           @task.shell.mute do
@@ -33,7 +36,7 @@ module Marv
           end
         rescue Exception => e
           @task.say_error "Error while creating server:", e.message
-          exit
+          abort
         end
 
         @task.say_success "Server #{@name} created successfully!"

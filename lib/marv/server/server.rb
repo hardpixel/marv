@@ -16,7 +16,7 @@ module Marv
         @name = dir
         @path = server_path
         @config_file = config_file
-        @options = server_options
+        @options = {}
         @config = server_config
         @host = server_host
         @port = server_port
