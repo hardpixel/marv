@@ -28,8 +28,9 @@ module Marv
       # Packgage project
       def package(filename)
         @package_name = filename
+        pkg_name = filename || get_package_name
 
-        @task.say_warning "This will package project #{@project.project_id} as #{filename}.zip."
+        @task.say_warning "This will package project #{@project.project_id} as #{pkg_name}.zip."
         create_package
       end
 
@@ -120,8 +121,13 @@ module Marv
       # Set the package file name
       def set_package_filename
         if @package_name.nil?
-          @package_name = ::File.basename(@project.root)
+          @package_name = get_package_name
         end
+      end
+
+      # Get package name
+      def get_package_name
+        ::File.basename(@project.root)
       end
 
       # Built to a temporary directory
