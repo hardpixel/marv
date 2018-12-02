@@ -15,22 +15,22 @@ module Marv
       end
 
       # Initialize server start
-      def start
+      def start(from_command=true)
         if is_server_running?
-          @task.say "Server is already running", :yellow
-          exit
+          @task.say_info "Server is already running."
+          abort
         end
 
         unless is_port_available?
-          @task.say "Port is not available!", :yellow
+          @task.say_warning "Port is not available!"
           change_server_port
         end
 
-        run_server
+        run_server(from_command)
       end
 
       # Initialize server stop
-      def stop
+      def stop(message=true)
         pid_file = ::File.join(@path, 'php.pid')
 
         begin
@@ -38,10 +38,10 @@ module Marv
             pid = ::File.read(pid_file).to_i
 
             ::Process.kill('KILL', pid)
-            @task.say "Server #{@name} stopped", :yellow
+            @task.say_warning("Server #{@name} stopped.", false) if message
           end
         rescue
-          @task.say "Server #{@name} is not running", :yellow
+          @task.say_warning("Server #{@name} is not running.", false) if message
         end
       end
 
@@ -54,24 +54,27 @@ module Marv
 
       # Remove server
       def remove
-        begin
-          @server.remove_database
+        @task.say_warning("This will remove server #{@name} and all data will be lost.")
 
-          @task.shell.mute do
-            stop
-            @task.remove_dir @path
+        if @task.yes?("Are you sure you want to remove server?")
+          begin
+            @server.remove_database
+
+            @task.shell.mute do
+              stop(false)
+              @task.remove_dir @path
+            end
+          rescue Exception => e
+            @task.say_error "Error while removing server:", e.message
+            abort
           end
-        rescue Exception => e
-          @task.say "Error while removing server:"
-          @task.say e.message + "\n", :red
-          exit
-        end
 
-        @task.say "Server successfully removed", :green
+          @task.say_success "Server successfully removed.", false, true
+        end
       end
 
       # Run server
-      def run_server
+      def run_server(from_command=true)
         ::Dir.chdir @path
 
         unless @debug
@@ -84,8 +87,8 @@ module Marv
           end
         end
 
-        @task.say "Server #{@server.name} is running", :cyan
-        @task.say "Visit http://#{@server.host}:#{@server.port}", :green
+        @task.say_success "Server #{@server.name} is running.", false, !from_command
+        @task.say_message "↳ http://#{@server.host}:#{@server.port}", false, false
 
         # Start server in debug mode
         if @debug
@@ -95,7 +98,7 @@ module Marv
 
       # Change server port
       def change_server_port
-        @task.say "Use another port to run the server", :cyan
+        @task.say_warning "Use another port to run the server.", true
         port = @task.ask "Which port would you like to use?"
 
         # Check if port available

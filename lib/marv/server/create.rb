@@ -19,6 +19,11 @@ module Marv
 
       # Create server
       def create_server
+        if ::File.exists?(@server.config_file)
+          @task.say_error "A server with the name #{@name} already exists!"
+          exit
+        end
+
         begin
           @task.shell.mute do
             create_server_dir
@@ -27,30 +32,24 @@ module Marv
             add_config_files
           end
         rescue Exception => e
-          @task.say "Error while creating server:"
-          @task.say e.message + "\n", :red
-          abort
+          @task.say_error "Error while creating server:", e.message
+          exit
         end
 
-        @task.say "Server #{@name} created successfully!", :green
+        @task.say_success "Server #{@name} created successfully!"
         start_server
       end
 
       # Starts the new server
       def start_server
-        unless @task.no?("Would you like to start #{@name} server?")
+        if @task.yes?("Would you like to start #{@name} server?")
           action = Marv::Server::Actions.new(@server)
-          action.start
+          action.start(false)
         end
       end
 
       # Creates a directory for a new server
       def create_server_dir
-        if ::File.exists?(@server.config_file)
-          @task.say "A server with the name #{@name} already exists", :red
-          abort
-        end
-
         @task.remove_dir @path
         @task.empty_directory @path
       end
@@ -59,8 +58,10 @@ module Marv
       def download_wordpress
         package = "/tmp/wordpress-#{@config[:wp_version]}.zip"
         # Download package file
-        unless ::File.exists?(package)
-          @task.say "Downloading WordPress...", :cyan
+        if ::File.exists?(package)
+          @task.say_warning "WordPress is already downloaded...", false, true
+        else ::File.exists?(package)
+          @task.say_info "Downloading WordPress...", false, true
 
           @task.get "https://wordpress.org/wordpress-#{@config[:wp_version]}.zip" do |content|
             @task.create_file package, content

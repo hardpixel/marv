@@ -98,8 +98,8 @@ module Marv
         options = {}
 
         unless ::File.exists?(@config_file)
-          @task.say "This will create a new development server.", :cyan
-          @task.say "Please enter server settings below."
+          @task.say_info "This will create a new development server."
+          @task.say_warning "Please enter server settings below:"
 
           options.merge!(ask_server_details)
           options.merge!(ask_database_details)
@@ -121,10 +121,10 @@ module Marv
       # Database details
       def ask_database_details
         options = {}
-        options[:db_user] = @task.ask "MySQL database username?", :default => @global.config[:db_user]
-        options[:db_password] = @task.ask "MySQL database password?", :default => @global.config[:db_password]
-        options[:db_host] = @task.ask "MySQL database host?", :default => @global.config[:db_host]
-        options[:db_port] = @task.ask "MySQL database port?", :default => @global.config[:db_port]
+        options[:db_user] = @task.ask "MySQL database username:", :default => @global.config[:db_user]
+        options[:db_password] = @task.ask "MySQL database password:", :default => @global.config[:db_password]
+        options[:db_host] = @task.ask "MySQL database host:", :default => @global.config[:db_host]
+        options[:db_port] = @task.ask "MySQL database port:", :default => @global.config[:db_port]
 
         return options
       end
@@ -132,7 +132,7 @@ module Marv
       # Wordpress details
       def ask_wordpress_details
         options = {}
-        options[:wp_version] = @task.ask "WordPress version to install?", :default => @global.config[:wp_version]
+        options[:wp_version] = @task.ask "WordPress version to install:", :default => @global.config[:wp_version]
 
         return options
       end
@@ -175,8 +175,7 @@ module Marv
           db_client_flush_priv
           @database.close
         rescue Exception => e
-          @task.say "An error occured while creating database", :red
-          @task.say e.message
+          @task.say_error "An error occured while creating the database:", e.message
         end
       end
 
@@ -188,8 +187,7 @@ module Marv
           db_client_flush_priv
           @database.close
         rescue Exception => e
-          @task.say "An error occured while removing database", :red
-          @task.say e.message
+          @task.say_error "An error occured while removing the database:", e.message
         end
       end
 
