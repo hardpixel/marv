@@ -3,6 +3,7 @@ require 'guard/plugin'
 
 # Marv Guard plugins
 require 'marv/project/guard/pry'
+require 'marv/project/guard/commander'
 require 'marv/project/guard/assets'
 require 'marv/project/guard/config'
 require 'marv/project/guard/functions'
