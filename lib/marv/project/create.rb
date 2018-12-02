@@ -23,20 +23,20 @@ module Marv
       def project_options
         # Check if project exists and abort
         if ::File.directory?(@path)
-          @task.say "Project already exists", :red
+          @task.say_error "Project already exists", nil, false
           abort
         end
 
-        @task.say "This will create a new project.", :cyan
-        @task.say "Please enter project details below."
+        @task.say_info "This will create a new project."
+        @task.say_warning "Please enter project details below."
 
         # Get project options
         options = {}
 
-        options[:name] = @task.ask "Enter project name", :default => @global.config[:name]
-        options[:uri] = @task.ask "Enter project URI", :default => @global.config[:uri]
-        options[:version] = @task.ask "Enter project version", :default => @global.config[:version]
-        options[:description] = @task.ask "Enter project description", :default => @global.config[:description]
+        options[:name] = @task.ask_input "Enter project name:", :default => @global.config.fetch(:name, @dir)
+        options[:uri] = @task.ask_input "Enter project URI:", :default => @global.config[:uri]
+        options[:version] = @task.ask_input "Enter project version:", :default => @global.config.fetch(:version, '0.1.0')
+        options[:description] = @task.ask_input "Enter project description:", :default => @global.config.fetch(:description, 'Created with Marv')
 
         options.merge!(ask_author_details)
         options.merge!(ask_project_layout)
@@ -48,10 +48,10 @@ module Marv
       def ask_author_details
         options = {}
 
-        options[:author] = @task.ask "Enter project author", :default => @global.config[:author]
-        options[:author_uri] = @task.ask "Enter project author URI", :default => @global.config[:author_uri]
-        options[:license_name] = @task.ask "Enter project license name", :default => @global.config[:license_name]
-        options[:license_uri] = @task.ask "Enter project license URI", :default => @global.config[:license_uri]
+        options[:author] = @task.ask_input "Enter project author:", :default => @global.config[:author]
+        options[:author_uri] = @task.ask_input "Enter project author URI:", :default => @global.config[:author_uri]
+        options[:license_name] = @task.ask_input "Enter project license name:", :default => @global.config[:license_name]
+        options[:license_uri] = @task.ask_input "Enter project license URI:", :default => @global.config[:license_uri]
 
         return options
       end
@@ -60,13 +60,26 @@ module Marv
       def ask_project_layout
         options = {}
 
-        if @task.yes?("Do you want to use a local layout?")
-          options[:local_layout] = true
-          options[:layout] = @task.ask "Which layout do you want to use?", :limited_to => @global.layouts
+        if @global.layouts.empty?
+          options.merge!(ask_builtin_project_layout)
         else
-          options[:local_layout] = false
-          options[:layout] = @task.ask "Which layout do you want to use?", :limited_to => ["theme", "plugin"], :default => "theme"
+          if @task.said_yes?("Do you want to use a local layout?")
+            options[:local_layout] = true
+            options[:layout] = @task.ask_input "Which layout do you want to use?", :limited_to => @global.layouts
+          else
+            options.merge!(ask_builtin_project_layout)
+          end
         end
+
+        return options
+      end
+
+      # Ask builtin project layout
+      def ask_builtin_project_layout
+        options = {}
+
+        options[:local_layout] = false
+        options[:layout] = @task.ask_input "Which layout do you want to use?", :limited_to => ["theme", "plugin"], :default => "theme"
 
         return options
       end
@@ -129,6 +142,8 @@ module Marv
 
       # Create a new project
       def create_project
+        @task.say_empty(2)
+
         create_project_dirs
         create_config_file
         parse_layout_files
