@@ -26,6 +26,11 @@ module Marv
         @global.clean_broken_links(server_projects_paths)
       end
 
+      # Server exists
+      def exists?
+        ::File.exists?(server_path)
+      end
+
       # Server path
       def server_path
       	::File.join(@global.servers_path, @name)

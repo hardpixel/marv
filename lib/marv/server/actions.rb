@@ -31,6 +31,7 @@ module Marv
 
       # Initialize server stop
       def stop(message=true)
+        abort_noexist
         pid_file = ::File.join(@path, 'php.pid')
 
         begin
@@ -54,6 +55,7 @@ module Marv
 
       # Remove server
       def remove
+        abort_noexist
         @task.say_warning("This will remove server #{@name} and all data will be lost.")
 
         if @task.said_yes?("Are you sure you want to remove server?")
@@ -93,6 +95,14 @@ module Marv
         # Start server in debug mode
         if @debug
           system "php -S #{@server.host}:#{@server.port} router.php"
+        end
+      end
+
+      # Abort if not exists
+      def abort_noexist
+        unless @server.exists?
+          @task.say_error("Server #{@name} does not exist!")
+          abort
         end
       end
 
