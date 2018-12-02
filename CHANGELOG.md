@@ -1,3 +1,12 @@
+## v0.7.0
+* Bug fixes
+* Add hotel support
+* Optimize ui and messages
+
+## v0.6.5
+* Bug fixes
+* Add autoprefixer
+
 ## v0.6.4
 * Fix port availability check
 * Update gem dependencies
