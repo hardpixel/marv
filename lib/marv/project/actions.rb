@@ -16,8 +16,12 @@ module Marv
       def link(dir)
         @link_dir = dir
 
+        @task.say_warning "This will link project #{@project.project_id} to server #{dir}."
+
         link_options
         link_target
+
+        @task.say_empty
         create_link
       end
 
@@ -25,6 +29,7 @@ module Marv
       def package(filename)
         @package_name = filename
 
+        @task.say_warning "This will package project #{@project.project_id} as #{filename}.zip."
         create_package
       end
 
@@ -70,7 +75,7 @@ module Marv
         target = link_global unless link_global.nil?
 
         if target.nil?
-          @task.say_error "Destination server does not exist!", nil, false
+          @task.say_error "Destination server does not exist!", nil, false, true
           abort
         end
 
@@ -88,7 +93,7 @@ module Marv
         begin
           @task.create_link @link_target, @project.build_path
         rescue Exception => e
-          @task.say_error "An error occured while creating project link", e.message, false
+          @task.say_error "An error occured while creating project link", e.message, false. true
           abort
         end
       end

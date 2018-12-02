@@ -35,6 +35,8 @@ module Marv
 
       # Build project to a directory
       def build_to(dir)
+        @task.say_warning "This will build project #{@project.project_id} in directory #{dir}."
+
         build_project
         # Remove build directory
         @task.shell.mute do
