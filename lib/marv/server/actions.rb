@@ -64,6 +64,7 @@ module Marv
 
             @task.shell.mute do
               stop(false)
+              remove_hotel_server
               @task.remove_dir @path
             end
           rescue Exception => e
@@ -114,6 +115,17 @@ module Marv
 
           @task.say_error("#{text} is not installed on your system!")
           abort
+        end
+      end
+
+      # Remove hotel server if it exists
+      def remove_hotel_server
+        if @task.exec_exixts?('hotel')
+          begin
+            `cd #{@path} && hotel rm`
+          rescue ExceptionName
+            return true
+          end
         end
       end
 

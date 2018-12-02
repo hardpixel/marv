@@ -40,7 +40,12 @@ module Marv
         end
 
         @task.say_success "Server #{@name} created successfully!"
-        start_server
+
+        if @task.exec_exixts?('hotel')
+          create_hotel_server
+        else
+          start_server
+        end
       end
 
       # Starts the new server
@@ -99,6 +104,20 @@ module Marv
         @global.template ::File.join(layouts, 'server.rb'), ::File.join(@path, 'config.rb'), @server.context
         @global.template ::File.join(layouts, 'router.php'), ::File.join(@path, 'router.php'), @server.context
         @global.template ::File.join(layouts, 'wp-config.php'), ::File.join(@path, 'wp-config.php'), @server.context
+      end
+
+      # Create hotel server
+      def create_hotel_server
+        @task.say_warning "Hotel package detected on your system.", false
+
+        if @task.yes?("Would you like to create a hotel server?")
+          begin
+            `hotel add 'php -S 127.0.0.1:$PORT' --port #{@server.port} --dir #{@server.path}`
+            @task.say_success "Hotel server created successfully!", false
+          rescue Exception => e
+            @task.say_error "There was an error while creating hotel server:", e.message, false
+          end
+        end
       end
 
     end
