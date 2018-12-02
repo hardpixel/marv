@@ -1,5 +1,3 @@
-gem 'guard', '~> 2.8', '< 2.9'
-
 require 'guard'
 require 'guard/plugin'
 
