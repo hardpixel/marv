@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{A toolkit for bootstrapping and developing WordPress themes and plugins using Sass, LESS, and CoffeeScript.}
   spec.homepage      = "https://hardpixel.github.io/marv"
 
-  spec.files         = Dir['*'].flat_map { |d| Dir["{#{d}/**/*,[A-Z]*}"] if d != 'spec' }
+  spec.files         = Dir['*'].flat_map { |d| Dir["{#{d}/**/*,[A-Z]*}"] if d != 'spec' && d != 'pkg' }
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
