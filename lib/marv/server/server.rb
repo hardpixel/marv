@@ -139,7 +139,12 @@ module Marv
 
       # Server database
       def db_client
-        ::Mysql2::Client.new(:host => db_host, :port => db_port, :username => db_user, :password => db_password)
+        begin
+          ::Mysql2::Client.new(:host => db_host, :port => db_port, :username => db_user, :password => db_password)
+        rescue Mysql2::Error::ConnectionError
+          @task.say_error "Not able to connect to the database.", "Start the database if it is not running.", false
+          abort
+        end
       end
 
       # MySQL create database
