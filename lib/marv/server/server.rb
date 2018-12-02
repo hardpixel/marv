@@ -175,7 +175,7 @@ module Marv
           db_client_flush_priv
           @database.close
         rescue Exception => e
-          @task.say_error "An error occured while creating the database:", e.message
+          @task.say_error "An error occured while creating the database:", e.message, false, true
         end
       end
 
@@ -187,7 +187,7 @@ module Marv
           db_client_flush_priv
           @database.close
         rescue Exception => e
-          @task.say_error "An error occured while removing the database:", e.message
+          @task.say_error "An error occured while removing the database:", e.message, false, true
         end
       end
 

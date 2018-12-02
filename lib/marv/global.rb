@@ -282,7 +282,7 @@ module Marv
           create_global_config
         end
 
-        @task.say_success "Global configuration recreated successfully.", false, true
+        @task.say_success "Global configuration updated successfully.", false, true
       end
     end
 

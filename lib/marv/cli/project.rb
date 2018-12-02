@@ -33,7 +33,7 @@ module Marv
       end
 
       # Build a Marv project to a directory
-      desc "build DIRECTORY", "Build your theme into specified directory"
+      desc "build DIRECTORY", "Build your project into specified directory"
       method_option :config, :type => :string, :desc => "Name of alternate config file"
       def build(dir='build')
         project = Marv::Project::Project.new(self, '.', options[:config])
