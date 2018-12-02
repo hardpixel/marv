@@ -12,8 +12,8 @@ module Marv
 
       no_commands do
         # Print an empty message
-        def say_empty
-          self.say('')
+        def say_empty(lines=1)
+          (1..lines).each { self.say('') }
         end
 
         # Print general message
