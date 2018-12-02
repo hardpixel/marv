@@ -17,6 +17,7 @@ gem 'autoprefixer-rails', '~> 7.2'
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
+  gem 'pry'
   gem 'rdoc'
   gem 'bundler'
   gem 'jeweler'
