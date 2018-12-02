@@ -17,7 +17,7 @@ module Marv
         end
 
         # Print general message
-        def say_message(text, color=nil, space_below=true, space_above=false)
+        def say_message(text, space_below=true, space_above=false, color=nil)
           self.say_empty if space_above
           self.say(text, color)
           self.say_empty if space_below
@@ -25,23 +25,23 @@ module Marv
 
         # Print error message
         def say_error(text, message=nil, space_below=true, space_above=false)
-          say_message(text, :red, false, space_above)
-          say_message(message, nil, space_below, false) unless message.nil?
+          say_message(text, false, space_above, :red)
+          say_message(message, space_below, false) unless message.nil?
         end
 
         # Print info message
         def say_info(text, space_below=false, space_above=false)
-          say_message(text, :cyan, space_below, space_above)
+          say_message(text, space_below, space_above, :cyan)
         end
 
         # Print warning message
         def say_warning(text, space_below=true, space_above=false)
-          say_message(text, :yellow, space_below, space_above)
+          say_message(text, space_below, space_above, :yellow)
         end
 
         # Print success message
         def say_success(text, space_below=true, space_above=false)
-          say_message(text, :green, space_below, space_above)
+          say_message(text, space_below, space_above, :green)
         end
       end
 
