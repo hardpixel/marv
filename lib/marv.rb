@@ -13,6 +13,11 @@ module Marv
     puts  "\n\n#{time} - INFO - Bye bye..."
   end
 
+  def self.colorize(text, color)
+    @colorizer ||= Thor::Shell::Color.new
+    @colorizer.set_color(text, color)
+  end
+
 end
 
 trap 'SIGINT' do
