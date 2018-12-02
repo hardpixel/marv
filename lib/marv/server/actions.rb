@@ -17,7 +17,7 @@ module Marv
       # Initialize server start
       def start(from_command=true)
         if is_server_running?
-          @task.say_info "Server is already running."
+          @task.say_warning "Server is already running.", false
           abort
         end
 
@@ -77,6 +77,7 @@ module Marv
 
       # Run server
       def run_server(from_command=true)
+        abort_noexist_cmd('php')
         ::Dir.chdir @path
 
         unless @debug
@@ -106,6 +107,16 @@ module Marv
         end
       end
 
+      # Abort if command does no exist
+      def abort_noexist_cmd(exec_name, text=nil)
+        unless @task.exec_exixts?(exec_name)
+          text ||= exec_name.upcase
+
+          @task.say_error("#{text} is not installed on your system!")
+          abort
+        end
+      end
+
       # Change server port
       def change_server_port
         @task.say_info "Use another port to run the server.", true
@@ -131,10 +142,10 @@ module Marv
 
           if ::File.exists?(pid_file)
             pid = ::File.read(pid_file).to_i
-
-            ::Process.kill(0, pid)
-            return true
+            return ::Process.kill(0, pid) == 1
           end
+
+          return false
         rescue
           return false
         end

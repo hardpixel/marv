@@ -68,6 +68,11 @@ module Marv
         def said_no?(text, *args)
           self.no?("#{text}", :yellow, *args)
         end
+
+        # Check if executable exists
+        def exec_exixts?(name)
+          `which #{name}`.start_with?('/')
+        end
       end
 
     end
