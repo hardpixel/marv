@@ -31,7 +31,7 @@ module Marv
       # Ask for link details
       def link_options
         options = {}
-        options[:folder] = @task.ask "Where do you want to link your project?", :limited_to => ["themes", "plugins"], :default => "themes"
+        options[:folder] = @task.ask_input "Where do you want to link your project?", :limited_to => ["themes", "plugins"], :default => "themes"
 
         @link_options = options
       end
@@ -70,8 +70,8 @@ module Marv
         target = link_global unless link_global.nil?
 
         if target.nil?
-          @task.say "Destination server does not exist!", :red
-          exit
+          @task.say_error "Destination server does not exist!", nil, false
+          abort
         end
 
         @link_target = target
@@ -88,8 +88,8 @@ module Marv
         begin
           @task.create_link @link_target, @project.build_path
         rescue Exception => e
-          @task.say "An error occured while creating project link", :red
-          @task.say e.message
+          @task.say_error "An error occured while creating project link", e.message, false
+          abort
         end
       end
 

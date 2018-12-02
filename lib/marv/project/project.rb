@@ -106,8 +106,7 @@ module Marv
         if ::File.exists?(@config_file)
           config_file = @global.load_ruby_config(@config_file)
         else
-          @task.say "Could not find the config file!", :red
-          @task.say "Are you sure you're in a marv project directory?"
+          @task.say_error "Could not find the config file!", "Are you sure you're in a marv project directory?", false
           abort
         end
 

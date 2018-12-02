@@ -72,8 +72,7 @@ module Marv
       def print_asset_error(asset, message)
         destination = ::File.join(@project.build_path, asset)
 
-        @task.say "Error while building #{asset.last}:"
-        @task.say message, :red
+        @task.say_error "Error while building #{asset.last}:", message
 
         @task.shell.mute do
           @task.create_file destination unless ::File.exists?(destination)
