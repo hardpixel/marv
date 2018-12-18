@@ -24,8 +24,7 @@ module Marv
           abort
         end
 
-        @server.server_options
-        @config = @server.server_config
+        @config.merge! @server.server_options
 
         begin
           @task.shell.mute do
