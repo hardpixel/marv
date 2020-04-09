@@ -30,7 +30,7 @@ module Guard
           hist_text  = _colorize("[#{history}]", :yellow)
           clip_text  = _colorize("(#{_clip_name(target_self)})", :cyan)
           level_text = _colorize("#{level}", :cyan)
-          path_text  = _colorize(Dir.pwd.sub(Dir.home, '~'), :magenta)
+          path_text  = _colorize(File.basename(Dir.pwd), :magenta)
 
           "#{hist_text} #{_scope_for_prompt}#{process} #{path_text} #{clip_text}#{level_text} #{ending_char} "
         end
