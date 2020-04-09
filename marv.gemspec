@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rubyzip", "~> 1.1"
   spec.add_dependency "autoprefixer-rails", "~> 9.3"
   spec.add_dependency "tilt", "!= 1.3", "~> 1.1"
-  spec.add_dependency "pry", "< 0.13"
+  spec.add_dependency "pry", ">= 0.13"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 13.0"
