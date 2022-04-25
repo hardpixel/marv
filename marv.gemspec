@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "coffee-script", "~> 2.3"
   spec.add_dependency "mini_racer", "~> 0.2"
   spec.add_dependency "rubyzip", "~> 1.1"
-  spec.add_dependency "autoprefixer-rails", "~> 9.3"
+  spec.add_dependency "autoprefixer-rails", "~> 10.4"
   spec.add_dependency "tilt", "!= 1.3", "~> 1.1"
   spec.add_dependency "pry", ">= 0.13"
 
