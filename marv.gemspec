@@ -29,7 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sass", "~> 3.4"
   spec.add_dependency "less", "~> 2.6"
   spec.add_dependency "coffee-script", "~> 2.3"
-  spec.add_dependency "mini_racer", "~> 0.2"
   spec.add_dependency "rubyzip", "~> 1.1"
   spec.add_dependency "autoprefixer-rails", "~> 10.4"
   spec.add_dependency "tilt", "!= 1.3", "~> 1.1"

@@ -82,6 +82,11 @@ module Marv
 
       # Init sprockets
       def init_sprockets
+        if ExecJS::Runtimes.runtimes.none?(&:available?)
+          @task.say_error "No execjs runtime found! Aborting..."
+          abort
+        end
+
         @sprockets   = ::Sprockets::Environment.new
         autoprefixer = @config[:autoprefixer]
 
@@ -108,7 +113,14 @@ module Marv
         end
 
         unless autoprefixer == false
-          AutoprefixerRails.install(@sprockets, Hash(autoprefixer))
+          runtimes = AutoprefixerRails::Processor::SUPPORTED_RUNTIMES
+
+          if runtimes.any?(&:available?)
+            AutoprefixerRails.install(@sprockets, Hash(autoprefixer))
+          else
+            names = runtimes.map(&:name).join(', ')
+            @task.say_warning "Autoprefixer disabled: no supported runtime found [ #{names} ]"
+          end
         end
       end
 
